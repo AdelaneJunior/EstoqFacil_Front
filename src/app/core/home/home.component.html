@@ -8,32 +8,39 @@
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
   <button mat-icon-button routerLink="/" >
-    <mat-icon> home </mat-icon>
+    <mat-icon class="custom-icon"> </mat-icon>
   </button>
-  Minha Aplicação
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <button mat-button class="menu-button" routerLink="/">
+    <button title="Home"  mat-button class="menu-button" routerLink="/">
       <mat-icon>home</mat-icon>
-      <span>Home</span>
     </button>
-    <button mat-button class="menu-button" routerLink="/tipo">
-      <mat-icon>person</mat-icon>
-      <span>Tipo</span>
+    <button title="Categoria" mat-button class="menu-button" routerLink="/categoria">
+      <mat-icon>category</mat-icon>
     </button>
-    <button mat-button class="menu-button" routerLink="/about">
-      <mat-icon>info</mat-icon>
-      <span>About</span>
+    <button title="Produto"  mat-button class="menu-button" routerLink="/produto">
+      <mat-icon>layers</mat-icon>
+    </button>
+    <button title="Funcionário"  mat-button class="menu-button" routerLink="/funcionario">
+      <mat-icon>business_center</mat-icon>
+    </button>
+    <button title="Cliente"  mat-button class="menu-button" routerLink="/cliente">
+      <mat-icon>group</mat-icon>
+    </button>
+    <button title="Usuário"  mat-button class="menu-button" routerLink="/usuario">
+      <mat-icon>person_add</mat-icon>
+    </button>
+    <button title="Relatório"  mat-button class="menu-button" routerLink="/relatorio">
+      <mat-icon>assignment</mat-icon>
     </button>
 
     <mat-divider></mat-divider>
 
-    <button mat-button class="menu-button" (click)="sair()">
+    <button title="Sair" mat-button class="menu-button" (click)="sair()">
       <mat-icon>logout</mat-icon>
-      <span>Sair</span>
     </button>
   </mat-sidenav>
   <mat-sidenav-content>

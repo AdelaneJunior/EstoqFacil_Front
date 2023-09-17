@@ -2,10 +2,10 @@
 /* eslint-disable */
 export interface UsuarioDto {
   codigo?: number;
-  email?: string;
-  login?: string;
-  nome?: string;
-  role?: string;
+  funcionarioCargo?: string;
+  funcionarioCodigo?: number;
+  funcionarioEmail?: string;
+  funcionarioNome?: string;
+  permissoes?: Array<string>;
   senha?: string;
-  status?: boolean;
 }

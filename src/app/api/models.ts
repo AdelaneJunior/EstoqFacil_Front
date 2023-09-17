@@ -1,6 +1,15 @@
 export { FieldResponse } from './models/field-response';
 export { MessageResponse } from './models/message-response';
 export { UsuarioDto } from './models/usuario-dto';
+export { ProdutoDto } from './models/produto-dto';
+export { MovimentacaoDto } from './models/movimentacao-dto';
+export { FuncionarioDto } from './models/funcionario-dto';
+export { PkFuncionario } from './models/pk-funcionario';
+export { ClienteDto } from './models/cliente-dto';
+export { PkCliente } from './models/pk-cliente';
+export { CategoriaDto } from './models/categoria-dto';
+export { CargoDto } from './models/cargo-dto';
+export { CargoPermissaoDto } from './models/cargo-permissao-dto';
 export { CredencialDto } from './models/credencial-dto';
 export { UsuarioSenhaDto } from './models/usuario-senha-dto';
 export { AuthDto } from './models/auth-dto';

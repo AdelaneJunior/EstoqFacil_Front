@@ -16,7 +16,7 @@ import {ConfirmDialogComponent} from "./arquitetura/message/confirm-mesage/confi
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements  OnInit{
-  title = 'weg-prog-webi-faculdade-v3';
+  title = 'login-estoqfacil';
 
   private dialogRef!: MatDialogRef<any>;
   public constructor(

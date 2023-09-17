@@ -35,7 +35,7 @@ export class AutenticacaoComponent implements OnInit {
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      login: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+      login: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       senha: [null, Validators.required],
     });
   }
@@ -49,7 +49,7 @@ export class AutenticacaoComponent implements OnInit {
   /**
    * Autentica o Usuário na aplicação conforme os parâmetros informados.
    *
-   * @param usuarioTO
+   * @param usuarioDTO
    * @param form
    */
   public onSubmit(): void {

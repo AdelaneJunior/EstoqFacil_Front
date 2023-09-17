@@ -1,2 +1,9 @@
 export { UsuarioControllerService } from './services/usuario-controller.service';
+export { ProdutoControllerService } from './services/produto-controller.service';
+export { MovimentacaoControllerService } from './services/movimentacao-controller.service';
+export { FuncionarioControllerService } from './services/funcionario-controller.service';
+export { ClienteControllerService } from './services/cliente-controller.service';
+export { CategoriaControllerService } from './services/categoria-controller.service';
+export { CargoControllerService } from './services/cargo-controller.service';
 export { AuthApiService } from './services/auth-api.service';
+export { ImagemControllerService } from './services/imagem-controller.service';

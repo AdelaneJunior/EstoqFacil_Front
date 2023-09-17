@@ -5,7 +5,14 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { UsuarioControllerService } from './services/usuario-controller.service';
+import { ProdutoControllerService } from './services/produto-controller.service';
+import { MovimentacaoControllerService } from './services/movimentacao-controller.service';
+import { FuncionarioControllerService } from './services/funcionario-controller.service';
+import { ClienteControllerService } from './services/cliente-controller.service';
+import { CategoriaControllerService } from './services/categoria-controller.service';
+import { CargoControllerService } from './services/cargo-controller.service';
 import { AuthApiService } from './services/auth-api.service';
+import { ImagemControllerService } from './services/imagem-controller.service';
 
 /**
  * Module that provides all services and configuration.
@@ -16,7 +23,14 @@ import { AuthApiService } from './services/auth-api.service';
   declarations: [],
   providers: [
     UsuarioControllerService,
+    ProdutoControllerService,
+    MovimentacaoControllerService,
+    FuncionarioControllerService,
+    ClienteControllerService,
+    CategoriaControllerService,
+    CargoControllerService,
     AuthApiService,
+    ImagemControllerService,
     ApiConfiguration
   ],
 })
