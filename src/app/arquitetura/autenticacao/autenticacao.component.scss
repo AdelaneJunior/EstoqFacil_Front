@@ -1,32 +1,86 @@
+@media (min-width: 450px) {
+  .tela-inteira {
+    background-image: url("Login.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 30%;
+    padding-bottom: 15%;
+    display: flex;
+  }
+}
+@media (min-width: 765px){
+  .tela-inteira{
+  background-image: url("Login.png") ;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding-top: 20%;
+  padding-bottom: 15%;
+  display: flex;
+}
+}
+@media (min-width: 992px){
+  .tela-inteira{
+    background-image: url("Login.png") ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 13%;
+    padding-bottom: 15%;
+    display: flex;
+  }
+}
+@media (min-width: 1200px){
+  .tela-inteira{
+    background-image: url("Login.png") ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 13%;
+    padding-bottom: 15%;
+    display: flex;
+  }
+}
+
+h1{
+  user-select:none;
+}
+
 .container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-top: 15%;
+  width: 300px;
+  padding-bottom: 20px;
   margin-right: auto;
   margin-left: auto;
   display: flex;
   flex-direction: row;
   place-content: center;
   align-items: center;
-}
-
-mat-card {
-  width: 300px;
-  display: flex;
+  border: 5px solid #513BDB;
+  border-radius: 50px 50px;
+  background-color: white;
 }
 
 .login-content {
-  padding-top: 30px;
+  font-family: DM Roboto, sans-serif;
   display: flex;
   flex-direction: column;
   place-content: center;
   align-items: center;
 }
 
-.icon_size {
-  font-size: 4em;
-  //color: #393068;
-  margin-bottom: 40px;
-  margin-left: -1em;
+.button{
+  font-family: DM Roboto, sans-serif;
+  font-size: 16px;
+  padding:0px;
+  text-decoration: none;
+  text-align:center;
+  background:#513BDB;
+  color: white;
+  width:120px;
+  height:30px;
+  display:block;
+  border: none;
+  border-radius: 50px 50px;
+  cursor: pointer;
 }
