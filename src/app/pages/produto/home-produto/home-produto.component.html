@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Controle de Produto</mat-card-title>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [routerLink]="['/produto','novo']">
+      <mat-icon>add</mat-icon>
+      <span>Cadastrar Novo Produto</span>
+    </button>
+  </mat-card-actions>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+</mat-card>

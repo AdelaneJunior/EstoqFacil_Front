@@ -5,7 +5,11 @@
   "projects": {
     "EstoqFacil-Front": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
