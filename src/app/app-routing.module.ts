@@ -3,13 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./core/home/home.component";
 import {AutenticacaoRoutes} from "./arquitetura/autenticacao/autenticacao.routing";
 import {produtoRoutes} from "./pages/produto/produto-routing.module";
+import {categoriaRoutes} from "./pages/categoria/categoria-routing.module";
+import {funcionarioRoutes} from "./pages/funcionario/funcionario-routing.module";
 
 const routes: Routes = [
   {
     path: "",
     component: HomeComponent,
     children: [
-      ...produtoRoutes
+      ...categoriaRoutes,
+      ...produtoRoutes,
+      ...funcionarioRoutes
     ]
   },
   {

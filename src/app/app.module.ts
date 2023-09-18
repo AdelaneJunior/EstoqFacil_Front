@@ -24,6 +24,8 @@ import {MessageModule} from "./arquitetura/message/message.module";
 import {AppInterceptor} from "./arquitetura/app.interceptor";
 import {ProdutoModule} from "./pages/produto/produto.module";
 import {ConfirmationDialog} from "./core/confirmation-dialog/confirmation-dialog.component";
+import {CategoriaModule} from "./pages/categoria/categoria.module";
+import {FuncionarioModule} from "./pages/funcionario/funcionario.module";
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import {ConfirmationDialog} from "./core/confirmation-dialog/confirmation-dialog
       nameStorage: 'portalSSOSecurityStorage',
       loginRouter: '/acesso/login'
     }),
-    ProdutoModule
+    ProdutoModule,
+    CategoriaModule,
+    FuncionarioModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
