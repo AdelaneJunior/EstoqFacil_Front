@@ -66,7 +66,7 @@ export class AutenticacaoComponent implements OnInit {
         };
 
         this.securityService.init(user);
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
       }, error => {
         console.log('erro', error);
         alert(error);

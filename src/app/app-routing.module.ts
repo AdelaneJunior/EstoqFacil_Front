@@ -5,9 +5,8 @@ import {AutenticacaoRoutes} from "./arquitetura/autenticacao/autenticacao.routin
 
 const routes: Routes = [
   {
-    path: "",
-    component: HomeComponent,
-    children: []
+    path: "home",
+    component: HomeComponent
   },
   {
     path: "acesso",
