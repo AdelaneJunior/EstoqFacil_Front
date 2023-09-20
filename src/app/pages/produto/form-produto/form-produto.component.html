@@ -1,0 +1,39 @@
+
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form"
+>
+  <div class="formLivro">
+    <h1>Formulário para {{acao}}</h1>
+    <mat-form-field>
+      <mat-label>Categoria*:</mat-label>
+      <mat-select formControlName="categoria">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.codigo">{{ categoria.nome }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nome*</mat-label>
+      <input matInput formControlName="nome">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descrição:</mat-label>
+      <textarea matInput formControlName="descricao"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Quantidade*</mat-label>
+      <input matInput formControlName="quantidade">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Preço*</mat-label>
+      <input matInput formControlName="preco">
+    </mat-form-field>
+
+
+
+    <button mat-raised-button color="primary" type="submit">{{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()">Limpar</button>
+  </div>
+</form>
+
