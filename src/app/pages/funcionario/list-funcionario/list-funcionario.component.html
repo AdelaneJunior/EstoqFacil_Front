@@ -1,1 +1,54 @@
-<p>list-funcionario works!</p>
+<section class="example-container mat-elevation-z8" tabindex="0">
+  <table mat-table [dataSource]="funcionarioListaDataSource">
+
+    <!-- ID/Codigo -->
+    <ng-container matColumnDef="pessoaId">
+      <th mat-header-cell *matHeaderCellDef> CPF </th>
+      <td mat-cell *matCellDef="let element"> {{element.pessoaId}} </td>
+    </ng-container>
+
+    <!-- Nome  -->
+    <ng-container matColumnDef="pessoaNome">
+      <th mat-header-cell *matHeaderCellDef> Nome Funcionario </th>
+      <td mat-cell *matCellDef="let element"> {{element.pessoaNome}} </td>
+    </ng-container>
+
+    <!-- Telefone -->
+    <ng-container matColumnDef="telefone">
+      <th mat-header-cell *matHeaderCellDef> Descrição </th>
+      <td mat-cell *matCellDef="let element"> {{element.telefone}} </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> E-mail </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- Cargo -->
+    <ng-container matColumnDef="cargoNome">
+      <th mat-header-cell *matHeaderCellDef> Cargo </th>
+      <td mat-cell *matCellDef="let element"> {{element.cargoNome}} </td>
+    </ng-container>
+
+
+    <!-- Ação  -->
+    <ng-container matColumnDef="acao">
+      <th mat-header-cell class="coluna" *matHeaderCellDef> Ação </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="confirmarExcluir(element)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <!--<button mat-icon-button [routerLink]="['/livros',element.idLivro]">
+         <mat-icon>edit</mat-icon>
+       </button>
+       <button mat-icon-button [routerLink]="['/emprestimos/emprestar',element.idLivro]" [disabled]="element.emprestado">
+         <mat-icon>event</mat-icon>
+       </button>-->
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
+  </table>
+</section>

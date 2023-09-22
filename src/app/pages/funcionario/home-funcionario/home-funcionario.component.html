@@ -1,1 +1,14 @@
-<p>home-funcionario works!</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Controle de Funcionários</mat-card-title>
+  </mat-card-header>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [routerLink]="['/funcionario','novo']">
+      <mat-icon>add</mat-icon>
+      <span>Cadastrar Novo Funcionario</span>
+    </button>
+  </mat-card-actions>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+</mat-card>

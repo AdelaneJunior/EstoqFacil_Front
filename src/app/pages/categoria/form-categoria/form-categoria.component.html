@@ -1,1 +1,23 @@
-<p>form-categoria works!</p>
+
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form"
+>
+  <div class="formLivro">
+    <h1>{{acao}} de Categoria</h1>
+    <mat-form-field>
+      <mat-label>Categoria*</mat-label>
+      <input matInput formControlName="nome">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descrição:</mat-label>
+      <textarea matInput formControlName="descricao"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()">Limpar</button>
+    <button mat-raised-button color="warn" routerLink="/categoria">Cancelar</button>
+  </div>
+</form>
+
