@@ -55,6 +55,9 @@ export class AutenticacaoComponent implements OnInit {
   public onSubmit(): void {
     if (this.formGroup.valid) {
       this.autenticationService.login(this.formGroup.value).subscribe(data => {
+        const userId = data.id; // Supondo que o ID do usuário seja obtido da resposta da API
+
+
         const user: User = {
           id: data.id,
           nome: data.nome,
@@ -66,7 +69,7 @@ export class AutenticacaoComponent implements OnInit {
         };
 
         this.securityService.init(user);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       }, error => {
         console.log('erro', error);
         alert(error);

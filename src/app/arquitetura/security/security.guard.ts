@@ -44,7 +44,7 @@ export class SecurityGuard implements CanActivate {
                 valid = true;
             } else {
               this.securityService.onForbidden.emit(this.securityService.credential);
-              this.router.navigate(['']);
+              this.router.navigate(['/acesso']);
             }
         } else {
             this.router.navigate([this.config.loginRouter]);

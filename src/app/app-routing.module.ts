@@ -8,7 +8,7 @@ import {funcionarioRoutes} from "./pages/funcionario/funcionario-routing.module"
 
 const routes: Routes = [
   {
-    path: "home",
+    path: "",
     component: HomeComponent,
     children: [
       ...categoriaRoutes,

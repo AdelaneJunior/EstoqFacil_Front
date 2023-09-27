@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
+import {SecurityService} from "../../../arquitetura/security/security.service";
 
 
 @Component({
@@ -26,6 +27,7 @@ export class FormCategoriaComponent implements OnInit{
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
     private categoriaService: CategoriaControllerService,
+    private securityService: SecurityService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -57,7 +59,8 @@ export class FormCategoriaComponent implements OnInit{
     }else{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
-        descricao: [null, Validators.required]
+        descricao: [null, Validators.required],
+        codigo: this.securityService.getUserId() // Obter o userId do serviço de autenticação
       })
     }
   }
@@ -75,16 +78,22 @@ export class FormCategoriaComponent implements OnInit{
 
   }
 
-  private realizarInclusao(){
-    console.log("Dados:",this.formGroup.value);
-    this.categoriaService.categoriaControllerIncluir({body: this.formGroup.value})
-      .subscribe( retorno =>{
-        console.log("Retorno:",retorno);
-        this.confirmarInclusao(retorno);
-      }, erro =>{
-        console.log("Erro:"+erro);
-        alert("Erro ao incluir!");
-      })
+  private realizarInclusao() {
+    if (this.formGroup.valid) {
+      const dadosFormulario = {
+        ...this.formGroup.value
+      };
+
+      console.log("Dados:", dadosFormulario);
+      this.categoriaService.categoriaControllerIncluir({ body: dadosFormulario }) // Usar dadosFormulario em vez de this.formGroup.value
+        .subscribe(retorno => {
+          console.log("Retorno:", retorno);
+          this.confirmarInclusao(retorno);
+        }, erro => {
+          console.log("Erro:" + erro);
+          alert("Erro ao incluir!");
+        });
+    }
   }
 
   private realizarEdicao(){}

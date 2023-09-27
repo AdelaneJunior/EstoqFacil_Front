@@ -1,0 +1,16 @@
+/* Estilização para label acima dos inputs */
+.custom-div .mat-form-field-label {
+  transform: translateY(-1.5em);
+}
+
+/* Estilização para adicionar borda azul em caso de erro */
+.custom-div .mat-form-field.mat-focused .mat-form-field-underline {
+  border-color: blue;
+}
+
+/* Estilização para ícones organizados */
+.custom-div .mat-form-field-outer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

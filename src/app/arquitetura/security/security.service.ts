@@ -24,6 +24,8 @@ export class SecurityService {
 
   public onUnauthorized: EventEmitter<Credential>;
 
+  private userId?: number ;
+
   /**
    * Construtor da classe.
    *
@@ -44,6 +46,7 @@ export class SecurityService {
   public init(user?: User): void {
     console.log('security.service', user);
     this.credential.init(user);
+    this.setUserId(user);
 
     if (user) {
       const expiresIn = (user.expiresIn - 60) * 1000;
@@ -58,6 +61,15 @@ export class SecurityService {
     }
   }
 
+  public setUserId(user?: User): void {
+    if (user) {
+      this.userId = user.id;
+    }
+  }
+
+  public getUserId(): number {
+    return <number>this.userId;
+  }
   /**
    * Verifica se o Usuário possui o 'role' informado em sua credencial de acesso.
    *
