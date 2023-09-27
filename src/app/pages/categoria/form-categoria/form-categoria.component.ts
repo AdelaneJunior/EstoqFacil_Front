@@ -60,7 +60,7 @@ export class FormCategoriaComponent implements OnInit{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
         descricao: [null, Validators.required],
-        codigo: this.securityService.getUserId() // Obter o userId do serviço de autenticação
+        usuarioId: this.securityService.getUserId() // Obter o userId do serviço de autenticação
       })
     }
   }
@@ -80,11 +80,12 @@ export class FormCategoriaComponent implements OnInit{
 
   private realizarInclusao() {
     if (this.formGroup.valid) {
-      const dadosFormulario = {
+      const dadosFormulario : CategoriaDto =  {
         ...this.formGroup.value
       };
 
       console.log("Dados:", dadosFormulario);
+
       this.categoriaService.categoriaControllerIncluir({ body: dadosFormulario }) // Usar dadosFormulario em vez de this.formGroup.value
         .subscribe(retorno => {
           console.log("Retorno:", retorno);
