@@ -1,19 +1,6 @@
-h1{
+h2{
   user-select:none;
-}
-
-.container {
-  width: 600px;
-  padding-bottom: 20px;
-  margin-right: auto;
-  margin-left: auto;
-  display: flex;
-  flex-direction: row;
-  place-content: center;
-  align-items: center;
-  border: 5px solid #513BDB;
-  border-radius: 50px 50px;
-  background-color: white;
+  text-align: center;
 }
 
 .form-content {
@@ -24,18 +11,52 @@ h1{
   align-items: center;
 }
 
+.container {
+  margin: 10%;
+  width: 600px;
+  padding-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  align-items: center;
+  border: 3px solid #513BDB;
+  border-radius: 50px 50px;
+  background-color: white;
+}
+
 .button{
   font-family: DM Roboto, sans-serif;
-  font-size: 16px;
-  padding:0px;
+  font-size: 14px;
   text-decoration: none;
   text-align:center;
-  background:#513BDB;
+  background:#5438FF;
   color: white;
-  width:120px;
-  height:30px;
-  display:line;
+  width:100px;
+  height:50px;
+  position: relative;
   border: none;
-  border-radius: 50px 50px;
+  border-radius: 10px 10px;
   cursor: pointer;
+  display: line;
+  alignment-baseline: center;
+  margin: 5px;
+}
+
+.botao-cadastro{
+  width:180px;
+  height:50px;
+}
+
+.botao-limpar{
+  background-color: white;
+  border:1px solid black;
+  color: black;
+}
+
+.botao-cancelar{
+  background-color: #FFE438;
+  border:1px solid black;
+  color: black;
 }

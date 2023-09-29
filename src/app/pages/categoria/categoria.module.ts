@@ -10,6 +10,8 @@ import {RouterLink, RouterOutlet} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatMenuModule} from "@angular/material/menu";
 
 
 
@@ -29,7 +31,9 @@ import {MatTableModule} from "@angular/material/table";
     ReactiveFormsModule,
     MatInputModule,
     MatTableModule,
-    RouterLink
+    RouterLink,
+    MatPaginatorModule,
+    MatMenuModule
   ]
 })
 export class CategoriaModule { }

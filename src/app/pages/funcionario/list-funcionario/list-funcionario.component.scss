@@ -17,7 +17,7 @@ th{
   user-select:none;
 }
 
-.button{
+.button-config{
   font-family: DM Roboto, sans-serif;
   font-size: 13px;
   padding:1px;
@@ -33,7 +33,7 @@ th{
   display: block;
 }
 
-#divBusca{
+.divBusca{
   background-color:#E8E8E8;
   border-radius:15px;
   margin-left: 2%;
@@ -45,7 +45,7 @@ th{
   width:100%;
 }
 
-#txtBusca{
+.txtBusca{
   float:left;
   background-color:#E8E8E8;
   font-family: Roboto, sans-serif;
@@ -56,24 +56,29 @@ th{
   border-color: transparent;
 }
 
-#icone{
+.icone{
   font-size: 28px;
   margin-top: 2px;
 }
 
-#filtro{
+.filtro{
   border-radius:10px;
   margin-right: 2%;
   border: transparent;
   cursor: pointer;
 }
 
-#pesquisa-icon{
+.pesquisa-icon{
   border: transparent;
   cursor: pointer;
   border-radius:15px;
   background-color: transparent;
 }
+
+
+
+
+
 
 
 

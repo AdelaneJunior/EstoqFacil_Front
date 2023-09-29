@@ -1,23 +1,21 @@
 <div class="container">
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
   <div class="form-content">
-    <h1>{{acao}} de Categoria</h1>
-    <div postion="left"> Categoria*:</div>
+    <h2>{{acao}} de <br> Categoria</h2>
     <mat-form-field appearance="outline">
 
       <mat-label>Categoria</mat-label>
       <input matInput formControlName="nome">
     </mat-form-field>
-    <div> Descrição*:</div>
     <mat-form-field appearance="outline">
 
       <mat-label>Descrição</mat-label>
       <textarea matInput formControlName="descricao"></textarea>
     </mat-form-field>
   </div>
-    <button mat-raised-button color="primary" type="submit" class="button">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button">Limpar</button>
-    <button mat-raised-button color="warn" routerLink="/categoria" class="button">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <button mat-raised-button color="warn" routerLink="/categoria" class="button botao-cancelar">Cancelar</button>
 
 </form>
 
