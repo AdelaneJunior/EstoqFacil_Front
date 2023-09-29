@@ -66,7 +66,7 @@ export class ListFuncionarioComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Confirmar?',
-        mensagem: `A exclusão de: ${funcionarioDto.pessoaNome} (ID: ${funcionarioDto.codigo})?`,
+        mensagem: `A exclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.codigo})?`,
         textoBotoes: {
           ok: 'Confirmar',
           cancel: 'Cancelar',

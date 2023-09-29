@@ -4,5 +4,9 @@ export interface FuncionarioDto {
   cargoId?: number;
   cargoNome?: string;
   codigo?: number;
-  pessoaNome?: string;
+  cpf?: string;
+  email?: string;
+  nascimento?: string;
+  nome?: string;
+  telefone?: string;
 }

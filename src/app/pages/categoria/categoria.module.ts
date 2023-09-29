@@ -12,6 +12,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatMenuModule} from "@angular/material/menu";
+import {FlexModule} from "@angular/flex-layout";
 
 
 
@@ -33,7 +34,8 @@ import {MatMenuModule} from "@angular/material/menu";
     MatTableModule,
     RouterLink,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    FlexModule
   ]
 })
 export class CategoriaModule { }
