@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { ClienteDto } from '../models/cliente-dto';
-import { PkCliente } from '../models/pk-cliente';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +36,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerObterPorId$Response(params: {
-    id: PkCliente;
+    id: number;
   },
   context?: HttpContext
 
@@ -69,7 +68,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerObterPorId(params: {
-    id: PkCliente;
+    id: number;
   },
   context?: HttpContext
 
@@ -94,7 +93,7 @@ export class ClienteControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   clienteControllerAlterar$Response(params: {
-    id: PkCliente;
+    id: number;
     body: ClienteDto
   },
   context?: HttpContext
@@ -128,7 +127,7 @@ export class ClienteControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   clienteControllerAlterar(params: {
-    id: PkCliente;
+    id: number;
     body: ClienteDto
   },
   context?: HttpContext
@@ -154,7 +153,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerRemover$Response(params: {
-    id: PkCliente;
+    id: number;
   },
   context?: HttpContext
 
@@ -186,7 +185,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerRemover(params: {
-    id: PkCliente;
+    id: number;
   },
   context?: HttpContext
 

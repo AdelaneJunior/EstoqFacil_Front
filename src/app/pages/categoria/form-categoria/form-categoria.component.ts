@@ -90,6 +90,7 @@ export class FormCategoriaComponent implements OnInit{
         .subscribe(retorno => {
           console.log("Retorno:", retorno);
           this.confirmarInclusao(retorno);
+          this.router.navigate(["/categoria"]);
         }, erro => {
           console.log("Erro:" + erro);
           alert("Erro ao incluir!");

@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { FuncionarioDto } from '../models/funcionario-dto';
-import { PkFuncionario } from '../models/pk-funcionario';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +36,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerObterPorId$Response(params: {
-    id: PkFuncionario;
+    id: number;
   },
   context?: HttpContext
 
@@ -69,7 +68,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerObterPorId(params: {
-    id: PkFuncionario;
+    id: number;
   },
   context?: HttpContext
 
@@ -94,7 +93,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   funcionarioControllerAlterar$Response(params: {
-    id: PkFuncionario;
+    id: number;
     body: FuncionarioDto
   },
   context?: HttpContext
@@ -128,7 +127,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   funcionarioControllerAlterar(params: {
-    id: PkFuncionario;
+    id: number;
     body: FuncionarioDto
   },
   context?: HttpContext
@@ -154,7 +153,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerRemover$Response(params: {
-    id: PkFuncionario;
+    id: number;
   },
   context?: HttpContext
 
@@ -186,7 +185,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerRemover(params: {
-    id: PkFuncionario;
+    id: number;
   },
   context?: HttpContext
 

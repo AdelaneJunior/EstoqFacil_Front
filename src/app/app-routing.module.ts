@@ -5,6 +5,7 @@ import {AutenticacaoRoutes} from "./arquitetura/autenticacao/autenticacao.routin
 import {produtoRoutes} from "./pages/produto/produto-routing.module";
 import {categoriaRoutes} from "./pages/categoria/categoria-routing.module";
 import {funcionarioRoutes} from "./pages/funcionario/funcionario-routing.module";
+import {SecurityGuard} from "./arquitetura/security/security.guard";
 
 const routes: Routes = [
   {
@@ -14,7 +15,9 @@ const routes: Routes = [
       ...categoriaRoutes,
       ...produtoRoutes,
       ...funcionarioRoutes
-    ]
+    ],
+    canActivate: [SecurityGuard],
+    data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}}
   },
   {
     path: "acesso",

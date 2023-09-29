@@ -97,6 +97,7 @@ export class FormProdutoComponent implements OnInit{
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarInclusao(retorno);
+        this.router.navigate(["/produto"]);
       }, erro =>{
         console.log("Erro:"+erro);
         alert("Erro ao incluir!");

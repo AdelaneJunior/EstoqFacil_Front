@@ -1,16 +1,41 @@
-/* Estilização para label acima dos inputs */
-.custom-div .mat-form-field-label {
-  transform: translateY(-1.5em);
+h1{
+  user-select:none;
 }
 
-/* Estilização para adicionar borda azul em caso de erro */
-.custom-div .mat-form-field.mat-focused .mat-form-field-underline {
-  border-color: blue;
+.container {
+  width: 600px;
+  padding-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  place-content: center;
+  align-items: center;
+  border: 5px solid #513BDB;
+  border-radius: 50px 50px;
+  background-color: white;
 }
 
-/* Estilização para ícones organizados */
-.custom-div .mat-form-field-outer-container {
+.form-content {
+  font-family: DM Roboto, sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  place-content: center;
+  align-items: center;
+}
+
+.button{
+  font-family: DM Roboto, sans-serif;
+  font-size: 16px;
+  padding:0px;
+  text-decoration: none;
+  text-align:center;
+  background:#513BDB;
+  color: white;
+  width:120px;
+  height:30px;
+  display:line;
+  border: none;
+  border-radius: 50px 50px;
+  cursor: pointer;
 }

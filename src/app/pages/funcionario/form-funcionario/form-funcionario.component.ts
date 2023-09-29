@@ -83,6 +83,7 @@ export class FormFuncionarioComponent implements OnInit{
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarInclusao(retorno);
+        this.router.navigate(["/funcionario"]);
       }, erro =>{
         console.log("Erro:"+erro);
         alert("Erro ao incluir!");

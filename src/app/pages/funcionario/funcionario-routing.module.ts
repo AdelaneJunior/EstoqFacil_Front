@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeFuncionarioComponent} from "./home-funcionario/home-funcionario.component";
 import {ListFuncionarioComponent} from "./list-funcionario/list-funcionario.component";
 import {FormFuncionarioComponent} from "./form-funcionario/form-funcionario.component";
+import {SecurityGuard} from "../../arquitetura/security/security.guard";
 
 export const funcionarioRoutes: Routes = [
   {
@@ -11,7 +12,9 @@ export const funcionarioRoutes: Routes = [
     children: [
       {
         path: "",
-        component: ListFuncionarioComponent
+        component: ListFuncionarioComponent,
+        canActivate: [SecurityGuard],
+        data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}}
       },
       {
         path: "novo",
