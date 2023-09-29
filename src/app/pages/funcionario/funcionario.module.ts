@@ -11,8 +11,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatTableModule} from "@angular/material/table";
+
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from "@angular/material/menu";
+
 
 
 
@@ -34,7 +36,8 @@ import {MatMenuModule} from "@angular/material/menu";
     ReactiveFormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule
   ]
 })
 export class FuncionarioModule { }
