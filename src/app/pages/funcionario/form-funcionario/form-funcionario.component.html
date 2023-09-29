@@ -1,1 +1,44 @@
-<p>form-funcionario works!</p>
+
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form"
+>
+  <div class="formLivro">
+    <h1>{{acao}} de Funcionario</h1>
+    <mat-form-field>
+      <mat-label>Nome*</mat-label>
+      <input matInput formControlName="pessoaNome">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>CPF*</mat-label>
+      <input matInput formControlName="cpf">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Data Nascimento*</mat-label>
+      <input matInput formControlName="data">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Telefone*</mat-label>
+      <input matInput formControlName="telefone">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Email*</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cargo*</mat-label>
+      <input matInput formControlName="cargoNome">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()">Limpar</button>
+    <button mat-raised-button color="warn" routerLink="/funcionario">Cancelar</button>
+  </div>
+</form>
+

@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {AuthDto} from "../../api/models/auth-dto";
 import {AuthApiService} from "../../api/services/auth-api.service";
+import { tap } from 'rxjs/operators';
 
 
 /**
@@ -14,7 +15,6 @@ import {AuthApiService} from "../../api/services/auth-api.service";
  */
 @Injectable()
 export class AutenticacaoService {
-
   /**
    * Construtor da classe.
    *
@@ -33,6 +33,7 @@ export class AutenticacaoService {
     return this.authApiService.login({body: usuarioTO});
     //return this.http.post(`${environment.urlApi}/auth/login`, usuarioTO);
   }
+
 
   /**
    * Solicita um novo token temporário para o Usuário logado.

@@ -1,1 +1,19 @@
-<p>home-funcionario works!</p>
+<h2> Controle de <br>Funcionários</h2>
+<mat-card>
+  <mat-card-actions>
+    <button class="button" mat-raised-button [routerLink]="['/funcionario','novo']">
+      <span>Cadastrar Novo Funcionário</span>
+      <mat-icon>add</mat-icon>
+    </button>
+    <div id="divBusca">
+      <input type="text" id="txtBusca" placeholder="Digite o que buscar..." />
+      <button id="pesquisa-icon" title="Pesquisar"><mat-icon id="icone">search</mat-icon></button>
+    </div>
+    <button id="filtro" title="Filtros">
+      <mat-icon>filter_list</mat-icon>
+    </button>
+  </mat-card-actions>
+  <mat-card-content>
+    <router-outlet></router-outlet>
+  </mat-card-content>
+</mat-card>

@@ -56,7 +56,7 @@ export class AppComponent implements  OnInit{
 
     this.securityService.onUnauthorized.subscribe(() => {
       this.messageService.addMsgWarning("Não autorizado!");
-      this.router.navigate(['/']);
+      this.router.navigate(['/acesso']);
       this.securityService.invalidate();
     });
     this.securityService.init();
