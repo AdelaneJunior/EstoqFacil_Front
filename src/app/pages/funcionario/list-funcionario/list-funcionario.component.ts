@@ -41,7 +41,7 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
   remover(funcionarioDto: FuncionarioDto) {
-    /*console.log("Removido", funcionarioDto.codigo);
+    console.log("Removido", funcionarioDto.codigo);
     let codigoDoFuncionario: number = funcionarioDto.codigo || 0;
     this.funcionarioService.funcionarioControllerRemover({ id: codigoDoFuncionario})
       .subscribe(
@@ -52,13 +52,13 @@ export class ListFuncionarioComponent implements OnInit {
         },
         error => {
           if (error.status === 404) {
-            this.showMensagemSimples("Categoria não existe mais");
+            this.showMensagemSimples("Funcionario não existe mais");
           } else {
             this.showMensagemSimples("Erro ao excluir");
             console.log("Erro:", error);
           }
         }
-      );*/
+      );
   }
 
 

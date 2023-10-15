@@ -58,7 +58,7 @@ export class FormClienteComponent implements OnInit{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
         cpf: [null, Validators.required],
-        selectedDate: [null, Validators.required],
+        nascimento: [null, Validators.required],
         telefone: [null, Validators.required],
         email: [null, Validators.required]
       })
@@ -68,6 +68,7 @@ export class FormClienteComponent implements OnInit{
 
 
   onSubmit() {
+    console.log('Formulário submetido');
     if (this.formGroup.valid) {
       if(!this.codigo){
         this.realizarInclusao();
@@ -82,9 +83,9 @@ export class FormClienteComponent implements OnInit{
     const clienteDto: ClienteDto = {
       nome: this.formGroup.value.nome,
       cpf: this.formGroup.value.cpf,
-      nascimento: this.formGroup.value.selectedDate,
+      nascimento: this.formGroup.value.nascimento,
       telefone: this.formGroup.value.telefone,
-      email: this.formGroup.value.email,
+      email: this.formGroup.value.email
     };
     console.log("Dados:",this.formGroup.value);
     this.clienteService.clienteControllerIncluir({body: clienteDto})

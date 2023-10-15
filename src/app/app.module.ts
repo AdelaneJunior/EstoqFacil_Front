@@ -28,6 +28,7 @@ import {CategoriaModule} from "./pages/categoria/categoria.module";
 import {FuncionarioModule} from "./pages/funcionario/funcionario.module";
 import {ClienteModule} from "./pages/cliente/cliente.module";
 import {UsuarioModule} from "./pages/usuario/usuario.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {UsuarioModule} from "./pages/usuario/usuario.module";
       nameStorage: 'portalSSOSecurityStorage',
       loginRouter: '/acesso/login'
     }),
+    ReactiveFormsModule,
     ProdutoModule,
     CategoriaModule,
     FuncionarioModule,

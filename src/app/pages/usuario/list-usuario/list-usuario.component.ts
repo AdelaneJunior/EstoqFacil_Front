@@ -8,19 +8,21 @@ import {
   ConfirmationDialogResult
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
-import {FuncionarioDto} from "../../../api/models/funcionario-dto";
+import {UsuarioDto} from "../../../api/models/usuario-dto";
+import {UsuarioControllerService} from "../../../api/services/usuario-controller.service";
 
 @Component({
-  selector: 'app-list-funcionario',
+  selector: 'app-list-usuario',
   templateUrl: './list-usuario.component.html',
   styleUrls: ['./list-usuario.component.scss']
 })
 export class ListUsuarioComponent implements OnInit {
   colunasMostrar = ['codigo','funcionarioNome', 'funcionarioEmail','funcionarioCodigo','funcionarioCargo','acao'];
-  usuarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
+  usuarioListaDataSource: MatTableDataSource<UsuarioDto> = new MatTableDataSource<UsuarioDto>();
 
   constructor(
     public funcionarioService: FuncionarioControllerService,
+    public usuarioService: UsuarioControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router
@@ -34,15 +36,15 @@ export class ListUsuarioComponent implements OnInit {
 
 
   private buscarDados() {
-    this.funcionarioService.funcionarioControllerListAll().subscribe(data => {
+    this.usuarioService.usuarioControllerListAll().subscribe(data => {
       this.usuarioListaDataSource.data = data;
       console.log(JSON.stringify(data));
     })
   }
 
-  remover(funcionarioDto: FuncionarioDto) {
-    /*console.log("Removido", funcionarioDto.codigo);
-    let codigoDoFuncionario: number = funcionarioDto.codigo || 0;
+  remover(usuarioDto: UsuarioDto) {
+    console.log("Removido", usuarioDto.codigo);
+    let codigoDoFuncionario: number = usuarioDto.codigo || 0;
     this.funcionarioService.funcionarioControllerRemover({ id: codigoDoFuncionario})
       .subscribe(
         retorno => {
@@ -52,26 +54,26 @@ export class ListUsuarioComponent implements OnInit {
         },
         error => {
           if (error.status === 404) {
-            this.showMensagemSimples("Categoria não existe mais");
+            this.showMensagemSimples("Usuario não existe mais");
           } else {
             this.showMensagemSimples("Erro ao excluir");
             console.log("Erro:", error);
           }
         }
-      );*/
+      );
   }
 
 
-  confirmarExcluir(funcionarioDto: FuncionarioDto) {
+  confirmarExcluir(usuarioDto: UsuarioDto) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Confirmar?',
-        mensagem: `A exclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.codigo})?`,
+        mensagem: `A exclusão do Usuario: ${usuarioDto.funcionarioNome} (ID: ${usuarioDto.codigo})?`,
         textoBotoes: {
           ok: 'Confirmar',
           cancel: 'Cancelar',
         },
-        dado: funcionarioDto
+        dado: usuarioDto
       },
     });
 

@@ -13,7 +13,7 @@ import {ClienteControllerService} from "../../../api/services/cliente-controller
 import {ClienteDto} from "../../../api/models/cliente-dto";
 
 @Component({
-  selector: 'app-list-funcionario',
+  selector: 'app-list-cliente',
   templateUrl: './list-cliente.component.html',
   styleUrls: ['./list-cliente.component.scss']
 })
