@@ -5,7 +5,7 @@
   class="form"
 >
   <div class="formLivro">
-    <h1>{{acao}} de Funcionario</h1>
+    <h1>{{acao}} de Cliente</h1>
     <mat-form-field>
       <mat-label>Nome*</mat-label>
       <input matInput formControlName="nome">
@@ -31,13 +31,6 @@
     <mat-form-field>
       <mat-label>Email*</mat-label>
       <input matInput formControlName="email">
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Cargo*:</mat-label>
-      <mat-select formControlName="cargoId">
-        <mat-option *ngFor="let cargo of cargos" [value]="cargo.codigo">{{ cargo.nome }}</mat-option>
-      </mat-select>
     </mat-form-field>
 
     <button mat-raised-button color="primary" type="submit">Confirmar {{acao}}</button>

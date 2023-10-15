@@ -9,18 +9,20 @@ import {
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
+import {ClienteControllerService} from "../../../api/services/cliente-controller.service";
+import {ClienteDto} from "../../../api/models/cliente-dto";
 
 @Component({
   selector: 'app-list-funcionario',
-  templateUrl: './list-funcionario.component.html',
-  styleUrls: ['./list-funcionario.component.scss']
+  templateUrl: './list-cliente.component.html',
+  styleUrls: ['./list-cliente.component.scss']
 })
-export class ListFuncionarioComponent implements OnInit {
-  colunasMostrar = ['cpf','nome', 'telefone','email','cargoNome','acao'];
+export class ListClienteComponent implements OnInit {
+  colunasMostrar = ['codigo','nome', 'telefone','email','acao'];
   funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
 
   constructor(
-    public funcionarioService: FuncionarioControllerService,
+    public clienteService: ClienteControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router
@@ -34,13 +36,13 @@ export class ListFuncionarioComponent implements OnInit {
 
 
   private buscarDados() {
-    this.funcionarioService.funcionarioControllerListAll().subscribe(data => {
+    this.clienteService.clienteControllerListAll().subscribe(data => {
       this.funcionarioListaDataSource.data = data;
       console.log(JSON.stringify(data));
     })
   }
 
-  remover(funcionarioDto: FuncionarioDto) {
+  remover(clienteDto: ClienteDto) {
     /*console.log("Removido", funcionarioDto.codigo);
     let codigoDoFuncionario: number = funcionarioDto.codigo || 0;
     this.funcionarioService.funcionarioControllerRemover({ id: codigoDoFuncionario})
@@ -62,16 +64,16 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
 
-  confirmarExcluir(funcionarioDto: FuncionarioDto) {
+  confirmarExcluir(clienteDto: ClienteDto) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Confirmar?',
-        mensagem: `A exclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.codigo})?`,
+        mensagem: `A exclusão de: ${clienteDto.nome} (ID: ${clienteDto.codigo})?`,
         textoBotoes: {
           ok: 'Confirmar',
           cancel: 'Cancelar',
         },
-        dado: funcionarioDto
+        dado: clienteDto
       },
     });
 

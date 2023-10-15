@@ -1,0 +1,86 @@
+table{
+  width: 100%;
+  background-color: #6050C6;
+  border-color: #6050C6;
+  text-decoration-color: white;
+}
+
+.mat-mdc-row .mat-mdc-cell{
+  background-color: white;
+  border: 1px solid #6050C6;
+  text-align: center;
+}
+
+th{
+  text-align: center;
+  color: white;
+  user-select:none;
+}
+
+.button-config{
+  font-family: DM Roboto, sans-serif;
+  font-size: 13px;
+  padding:1px;
+  text-decoration: none;
+  text-align:center;
+  background:#6050C6;
+  color: white;
+  width:320px;
+  height:40px;
+  border: none;
+  border-radius: 50px 50px;
+  cursor: pointer;
+  display: block;
+}
+
+.divBusca{
+  background-color:#E8E8E8;
+  border-radius:15px;
+  margin-left: 2%;
+  margin-right: 2%;
+  display: flex;
+  align-self: flex-end;
+  position: relative;
+  cursor: text;
+  width:100%;
+}
+
+.txtBusca{
+  float:left;
+  background-color:#E8E8E8;
+  font-family: Roboto, sans-serif;
+  font-size:14px;
+  border-radius:15px;
+  height:32px;
+  width:96%;
+  border-color: transparent;
+}
+
+.icone{
+  font-size: 28px;
+  margin-top: 2px;
+}
+
+.filtro{
+  border-radius:10px;
+  margin-right: 2%;
+  border: transparent;
+  cursor: pointer;
+}
+
+.pesquisa-icon{
+  border: transparent;
+  cursor: pointer;
+  border-radius:15px;
+  background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+

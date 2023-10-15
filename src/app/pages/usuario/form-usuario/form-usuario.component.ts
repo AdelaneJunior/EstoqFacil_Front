@@ -1,34 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DateAdapter} from "@angular/material/core";
-
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {ActivatedRoute, Router} from "@angular/router";
-import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
-import {ProdutoDto} from "../../../api/models/produto-dto";
-import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
-import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
+import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
+import {FuncionarioDto} from "../../../api/models/funcionario-dto";
+import {CategoriaDto} from "../../../api/models/categoria-dto";
 
 @Component({
-  selector: 'app-form-produto',
-  templateUrl: './form-produto.component.html',
-  styleUrls: ['./form-produto.component.scss']
+  selector: 'app-form-funcionario',
+  templateUrl: './form-usuario.component.html',
+  styleUrls: ['./form-usuario.component.scss']
 })
-export class FormProdutoComponent implements OnInit{
+export class FormUsuarioComponent implements OnInit{
   formGroup!: FormGroup;
-  public readonly ACAO_INCLUIR = "Incluir";
+  public readonly ACAO_INCLUIR = "Cadastro";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
-  categorias: CategoriaDto[] = [];
+  funcionarios: FuncionarioDto[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
-    public produtoService: ProdutoControllerService,
-    private categoriaService: CategoriaControllerService,
+    private funcionarioService: FuncionarioControllerService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -40,20 +37,21 @@ export class FormProdutoComponent implements OnInit{
   ngOnInit() {
     this.createForm();
     this._adapter.setLocale('pt-br');
-    this.prepararEdicao();
-    this.carregarCategorias();
+    this.carregarFuncionarios();
   }
 
-  carregarCategorias() {
-    this.categoriaService.categoriaControllerListAll().subscribe(
-      (categorias: CategoriaDto[]) => {
-        this.categorias = categorias;
+  carregarFuncionarios() {
+    this.funcionarioService.funcionarioControllerListAll().subscribe(
+      (funcionarios: FuncionarioDto[]) => {
+        this.funcionarios = funcionarios;
       },
       (error) => {
-        console.error('Erro ao carregar categorias:', error);
+        console.error('Erro ao carregar funcionario:', error);
       }
     );
   }
+
+
 
   private createForm() {
     if(this.acao == "Editar"){/*
@@ -69,13 +67,8 @@ export class FormProdutoComponent implements OnInit{
           }));*/
     }else{
       this.formGroup = this.formBuilder.group({
-        categoria: [null, Validators.required],
-        nome: [null, Validators.required],
-        marca: [null, Validators.required],
-        descricao: [null, Validators.required],
-        quantidade: [null, Validators.required],
-        preco: [null, Validators.required],
-        custo: [null, Validators.required]
+        funcionarioCodigo: [null, Validators.required],
+        senha: [null, Validators.required]
       })
     }
   }
@@ -95,11 +88,11 @@ export class FormProdutoComponent implements OnInit{
 
   private realizarInclusao(){
     console.log("Dados:",this.formGroup.value);
-    this.produtoService.produtoControllerIncluir({body: this.formGroup.value})
+    this.funcionarioService.funcionarioControllerIncluir({body: this.formGroup.value})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarInclusao(retorno);
-        this.router.navigate(["/produto"]);
+        this.router.navigate(["/funcionario"]);
       }, erro =>{
         console.log("Erro:"+erro);
         alert("Erro ao incluir!");
@@ -108,11 +101,11 @@ export class FormProdutoComponent implements OnInit{
 
   private realizarEdicao(){}
 
-  confirmarInclusao(produtoDto: ProdutoDto){
+  confirmarInclusao(funcionarioDto: FuncionarioDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: ${produtoDto.nome} (ID: ${produtoDto.codigo}) realiza com sucesso!`,
+        mensagem: `Inclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.codigo}) realiza com sucesso!`,
         textoBotoes: {
           ok: 'ok',
         },

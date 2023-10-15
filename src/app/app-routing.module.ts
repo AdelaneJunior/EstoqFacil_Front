@@ -6,6 +6,8 @@ import {produtoRoutes} from "./pages/produto/produto-routing.module";
 import {categoriaRoutes} from "./pages/categoria/categoria-routing.module";
 import {funcionarioRoutes} from "./pages/funcionario/funcionario-routing.module";
 import {SecurityGuard} from "./arquitetura/security/security.guard";
+import {usuarioRoutes} from "./pages/usuario/usuario-routing.module";
+import {clienteRoutes} from "./pages/cliente/cliente-routing.module";
 
 const routes: Routes = [
   {
@@ -14,7 +16,9 @@ const routes: Routes = [
     children: [
       ...categoriaRoutes,
       ...produtoRoutes,
-      ...funcionarioRoutes
+      ...funcionarioRoutes,
+      ...usuarioRoutes,
+      ...clienteRoutes
     ],
     canActivate: [SecurityGuard],
     data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}}

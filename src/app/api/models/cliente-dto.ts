@@ -2,5 +2,9 @@
 /* eslint-disable */
 export interface ClienteDto {
   codigo?: number;
-  pessoaId?: number;
+  cpf?: number;
+  email?: string;
+  nascimento?: string;
+  nome?: string;
+  telefone?: string;
 }

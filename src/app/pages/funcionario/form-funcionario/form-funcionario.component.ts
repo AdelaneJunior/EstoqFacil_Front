@@ -7,6 +7,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
+import {CategoriaDto} from "../../../api/models/categoria-dto";
+import {CargoControllerService} from "../../../api/services/cargo-controller.service";
+import {CargoDto} from "../../../api/models/cargo-dto";
 
 @Component({
   selector: 'app-form-funcionario',
@@ -19,11 +22,13 @@ export class FormFuncionarioComponent implements OnInit{
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
+  cargos: CargoDto[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
     private funcionarioService: FuncionarioControllerService,
+    private cargoService: CargoControllerService,
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
@@ -35,7 +40,18 @@ export class FormFuncionarioComponent implements OnInit{
   ngOnInit() {
     this.createForm();
     this._adapter.setLocale('pt-br');
-    this.prepararEdicao();
+    this.carregarCargos();
+  }
+
+  carregarCargos() {
+    this.cargoService.cargoControllerListAll().subscribe(
+      (cargos: CategoriaDto[]) => {
+        this.cargos = cargos;
+      },
+      (error) => {
+        console.error('Erro ao carregar cargos:', error);
+      }
+    );
   }
 
 
@@ -54,12 +70,12 @@ export class FormFuncionarioComponent implements OnInit{
           }));*/
     }else{
       this.formGroup = this.formBuilder.group({
-        pessoaNome: [null, Validators.required],
+        nome: [null, Validators.required],
         cpf: [null, Validators.required],
-        data: [null, Validators.required],
+        nascimento: [null, Validators.required],
         telefone: [null, Validators.required],
         email: [null, Validators.required],
-        cargoNome: [null, Validators.required]
+        cargoId: [null, Validators.required]
       })
     }
   }

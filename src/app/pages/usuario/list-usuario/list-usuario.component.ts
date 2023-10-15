@@ -12,12 +12,12 @@ import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 
 @Component({
   selector: 'app-list-funcionario',
-  templateUrl: './list-funcionario.component.html',
-  styleUrls: ['./list-funcionario.component.scss']
+  templateUrl: './list-usuario.component.html',
+  styleUrls: ['./list-usuario.component.scss']
 })
-export class ListFuncionarioComponent implements OnInit {
-  colunasMostrar = ['cpf','nome', 'telefone','email','cargoNome','acao'];
-  funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
+export class ListUsuarioComponent implements OnInit {
+  colunasMostrar = ['codigo','funcionarioNome', 'funcionarioEmail','funcionarioCodigo','funcionarioCargo','acao'];
+  usuarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
 
   constructor(
     public funcionarioService: FuncionarioControllerService,
@@ -35,7 +35,7 @@ export class ListFuncionarioComponent implements OnInit {
 
   private buscarDados() {
     this.funcionarioService.funcionarioControllerListAll().subscribe(data => {
-      this.funcionarioListaDataSource.data = data;
+      this.usuarioListaDataSource.data = data;
       console.log(JSON.stringify(data));
     })
   }

@@ -26,6 +26,8 @@ import {ProdutoModule} from "./pages/produto/produto.module";
 import {ConfirmationDialog} from "./core/confirmation-dialog/confirmation-dialog.component";
 import {CategoriaModule} from "./pages/categoria/categoria.module";
 import {FuncionarioModule} from "./pages/funcionario/funcionario.module";
+import {ClienteModule} from "./pages/cliente/cliente.module";
+import {UsuarioModule} from "./pages/usuario/usuario.module";
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import {FuncionarioModule} from "./pages/funcionario/funcionario.module";
     }),
     ProdutoModule,
     CategoriaModule,
-    FuncionarioModule
+    FuncionarioModule,
+    ClienteModule,
+    UsuarioModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},

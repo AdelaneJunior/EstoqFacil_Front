@@ -1,0 +1,32 @@
+
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form"
+>
+  <div class="formLivro">
+    <h1>{{acao}} de Usuario</h1>
+    <mat-form-field>
+      <mat-label>Nome*</mat-label>
+      <mat-select formControlName="categoria">
+        <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.codigo">{{ funcionario.nome }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Senha*</mat-label>
+      <input matInput formControlName="senha">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirmar Senha*</mat-label>
+      <input matInput formControlName="senha">
+    </mat-form-field>
+
+
+    <button mat-raised-button color="primary" type="submit">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()">Limpar</button>
+    <button mat-raised-button color="warn" routerLink="/funcionario">Cancelar</button>
+  </div>
+</form>
+

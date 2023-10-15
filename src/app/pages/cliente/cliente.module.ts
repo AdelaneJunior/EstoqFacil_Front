@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeFuncionarioComponent } from './home-funcionario/home-funcionario.component';
-import { ListFuncionarioComponent } from './list-funcionario/list-funcionario.component';
-import { FormFuncionarioComponent } from './form-funcionario/form-funcionario.component';
+
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
@@ -14,18 +12,17 @@ import {MatTableModule} from "@angular/material/table";
 
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatMenuModule} from "@angular/material/menu";
-import {MatOptionModule} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
+import {HomeClienteComponent} from "./home-cliente/home-cliente.component";
+import {FormClienteComponent} from "./form-cliente/form-cliente.component";
+import {ListClienteComponent} from "./list-cliente/list-cliente.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-
-
 
 
 @NgModule({
   declarations: [
-    HomeFuncionarioComponent,
-    ListFuncionarioComponent,
-    FormFuncionarioComponent
+    HomeClienteComponent,
+    FormClienteComponent,
+    ListClienteComponent
   ],
     imports: [
         CommonModule,
@@ -41,9 +38,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
         MatPaginatorModule,
         MatMenuModule,
         MatTableModule,
-        MatOptionModule,
-        MatSelectModule,
         MatDatepickerModule
     ]
 })
-export class FuncionarioModule { }
+export class ClienteModule { }
