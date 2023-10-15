@@ -7,7 +7,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
-import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {CargoControllerService} from "../../../api/services/cargo-controller.service";
 import {CargoDto} from "../../../api/models/cargo-dto";
 
@@ -45,7 +44,7 @@ export class FormFuncionarioComponent implements OnInit{
 
   carregarCargos() {
     this.cargoService.cargoControllerListAll().subscribe(
-      (cargos: CategoriaDto[]) => {
+      (cargos: CargoDto[]) => {
         this.cargos = cargos;
       },
       (error) => {

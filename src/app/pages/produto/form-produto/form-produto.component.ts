@@ -10,6 +10,7 @@ import {ProdutoDto} from "../../../api/models/produto-dto";
 import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
+import {SecurityService} from "../../../arquitetura/security/security.service";
 
 @Component({
   selector: 'app-form-produto',
@@ -32,7 +33,8 @@ export class FormProdutoComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private securityService: SecurityService
   ) {
     this._adapter.setLocale('pt-br');
   }
@@ -69,13 +71,15 @@ export class FormProdutoComponent implements OnInit{
           }));*/
     }else{
       this.formGroup = this.formBuilder.group({
-        categoria: [null, Validators.required],
+        categoriaId: [null, Validators.required],
         nome: [null, Validators.required],
         marca: [null, Validators.required],
         descricao: [null, Validators.required],
         quantidade: [null, Validators.required],
         preco: [null, Validators.required],
-        custo: [null, Validators.required]
+        custo: [null, Validators.required],
+        imagemId:[1],
+        usuarioId:[this.securityService.getUserId()]
       })
     }
   }
@@ -94,8 +98,10 @@ export class FormProdutoComponent implements OnInit{
   }
 
   private realizarInclusao(){
-    console.log("Dados:",this.formGroup.value);
-    this.produtoService.produtoControllerIncluir({body: this.formGroup.value})
+    const prod : ProdutoDto = this.formGroup.value;
+    prod.usuarioId = this.securityService.getUserId();
+    console.log("Dados:", prod);
+    this.produtoService.produtoControllerIncluir({body: prod})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarInclusao(retorno);
