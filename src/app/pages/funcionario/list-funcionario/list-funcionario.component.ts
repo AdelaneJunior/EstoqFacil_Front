@@ -41,9 +41,8 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
   remover(funcionarioDto: FuncionarioDto) {
-    console.log("Removido", funcionarioDto.codigo);
-    let codigoDoFuncionario: number = funcionarioDto.codigo || 0;
-    this.funcionarioService.funcionarioControllerRemover({ id: codigoDoFuncionario})
+    console.log("Removido", funcionarioDto.cpf);
+    this.funcionarioService.funcionarioControllerRemover({ id: funcionarioDto.cpf || ''})
       .subscribe(
         retorno => {
           this.buscarDados();
@@ -66,7 +65,7 @@ export class ListFuncionarioComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Confirmar?',
-        mensagem: `A exclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.codigo})?`,
+        mensagem: `A exclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.cpf})?`,
         textoBotoes: {
           ok: 'Confirmar',
           cancel: 'Cancelar',

@@ -105,7 +105,7 @@ export class FormUsuarioComponent implements OnInit{
   private realizarInclusao(){
     let novoUsuario: UsuarioDto;
     novoUsuario = {};
-    novoUsuario.funcionarioCodigo = this.formGroup.get("funcionarioCodigo")?.value;
+    novoUsuario.funcionarioCpf = this.formGroup.get("funcionarioCodigo")?.value;
     novoUsuario.senha = this.formGroup.get("senha")?.value;
     console.log("Dados:",this.formGroup.value);
     this.usuarioService.usuarioControllerIncluir({usuarioDTO: novoUsuario})

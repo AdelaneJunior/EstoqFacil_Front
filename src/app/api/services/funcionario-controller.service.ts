@@ -36,7 +36,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerObterPorId$Response(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 
@@ -68,7 +68,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerObterPorId(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 
@@ -93,7 +93,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   funcionarioControllerAlterar$Response(params: {
-    id: number;
+    id: string;
     body: FuncionarioDto
   },
   context?: HttpContext
@@ -127,7 +127,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   funcionarioControllerAlterar(params: {
-    id: number;
+    id: string;
     body: FuncionarioDto
   },
   context?: HttpContext
@@ -153,7 +153,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerRemover$Response(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 
@@ -185,7 +185,7 @@ export class FuncionarioControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   funcionarioControllerRemover(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 

@@ -18,8 +18,8 @@ import {ClienteDto} from "../../../api/models/cliente-dto";
   styleUrls: ['./list-cliente.component.scss']
 })
 export class ListClienteComponent implements OnInit {
-  colunasMostrar = ['codigo','nome', 'telefone','email','acao'];
-  funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
+  colunasMostrar = ['cpf','nome', 'telefone','email','acao'];
+  funcionarioListaDataSource: MatTableDataSource<ClienteDto> = new MatTableDataSource<ClienteDto>();
 
   constructor(
     public clienteService: ClienteControllerService,
@@ -68,7 +68,7 @@ export class ListClienteComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Confirmar?',
-        mensagem: `A exclusão de: ${clienteDto.nome} (ID: ${clienteDto.codigo})?`,
+        mensagem: `A exclusão de: ${clienteDto.nome} (ID: ${clienteDto.cpf})?`,
         textoBotoes: {
           ok: 'Confirmar',
           cancel: 'Cancelar',

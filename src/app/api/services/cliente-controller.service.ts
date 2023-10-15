@@ -36,7 +36,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerObterPorId$Response(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 
@@ -68,7 +68,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerObterPorId(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 
@@ -93,7 +93,7 @@ export class ClienteControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   clienteControllerAlterar$Response(params: {
-    id: number;
+    id: string;
     body: ClienteDto
   },
   context?: HttpContext
@@ -127,7 +127,7 @@ export class ClienteControllerService extends BaseService {
    * This method sends `application/json` and handles request body of type `application/json`.
    */
   clienteControllerAlterar(params: {
-    id: number;
+    id: string;
     body: ClienteDto
   },
   context?: HttpContext
@@ -153,7 +153,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerRemover$Response(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 
@@ -185,7 +185,7 @@ export class ClienteControllerService extends BaseService {
    * This method doesn't expect any request body.
    */
   clienteControllerRemover(params: {
-    id: number;
+    id: string;
   },
   context?: HttpContext
 

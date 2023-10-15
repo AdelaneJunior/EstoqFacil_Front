@@ -3,7 +3,6 @@
 export interface FuncionarioDto {
   cargoId?: number;
   cargoNome?: string;
-  codigo?: number;
   cpf?: string;
   email?: string;
   nascimento?: string;

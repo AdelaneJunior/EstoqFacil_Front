@@ -9,7 +9,7 @@
     <mat-form-field>
       <mat-label>Nome*</mat-label>
       <mat-select formControlName="funcionarioCodigo">
-        <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.codigo">{{ funcionario.nome }}</mat-option>
+        <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.cpf">{{ funcionario.nome }}</mat-option>
       </mat-select>
     </mat-form-field>
 

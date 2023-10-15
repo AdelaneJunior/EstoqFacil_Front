@@ -1,8 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface ClienteDto {
-  codigo?: number;
-  cpf?: number;
+  cpf?: string;
   email?: string;
   nascimento?: string;
   nome?: string;

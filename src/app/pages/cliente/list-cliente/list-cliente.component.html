@@ -15,9 +15,9 @@
   <table mat-table [dataSource]="funcionarioListaDataSource">
 
     <!-- ID/Codigo -->
-    <ng-container matColumnDef="codigo">
-      <th mat-header-cell *matHeaderCellDef> Código cliente </th>
-      <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+    <ng-container matColumnDef="cpf">
+      <th mat-header-cell *matHeaderCellDef> CPF cliente </th>
+      <td mat-cell *matCellDef="let element"> {{element.cpf}} </td>
     </ng-container>
 
     <!-- Nome  -->

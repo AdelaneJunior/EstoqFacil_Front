@@ -105,7 +105,7 @@ export class FormClienteComponent implements OnInit{
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: ${clienteDto.nome} (ID: ${clienteDto.codigo}) realiza com sucesso!`,
+        mensagem: `Inclusão de: ${clienteDto.nome} (ID: ${clienteDto.cpf}) realiza com sucesso!`,
         textoBotoes: {
           ok: 'ok',
         },

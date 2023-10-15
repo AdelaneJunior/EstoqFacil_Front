@@ -3,7 +3,7 @@
 export interface UsuarioDto {
   codigo?: number;
   funcionarioCargo?: string;
-  funcionarioCodigo?: number;
+  funcionarioCpf?: string;
   funcionarioEmail?: string;
   funcionarioNome?: string;
   permissoes?: Array<string>;
