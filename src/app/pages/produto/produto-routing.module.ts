@@ -19,6 +19,10 @@ export const produtoRoutes: Routes = [
       {
         path: "novo",
         component: FormProdutoComponent
+      },
+      {
+        path: ":id",
+        component: FormProdutoComponent
       }
     ]
   }

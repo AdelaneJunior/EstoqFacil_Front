@@ -19,6 +19,10 @@ export const usuarioRoutes: Routes = [
       {
         path: "novo",
         component: FormUsuarioComponent
+      },
+      {
+        path: ":id",
+        component: FormUsuarioComponent
       }
     ]
   }

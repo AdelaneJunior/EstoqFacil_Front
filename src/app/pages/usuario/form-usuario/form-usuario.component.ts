@@ -112,7 +112,7 @@ export class FormUsuarioComponent implements OnInit{
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarInclusao(retorno);
-        this.router.navigate(["/funcionario"]);
+        this.router.navigate(["/usuario"]);
       }, erro =>{
         console.log("Erro:"+erro);
         alert("Erro ao incluir!");

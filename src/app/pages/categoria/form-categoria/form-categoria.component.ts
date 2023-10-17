@@ -45,17 +45,15 @@ export class FormCategoriaComponent implements OnInit{
 
 
   private createForm() {
-    if(this.acao == "Editar"){/*
-      this.produtoService.produtoControllerObterPorId({id: this.codigo as number}).
+    if(this.acao == "Editar"){
+      this.categoriaService.categoriaControllerObterPorId({id: this.codigo as number}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            titulo: [retorno.titulo, Validators.required],
-            autor: [retorno.autor, Validators.required],
-            editora: [retorno.editora, Validators.required],
-            anoPublicacao: [retorno.anoPublicacao, Validators.required],
-            genero: [retorno.genero, Validators.required],
-            numeroDePaginas: [retorno.numeroDePaginas, Validators.required]
-          }));*/
+            nome: [retorno.nome, Validators.required],
+            descricao: [retorno.nome, Validators.required],
+            usuarioId: this.securityService.getUserId()
+
+          }));
     }else{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
@@ -98,7 +96,30 @@ export class FormCategoriaComponent implements OnInit{
     }
   }
 
-  private realizarEdicao(){}
+  private realizarEdicao(){
+    console.log("Dados:", this.formGroup.value);
+    this.categoriaService.categoriaControllerAlterar( {id: this.codigo as number, body: this.formGroup.value})
+      .subscribe(retorno => {
+        console.log("Retorno:", retorno);
+        this.confirmarAcao(retorno, this.ACAO_EDITAR);
+        this.router.navigate(["/categoria"]);
+      }, erro => {
+        console.log("Erro:", erro.error);
+        //this.showError(erro.error, this.ACAO_EDITAR);
+      })
+  }
+
+  confirmarAcao(categoriaDto: CategoriaDto, acao: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'Mensagem!!!',
+        mensagem: `Ação de ${acao} dados: ${categoriaDto.nome} (ID: ${categoriaDto.codigo}) realizada com sucesso!`,
+        textoBotoes: {
+          ok: 'ok',
+        },
+      },
+    });
+  }
 
   confirmarInclusao(categoriaDto: CategoriaDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -119,6 +140,20 @@ export class FormCategoriaComponent implements OnInit{
 
 
   private prepararEdicao() {
-
+    const paramId = this.route.snapshot.paramMap.get('id');
+    if (paramId){
+      const codigo = parseInt(paramId);
+      console.log("codigo",paramId);
+      this.categoriaService.categoriaControllerObterPorId({id: codigo}).subscribe(
+        retorno => {
+          this.acao = this.ACAO_EDITAR;
+          console.log("retorno", retorno);
+          this.codigo = retorno.codigo || 0;
+          this.formGroup.patchValue(retorno);
+        },error => {
+          console.log("erro", error);
+        }
+      )
+    }
   }
 }

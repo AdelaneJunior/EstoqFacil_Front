@@ -4,6 +4,7 @@ import {HomeFuncionarioComponent} from "./home-funcionario/home-funcionario.comp
 import {ListFuncionarioComponent} from "./list-funcionario/list-funcionario.component";
 import {FormFuncionarioComponent} from "./form-funcionario/form-funcionario.component";
 import {SecurityGuard} from "../../arquitetura/security/security.guard";
+import {FormProdutoComponent} from "../produto/form-produto/form-produto.component";
 
 export const funcionarioRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ export const funcionarioRoutes: Routes = [
       {
         path: "novo",
         component: FormFuncionarioComponent
+      },
+      {
+        path: ":id",
+        component: FormProdutoComponent
       }
     ]
   }

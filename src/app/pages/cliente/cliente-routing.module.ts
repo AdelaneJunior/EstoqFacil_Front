@@ -19,6 +19,10 @@ export const clienteRoutes: Routes = [
       {
         path: "novo",
         component: FormClienteComponent
+      },
+      {
+        path: ":id",
+        component: FormClienteComponent
       }
     ]
   }

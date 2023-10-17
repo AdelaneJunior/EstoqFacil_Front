@@ -19,6 +19,10 @@ export const categoriaRoutes: Routes = [
       {
         path: "nova",
         component: FormCategoriaComponent
+      },
+      {
+        path: ":id",
+        component: FormCategoriaComponent
       }
     ]
   }

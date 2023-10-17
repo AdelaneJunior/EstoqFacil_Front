@@ -57,12 +57,14 @@
         <button mat-icon-button (click)="confirmarExcluir(element)">
           <mat-icon>delete</mat-icon>
         </button>
-        <!--<button mat-icon-button [routerLink]="['/livros',element.idLivro]">
+        <!--
+       <button mat-icon-button [routerLink]="['/categoria',element.codigo]">
          <mat-icon>edit</mat-icon>
        </button>
-       <button mat-icon-button [routerLink]="['/emprestimos/emprestar',element.idLivro]" [disabled]="element.emprestado">
-         <mat-icon>event</mat-icon>
-       </button>-->
+
+      <button mat-icon-button [routerLink]="['/emprestimos/emprestar',element.idLivro]" [disabled]="element.emprestado">
+        <mat-icon>event</mat-icon>
+      </button>-->
       </td>
     </ng-container>
 
