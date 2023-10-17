@@ -1,15 +1,15 @@
-<h2> Controle de <br>Categoria</h2>
+<h2> Controle de <br>Categorias</h2>
 <mat-card >
 <mat-card-actions>
-  <button class="button" mat-raised-button [routerLink]="['/categoria','nova']">
+  <button class="button-config" mat-raised-button [routerLink]="['/categoria','nova']">
     <span>Cadastrar Nova Categoria</span>
     <mat-icon>add</mat-icon>
   </button>
-  <div id="divBusca">
-    <input type="text" id="txtBusca" placeholder="Digite o que buscar..." />
-    <button id="pesquisa-icon" title="Pesquisar"><mat-icon id="icone">search</mat-icon></button>
+  <div class="divBusca">
+    <input type="text" class="txtBusca" placeholder="Digite o que buscar..." />
+    <button class="pesquisa-icon" title="Pesquisar"><mat-icon class="icone">search</mat-icon></button>
   </div>
-  <button id="filtro" title="Filtros">
+  <button class="filtro" title="Filtros">
     <mat-icon>filter_list</mat-icon>
   </button>
 </mat-card-actions>

@@ -1,10 +1,10 @@
-
+<div class="container">
 <form
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
   class="form"
 >
-  <div class="formLivro">
+  <div class="form-content">
     <h1>{{acao}} de Cliente</h1>
     <mat-form-field>
       <mat-label>Nome*</mat-label>
@@ -32,10 +32,11 @@
       <mat-label>Email*</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
-
-    <button mat-raised-button color="primary" type="submit">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" (click)="limparFormulario()">Limpar</button>
-    <button mat-raised-button color="warn" routerLink="/funcionario">Cancelar</button>
   </div>
+    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <button mat-raised-button color="warn" routerLink="/funcionario" class="button botao-cancelar">Cancelar</button>
 </form>
+</div>
+
 

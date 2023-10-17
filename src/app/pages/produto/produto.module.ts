@@ -15,6 +15,8 @@ import {ListProdutoComponent} from "./list-produto/list-produto.component";
 import {HomeProdutoComponent} from "./home-produto/home-produto.component";
 import {FormProdutoComponent} from "./form-produto/form-produto.component";
 import {produtoRoutes} from "./produto-routing.module";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import {produtoRoutes} from "./produto-routing.module";
     MatInputModule,
     MatDatepickerModule,
     ReactiveFormsModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatMenuModule
   ]
 })
 export class ProdutoModule { }
