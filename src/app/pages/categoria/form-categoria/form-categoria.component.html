@@ -2,13 +2,13 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
   <div class="form-content">
     <h2>{{acao}} de <br> Categoria</h2>
-    <mat-form-field appearance="outline">
+    <mat-form-field class="input-maior" appearance="outline">
 
       <mat-label>Categoria</mat-label>
       <input matInput formControlName="nome">
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field class="input-maior" appearance="outline">
 
       <mat-label>Descrição</mat-label>
       <textarea matInput formControlName="descricao"></textarea>

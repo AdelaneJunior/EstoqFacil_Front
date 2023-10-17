@@ -6,32 +6,34 @@
 >
   <div class="form-content">
     <h1>{{acao}} de Cliente</h1>
-    <mat-form-field>
+    <mat-form-field class="input-maior">
       <mat-label>Nome*</mat-label>
-      <input matInput formControlName="nome">
+      <input  matInput formControlName="nome">
     </mat-form-field>
-
-    <mat-form-field>
+    <div class="alinhar2">
+    <mat-form-field class="input-comum">
       <mat-label>CPF*</mat-label>
       <input matInput formControlName="cpf">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="input-comum">
       <mat-label>Data de Nascimento*</mat-label>
       <input matInput formControlName="nascimento" [matDatepicker]="picker" placeholder="Escolha uma data">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-
-    <mat-form-field>
+    </div>
+    <div class="alinhar2">
+    <mat-form-field class="input-comum">
       <mat-label>Telefone*</mat-label>
       <input matInput formControlName="telefone">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="input-comum">
       <mat-label>Email*</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
+    </div>
   </div>
     <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
     <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>

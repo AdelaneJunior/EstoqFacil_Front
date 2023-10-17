@@ -45,7 +45,7 @@ h2{
 @media (min-width: 1200px) {
   .container {
     margin-left: 34%;
-    width: 33%;
+    width: 40%;
     padding-bottom: 20px;
     display: flex;
     flex-direction: row;
@@ -64,8 +64,8 @@ h2{
   text-align:center;
   background:#5438FF;
   color: white;
-  width:100px;
-  height:50px;
+  width:100px !important;
+  height:50px !important;
   position: relative;
   border: none;
   border-radius: 10px 10px;
@@ -76,8 +76,8 @@ h2{
 }
 
 .botao-cadastro{
-  width:180px;
-  height:50px;
+  width:180px!important;
+  height:50px!important;
 }
 
 .botao-limpar{
@@ -90,4 +90,20 @@ h2{
   background-color: #FFE438;
   border:1px solid black;
   color: black;
+}
+
+.input-maior{
+  width: 95%;
+}
+
+.alinhar2{
+  display: line;
+  align-items: center;
+  alignment-baseline: center;
+  position: relative;
+}
+
+.input-comum{
+  margin: 3px;
+  width: 47%;
 }
