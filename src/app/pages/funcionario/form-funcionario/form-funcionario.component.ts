@@ -9,6 +9,7 @@ import {FuncionarioControllerService} from "../../../api/services/funcionario-co
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {CargoControllerService} from "../../../api/services/cargo-controller.service";
 import {CargoDto} from "../../../api/models/cargo-dto";
+import {ClienteDto} from "../../../api/models/cliente-dto";
 
 @Component({
   selector: 'app-form-funcionario',
@@ -20,7 +21,7 @@ export class FormFuncionarioComponent implements OnInit{
   public readonly ACAO_INCLUIR = "Cadastro";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
-  codigo!: number;
+  codigo!: string;
   cargos: CargoDto[] = [];
 
   constructor(
@@ -40,6 +41,7 @@ export class FormFuncionarioComponent implements OnInit{
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.carregarCargos();
+    this.prepararEdicao();
   }
 
   carregarCargos() {
@@ -56,17 +58,17 @@ export class FormFuncionarioComponent implements OnInit{
 
 
   private createForm() {
-    if(this.acao == "Editar"){/*
-      this.produtoService.produtoControllerObterPorId({id: this.codigo as number}).
+    if(this.acao == "Editar"){
+      this.funcionarioService.funcionarioControllerObterPorId({id: this.codigo}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            titulo: [retorno.titulo, Validators.required],
-            autor: [retorno.autor, Validators.required],
-            editora: [retorno.editora, Validators.required],
-            anoPublicacao: [retorno.anoPublicacao, Validators.required],
-            genero: [retorno.genero, Validators.required],
-            numeroDePaginas: [retorno.numeroDePaginas, Validators.required]
-          }));*/
+            nome: [retorno.nome, Validators.required],
+            cpf: [retorno.cpf, Validators.required],
+            nascimento: [retorno.nascimento, Validators.required],
+            telefone: [retorno.telefone, Validators.required],
+            email: [retorno.email, Validators.required],
+            cargoId: [retorno.cargoId, Validators.required]
+          }));
     }else{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
@@ -105,7 +107,6 @@ export class FormFuncionarioComponent implements OnInit{
       })
   }
 
-  private realizarEdicao(){}
 
   confirmarInclusao(funcionarioDto: FuncionarioDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -124,8 +125,48 @@ export class FormFuncionarioComponent implements OnInit{
     this.formGroup.reset(); // limpa os campos do formulario.
   }
 
-
   private prepararEdicao() {
-
+    const paramId = this.route.snapshot.paramMap.get('id');
+    if (paramId){
+      const codigo = paramId;
+      console.log("cpf",paramId);
+      this.funcionarioService.funcionarioControllerObterPorId({id: codigo}).subscribe(
+        retorno => {
+          this.acao = this.ACAO_EDITAR;
+          console.log("retorno", retorno);
+          this.codigo = retorno.codigo || "";
+          this.formGroup.patchValue(retorno);
+        },error => {
+          console.log("erro", error);
+        }
+      )
+    }
   }
+
+  confirmarAcao(funcionarioDto: FuncionarioDto, acao: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'Mensagem!!!',
+        mensagem: `Ação de ${acao} dados: ${funcionarioDto.nome} (ID: ${funcionarioDto.cpf}) realizada com sucesso!`,
+        textoBotoes: {
+          ok: 'ok',
+        },
+      },
+    });
+  }
+
+  private realizarEdicao(){
+    console.log("Dados:", this.formGroup.value);
+    const funcionario: FuncionarioDto = this.formGroup.value;
+    this.funcionarioService.funcionarioControllerAlterar( {id: this.codigo, body: funcionario})
+      .subscribe(retorno => {
+        console.log("Retorno:", retorno);
+        this.confirmarAcao(retorno, this.ACAO_EDITAR);
+        this.router.navigate(["/funcionario"]);
+      }, erro => {
+        console.log("Erro:", erro.error);
+        //this.showError(erro.error, this.ACAO_EDITAR);
+      })
+  }
+
 }

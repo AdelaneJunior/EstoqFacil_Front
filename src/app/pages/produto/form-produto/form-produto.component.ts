@@ -11,6 +11,7 @@ import {CategoriaControllerService} from "../../../api/services/categoria-contro
 import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {UsuarioDto} from "../../../api/models/usuario-dto";
 
 @Component({
   selector: 'app-form-produto',
@@ -58,17 +59,20 @@ export class FormProdutoComponent implements OnInit{
   }
 
   private createForm() {
-    if(this.acao == "Editar"){/*
+    if(this.acao == "Editar"){
       this.produtoService.produtoControllerObterPorId({id: this.codigo as number}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            titulo: [retorno.titulo, Validators.required],
-            autor: [retorno.autor, Validators.required],
-            editora: [retorno.editora, Validators.required],
-            anoPublicacao: [retorno.anoPublicacao, Validators.required],
-            genero: [retorno.genero, Validators.required],
-            numeroDePaginas: [retorno.numeroDePaginas, Validators.required]
-          }));*/
+            categoriaId: [retorno.categoriaId, Validators.required],
+            nome: [retorno.nome, Validators.required],
+            marca: [retorno.marca, Validators.required],
+            descricao: [retorno.descricao, Validators.required],
+            quantidade: [retorno.quantidade, Validators.required],
+            preco: [retorno.preco, Validators.required],
+            custo: [retorno.custo, Validators.required],
+            imagemId: [retorno.imagemId, Validators.required],
+            usuarioId: [this.securityService.getUserId()]
+          }));
     }else{
       this.formGroup = this.formBuilder.group({
         categoriaId: [null, Validators.required],
@@ -112,7 +116,6 @@ export class FormProdutoComponent implements OnInit{
       })
   }
 
-  private realizarEdicao(){}
 
   confirmarInclusao(produtoDto: ProdutoDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -131,8 +134,48 @@ export class FormProdutoComponent implements OnInit{
     this.formGroup.reset(); // limpa os campos do formulario.
   }
 
-
   private prepararEdicao() {
-
+    const paramId = this.route.snapshot.paramMap.get('id');
+    if (paramId){
+      const codigo = parseInt(paramId);
+      console.log("codigo",paramId);
+      this.produtoService.produtoControllerObterPorId({id: codigo}).subscribe(
+        retorno => {
+          this.acao = this.ACAO_EDITAR;
+          console.log("retorno", retorno);
+          this.codigo = retorno.codigo || 0;
+          this.formGroup.patchValue(retorno);
+        },error => {
+          console.log("erro", error);
+        }
+      )
+    }
   }
+
+  confirmarAcao(produtoDto: ProdutoDto, acao: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'Mensagem!!!',
+        mensagem: `Ação de ${acao} dados: ${produtoDto.nome} (ID: ${produtoDto.codigo}) realizada com sucesso!`,
+        textoBotoes: {
+          ok: 'ok',
+        },
+      },
+    });
+  }
+
+  private realizarEdicao(){
+    console.log("Dados:", this.formGroup.value);
+    const produto: ProdutoDto = this.formGroup.value;
+    this.produtoService.produtoControllerAlterar( {id: this.codigo as number, body: produto})
+      .subscribe(retorno => {
+        console.log("Retorno:", retorno);
+        this.confirmarAcao(retorno, this.ACAO_EDITAR);
+        this.router.navigate(["/produto"]);
+      }, erro => {
+        console.log("Erro:", erro.error);
+        //this.showError(erro.error, this.ACAO_EDITAR);
+      })
+  }
+
 }

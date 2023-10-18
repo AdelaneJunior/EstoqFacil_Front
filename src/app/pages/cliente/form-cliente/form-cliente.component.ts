@@ -9,6 +9,7 @@ import {FuncionarioControllerService} from "../../../api/services/funcionario-co
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {ClienteControllerService} from "../../../api/services/cliente-controller.service";
 import {ClienteDto} from "../../../api/models/cliente-dto";
+import {CategoriaDto} from "../../../api/models/categoria-dto";
 
 @Component({
   selector: 'app-form-cliente',
@@ -20,7 +21,7 @@ export class FormClienteComponent implements OnInit{
   public readonly ACAO_INCLUIR = "Cadastro";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
-  codigo!: number;
+  codigo!: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,17 +44,16 @@ export class FormClienteComponent implements OnInit{
 
 
   private createForm() {
-    if(this.acao == "Editar"){/*
-      this.produtoService.produtoControllerObterPorId({id: this.codigo as number}).
+    if(this.acao == "Editar"){
+      this.clienteService.clienteControllerObterPorId({id: this.codigo}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            titulo: [retorno.titulo, Validators.required],
-            autor: [retorno.autor, Validators.required],
-            editora: [retorno.editora, Validators.required],
-            anoPublicacao: [retorno.anoPublicacao, Validators.required],
-            genero: [retorno.genero, Validators.required],
-            numeroDePaginas: [retorno.numeroDePaginas, Validators.required]
-          }));*/
+            nome: [retorno.nome, Validators.required],
+            cpf: [retorno.cpf, Validators.required],
+            nascimento: [retorno.nascimento, Validators.required],
+            telefone: [retorno.telefone, Validators.required],
+            email: [retorno.email, Validators.required]
+          }));
     }else{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
@@ -92,14 +92,13 @@ export class FormClienteComponent implements OnInit{
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarInclusao(retorno);
-        this.router.navigate(["/funcionario"]);
+        this.router.navigate(["/cliente"]);
       }, erro =>{
         console.log("Erro:"+erro);
         alert("Erro ao incluir!");
       })
   }
 
-  private realizarEdicao(){}
 
   confirmarInclusao(clienteDto: ClienteDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -120,6 +119,46 @@ export class FormClienteComponent implements OnInit{
 
 
   private prepararEdicao() {
+    const paramId = this.route.snapshot.paramMap.get('id');
+    if (paramId){
+      const codigo = paramId;
+      console.log("codigo",paramId);
+      this.clienteService.clienteControllerObterPorId({id: codigo}).subscribe(
+        retorno => {
+          this.acao = this.ACAO_EDITAR;
+          console.log("retorno", retorno);
+          this.codigo = retorno.codigo || "";
+          this.formGroup.patchValue(retorno);
+        },error => {
+          console.log("erro", error);
+        }
+      )
+    }
+  }
 
+  confirmarAcao(clienteDto: ClienteDto, acao: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'Mensagem!!!',
+        mensagem: `Ação de ${acao} dados: ${clienteDto.nome} (ID: ${clienteDto.cpf}) realizada com sucesso!`,
+        textoBotoes: {
+          ok: 'ok',
+        },
+      },
+    });
+  }
+
+  private realizarEdicao(){
+    console.log("Dados:", this.formGroup.value);
+    const cliente: ClienteDto = this.formGroup.value;
+    this.clienteService.clienteControllerAlterar( {id: this.codigo, body: cliente})
+      .subscribe(retorno => {
+        console.log("Retorno:", retorno);
+        this.confirmarAcao(retorno, this.ACAO_EDITAR);
+        this.router.navigate(["/cliente"]);
+      }, erro => {
+        console.log("Erro:", erro.error);
+        //this.showError(erro.error, this.ACAO_EDITAR);
+      })
   }
 }

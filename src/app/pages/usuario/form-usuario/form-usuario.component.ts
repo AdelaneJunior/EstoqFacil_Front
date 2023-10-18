@@ -10,6 +10,7 @@ import {UsuarioDto} from "../../../api/models/usuario-dto";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {UsuarioControllerService} from "../../../api/services/usuario-controller.service";
+import {ClienteDto} from "../../../api/models/cliente-dto";
 
 @Component({
   selector: 'app-form-usuario',
@@ -41,6 +42,7 @@ export class FormUsuarioComponent implements OnInit{
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.carregarFuncionarios();
+    this.prepararEdicao();
   }
 
   carregarFuncionarios() {
@@ -67,17 +69,14 @@ export class FormUsuarioComponent implements OnInit{
 
 
   private createForm() {
-    if(this.acao == "Editar"){/*
-      this.produtoService.produtoControllerObterPorId({id: this.codigo as number}).
+    if(this.acao == "Editar"){
+      this.usuarioService.usuarioControllerObterPorId({id: this.codigo as number}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            titulo: [retorno.titulo, Validators.required],
-            autor: [retorno.autor, Validators.required],
-            editora: [retorno.editora, Validators.required],
-            anoPublicacao: [retorno.anoPublicacao, Validators.required],
-            genero: [retorno.genero, Validators.required],
-            numeroDePaginas: [retorno.numeroDePaginas, Validators.required]
-          }));*/
+            funcionarioCodigo: [retorno.funcionarioCodigo, Validators.required],
+            senha: ['', Validators.required],
+            confirmarSenha: ['', Validators.required]
+          }));
     }else{
       this.formGroup = this.formBuilder.group({
         funcionarioCodigo: [null, Validators.required],
@@ -119,7 +118,6 @@ export class FormUsuarioComponent implements OnInit{
       })
   }
 
-  private realizarEdicao(){}
 
   confirmarInclusao(usuarioDto: UsuarioDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -140,6 +138,46 @@ export class FormUsuarioComponent implements OnInit{
 
 
   private prepararEdicao() {
+    const paramId = this.route.snapshot.paramMap.get('id');
+    if (paramId){
+      const codigo = parseInt(paramId);
+      console.log("codigo",paramId);
+      this.usuarioService.usuarioControllerObterPorId({id: codigo}).subscribe(
+        retorno => {
+          this.acao = this.ACAO_EDITAR;
+          console.log("retorno", retorno);
+          this.codigo = retorno.codigo || 0;
+          this.formGroup.patchValue(retorno);
+        },error => {
+          console.log("erro", error);
+        }
+      )
+    }
+  }
 
+  confirmarAcao(usuarioDto: UsuarioDto, acao: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'Mensagem!!!',
+        mensagem: `Ação de ${acao} dados: ${usuarioDto.funcionarioNome} (ID: ${usuarioDto.codigo}) realizada com sucesso!`,
+        textoBotoes: {
+          ok: 'ok',
+        },
+      },
+    });
+  }
+
+  private realizarEdicao(){
+    console.log("Dados:", this.formGroup.value);
+    const usuario: UsuarioDto = this.formGroup.value;
+    this.usuarioService.usuarioControllerAlterar( {id: this.codigo as number, body: usuario})
+      .subscribe(retorno => {
+        console.log("Retorno:", retorno);
+        this.confirmarAcao(retorno, this.ACAO_EDITAR);
+        this.router.navigate(["/usuario"]);
+      }, erro => {
+        console.log("Erro:", erro.error);
+        //this.showError(erro.error, this.ACAO_EDITAR);
+      })
   }
 }

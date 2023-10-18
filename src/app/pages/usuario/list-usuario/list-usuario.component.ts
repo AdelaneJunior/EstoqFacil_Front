@@ -17,7 +17,7 @@ import {UsuarioControllerService} from "../../../api/services/usuario-controller
   styleUrls: ['./list-usuario.component.scss']
 })
 export class ListUsuarioComponent implements OnInit {
-  colunasMostrar = ['codigo','funcionarioNome', 'funcionarioEmail','funcionarioCodigo','funcionarioCargo','acao'];
+  colunasMostrar = ['codigo','funcionarioNome', 'funcionarioEmail','funcionarioCpf','funcionarioCargo','acao'];
   usuarioListaDataSource: MatTableDataSource<UsuarioDto> = new MatTableDataSource<UsuarioDto>();
 
   constructor(

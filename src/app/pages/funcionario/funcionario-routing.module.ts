@@ -23,7 +23,7 @@ export const funcionarioRoutes: Routes = [
       },
       {
         path: ":id",
-        component: FormProdutoComponent
+        component: FormFuncionarioComponent
       }
     ]
   }

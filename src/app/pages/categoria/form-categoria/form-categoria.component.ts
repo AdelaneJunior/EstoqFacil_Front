@@ -96,30 +96,9 @@ export class FormCategoriaComponent implements OnInit{
     }
   }
 
-  private realizarEdicao(){
-    console.log("Dados:", this.formGroup.value);
-    this.categoriaService.categoriaControllerAlterar( {id: this.codigo as number, body: this.formGroup.value})
-      .subscribe(retorno => {
-        console.log("Retorno:", retorno);
-        this.confirmarAcao(retorno, this.ACAO_EDITAR);
-        this.router.navigate(["/categoria"]);
-      }, erro => {
-        console.log("Erro:", erro.error);
-        //this.showError(erro.error, this.ACAO_EDITAR);
-      })
-  }
 
-  confirmarAcao(categoriaDto: CategoriaDto, acao: string) {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'Mensagem!!!',
-        mensagem: `Ação de ${acao} dados: ${categoriaDto.nome} (ID: ${categoriaDto.codigo}) realizada com sucesso!`,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
-  }
+
+
 
   confirmarInclusao(categoriaDto: CategoriaDto){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -156,4 +135,30 @@ export class FormCategoriaComponent implements OnInit{
       )
     }
   }
+
+  confirmarAcao(categoriaDto: CategoriaDto, acao: string) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'Mensagem!!!',
+        mensagem: `Ação de ${acao} dados: ${categoriaDto.nome} (ID: ${categoriaDto.codigo}) realizada com sucesso!`,
+        textoBotoes: {
+          ok: 'ok',
+        },
+      },
+    });
+  }
+
+  private realizarEdicao(){
+    console.log("Dados:", this.formGroup.value);
+    this.categoriaService.categoriaControllerAlterar( {id: this.codigo as number, body: this.formGroup.value})
+      .subscribe(retorno => {
+        console.log("Retorno:", retorno);
+        this.confirmarAcao(retorno, this.ACAO_EDITAR);
+        this.router.navigate(["/categoria"]);
+      }, erro => {
+        console.log("Erro:", erro.error);
+        //this.showError(erro.error, this.ACAO_EDITAR);
+      })
+  }
+
 }
