@@ -2,11 +2,11 @@
 /* eslint-disable */
 export interface ProdutoDto {
   categoriaId?: number;
+  categoriaNome?: string;
   codigo?: number;
   custo?: number;
   descricao?: string;
   imagemId?: number;
-  imagemPathReference?: string;
   marca?: string;
   nome?: string;
   preco?: number;

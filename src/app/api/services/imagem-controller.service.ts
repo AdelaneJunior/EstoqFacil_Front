@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { Imagem } from '../models/imagem';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class ImagemControllerService extends BaseService {
   /**
    * Path part for operation imagemControllerUploadImagem
    */
-  static readonly ImagemControllerUploadImagemPath = '/api/v1/imagem/upload';
+  static readonly ImagemControllerUploadImagemPath = '/imagem/upload';
 
   /**
    * upload de imagem
@@ -83,26 +84,28 @@ export class ImagemControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation imagemControllerObterPeloId
+   * Path part for operation imagemControllerGetImage
    */
-  static readonly ImagemControllerObterPeloIdPath = '/api/v1/imagem';
+  static readonly ImagemControllerGetImagePath = '/imagem/{imageId}';
 
   /**
+   * upload de imagem
+   *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `imagemControllerObterPeloId()` instead.
+   * To access only the response body, use `imagemControllerGetImage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  imagemControllerObterPeloId$Response(params: {
-    requestID: number;
+  imagemControllerGetImage$Response(params: {
+    imageId: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<string>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ImagemControllerService.ImagemControllerObterPeloIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, ImagemControllerService.ImagemControllerGetImagePath, 'get');
     if (params) {
-      rb.query('requestID', params.requestID, {});
+      rb.path('imageId', params.imageId, {});
     }
 
     return this.http.request(rb.build({
@@ -118,20 +121,75 @@ export class ImagemControllerService extends BaseService {
   }
 
   /**
+   * upload de imagem
+   *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `imagemControllerObterPeloId$Response()` instead.
+   * To access the full response (for headers, for example), `imagemControllerGetImage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  imagemControllerObterPeloId(params: {
-    requestID: number;
+  imagemControllerGetImage(params: {
+    imageId: number;
   },
   context?: HttpContext
 
 ): Observable<string> {
 
-    return this.imagemControllerObterPeloId$Response(params,context).pipe(
+    return this.imagemControllerGetImage$Response(params,context).pipe(
       map((r: StrictHttpResponse<string>) => r.body as string)
+    );
+  }
+
+  /**
+   * Path part for operation imagemControllerExcluirFoto
+   */
+  static readonly ImagemControllerExcluirFotoPath = '/imagem';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `imagemControllerExcluirFoto()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  imagemControllerExcluirFoto$Response(params: {
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Imagem>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ImagemControllerService.ImagemControllerExcluirFotoPath, 'delete');
+    if (params) {
+      rb.query('id', params.id, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Imagem>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `imagemControllerExcluirFoto$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  imagemControllerExcluirFoto(params: {
+    id: number;
+  },
+  context?: HttpContext
+
+): Observable<Imagem> {
+
+    return this.imagemControllerExcluirFoto$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Imagem>) => r.body as Imagem)
     );
   }
 

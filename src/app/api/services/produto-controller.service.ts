@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { EnviaEmailDto } from '../models/envia-email-dto';
 import { ProdutoDto } from '../models/produto-dto';
 
 @Injectable({
@@ -304,6 +305,63 @@ export class ProdutoControllerService extends BaseService {
 
     return this.produtoControllerIncluir$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation produtoControllerEnviaEmail
+   */
+  static readonly ProdutoControllerEnviaEmailPath = '/api/v1/produto/envia';
+
+  /**
+   * Método utilizado para realizar a inclusão de um entidade
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `produtoControllerEnviaEmail()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  produtoControllerEnviaEmail$Response(params: {
+    body: EnviaEmailDto
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<boolean>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerEnviaEmailPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+      })
+    );
+  }
+
+  /**
+   * Método utilizado para realizar a inclusão de um entidade
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `produtoControllerEnviaEmail$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  produtoControllerEnviaEmail(params: {
+    body: EnviaEmailDto
+  },
+  context?: HttpContext
+
+): Observable<boolean> {
+
+    return this.produtoControllerEnviaEmail$Response(params,context).pipe(
+      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
     );
   }
 

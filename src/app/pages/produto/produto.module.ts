@@ -17,6 +17,7 @@ import {FormProdutoComponent} from "./form-produto/form-produto.component";
 import {produtoRoutes} from "./produto-routing.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatMenuModule} from "@angular/material/menu";
+import {FlexModule} from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -24,21 +25,22 @@ import {MatMenuModule} from "@angular/material/menu";
     HomeProdutoComponent,
     FormProdutoComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(produtoRoutes),
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatMenuModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(produtoRoutes),
+        MatCardModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatMenuModule,
+        FlexModule
+    ]
 })
 export class ProdutoModule { }

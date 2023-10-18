@@ -12,6 +12,7 @@ import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {UsuarioDto} from "../../../api/models/usuario-dto";
+import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
 
 @Component({
   selector: 'app-form-produto',
@@ -25,6 +26,10 @@ export class FormProdutoComponent implements OnInit{
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
   categorias: CategoriaDto[] = [];
+  imagemId!: number | undefined;
+  imagem_path!: string | undefined;
+  imagemIdAntigo!: number | undefined;
+  selectedFile!: File;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,7 +40,8 @@ export class FormProdutoComponent implements OnInit{
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private securityService: SecurityService
+    private securityService: SecurityService,
+    private imagemService: ImagemControllerService
   ) {
     this._adapter.setLocale('pt-br');
   }
@@ -82,7 +88,7 @@ export class FormProdutoComponent implements OnInit{
         quantidade: [null, Validators.required],
         preco: [null, Validators.required],
         custo: [null, Validators.required],
-        imagemId:[1],
+        imagemId:[null, Validators.required],
         usuarioId:[this.securityService.getUserId()]
       })
     }
@@ -144,6 +150,8 @@ export class FormProdutoComponent implements OnInit{
           this.acao = this.ACAO_EDITAR;
           console.log("retorno", retorno);
           this.codigo = retorno.codigo || 0;
+          this.imagemId = retorno.imagemId;
+          this.imagemIdAntigo = retorno.imagemId;
           this.formGroup.patchValue(retorno);
         },error => {
           console.log("erro", error);
@@ -169,6 +177,9 @@ export class FormProdutoComponent implements OnInit{
     const produto: ProdutoDto = this.formGroup.value;
     this.produtoService.produtoControllerAlterar( {id: this.codigo as number, body: produto})
       .subscribe(retorno => {
+        if(this.imagemIdAntigo && retorno.imagemId != this.imagemIdAntigo){
+          this.imagemService.imagemControllerExcluirFoto({id: this.imagemIdAntigo}).subscribe();
+        }
         console.log("Retorno:", retorno);
         this.confirmarAcao(retorno, this.ACAO_EDITAR);
         this.router.navigate(["/produto"]);
@@ -177,5 +188,38 @@ export class FormProdutoComponent implements OnInit{
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
   }
+
+  onFileChanged(event: Event) {
+    if(event){
+      // @ts-ignore
+      this.selectedFile = <File>event.target.files[0];
+      // @ts-ignore
+      if (event.target.files && event.target.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.imagem_path = event.target.result;
+        }
+      }
+      this.imagemService.imagemControllerUploadImagem({body: {imagemASalvar: this.selectedFile}}).subscribe(
+        retorno => {
+          this.imagemId = retorno.id;
+          this.formGroup.patchValue({imagemId: this.imagemId});
+          console.log(this.formGroup.value);
+        }
+      );
+    }
+  }
+
+  cancelar(){
+    if(this.imagemIdAntigo){
+      if(this.imagemId && this.imagemIdAntigo != this.imagemId){
+        this.imagemService.imagemControllerExcluirFoto({id: this.imagemId}).subscribe();
+      }
+    } else if (this.imagemId){
+      this.imagemService.imagemControllerExcluirFoto({id: this.imagemId}).subscribe();
+    }
+    this.router.navigateByUrl('/produto');
+  }
+
 
 }
