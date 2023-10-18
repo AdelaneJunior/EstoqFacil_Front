@@ -7,7 +7,7 @@
   <div class="form-content">
     <h2>{{acao}} de <br> Usuário</h2>
     <mat-form-field>
-      <mat-label>Nome*</mat-label>
+      <mat-label>Nome</mat-label>
       <mat-select formControlName="funcionarioCodigo" *ngIf="acao === 'Cadastro'">
         <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.cpf">{{ funcionario.nome }}</mat-option>
       </mat-select>
@@ -15,13 +15,13 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Senha*</mat-label>
+      <mat-label>Senha</mat-label>
       <input matInput type="password" formControlName="senha" placeholder="Senha*">
       <mat-error *ngIf="formGroup.get('senha')?.hasError('required')">Senha é obrigatória</mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Confirmar Senha*</mat-label>
+      <mat-label>Confirmar Senha</mat-label>
       <input matInput type="password" formControlName="confirmarSenha" placeholder="Confirmar Senha*">
       <mat-error *ngIf="formGroup.get('confirmarSenha')?.hasError('required')">Confirmação de senha é obrigatória</mat-error>
       <mat-error *ngIf="formGroup.hasError('senhasDiferentes')">As senhas não coincidem</mat-error>

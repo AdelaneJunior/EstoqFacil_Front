@@ -1,4 +1,4 @@
-<div class="container">
+<div class="formPadrao">
 <form
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
@@ -7,17 +7,17 @@
   <div class="form-content">
     <h2>{{acao}} de <br> Funcionário</h2>
     <mat-form-field>
-      <mat-label>Nome*</mat-label>
+      <mat-label>Nome</mat-label>
       <input matInput formControlName="nome">
     </mat-form-field>
     <div class="alinhar2">
     <mat-form-field>
-      <mat-label>CPF*</mat-label>
+      <mat-label>CPF</mat-label>
       <input matInput formControlName="cpf" [readonly]="acao === 'Editar'">
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Data de Nascimento*</mat-label>
+      <mat-label>Data de Nascimento</mat-label>
       <input matInput formControlName="nascimento" [matDatepicker]="picker" placeholder="Escolha uma data">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
@@ -25,17 +25,17 @@
     </div>
     <div class="alinhar2">
     <mat-form-field>
-      <mat-label>Telefone*</mat-label>
+      <mat-label>Telefone</mat-label>
       <input matInput formControlName="telefone">
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Email*</mat-label>
+      <mat-label>Email</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
     </div>
     <mat-form-field>
-      <mat-label>Cargo*:</mat-label>
+      <mat-label>Cargo:</mat-label>
       <mat-select formControlName="cargoId">
         <mat-option *ngFor="let cargo of cargos" [value]="cargo.codigo">{{ cargo.nome }}</mat-option>
       </mat-select>
