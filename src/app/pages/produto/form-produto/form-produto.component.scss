@@ -1,20 +1,23 @@
 @import '../../../../StyleForms.css';
 
-.div-campos{
-  width: 1000px;
-}
 
 .div-imagem{
-  width: 380px;
+  width: 30%;
+  float: right;
+  text-align: center;
 }
 .imagem-selecionada{
   margin-top:4px;
   margin-bottom: 10px;
   border: 2px solid #949494;
   border-radius: 2px;
-  width: 300px;
+  width: 60%;
 }
 
 .imagem-upload{
-  width: 300px;
+  width: 60%;
+}
+
+.botoes{
+  width: 50%;
 }

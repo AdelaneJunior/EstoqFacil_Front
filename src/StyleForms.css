@@ -5,11 +5,19 @@ h2{
   text-align: center;
 }
 
-.form-content {
-
+.form-content{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  float: left;
 }
 
-@media (min-width: 500px) {
+.botoes{
+  width: 100%;
+}
+
+
+/*@media (min-width: 500px) {
   .formPadrao {
     width: auto;
     padding-bottom: 20px;
@@ -31,22 +39,20 @@ h2{
     flex-direction: row;
     place-content: center;
     align-items: center;
-    border: 3px solid #513BDB;
-    border-radius: 50px 50px;
-    background-color: white;
+
   }
-}
+}*/
 @media (min-width: 1200px) {
   .formPadrao {
     display: flex;
-    flex-direction: row;
-    place-content: center;
-    align-items: center;
-    width: calc(100% - 700px);
-    margin-left: 24%;
-    margin-top: 2%;
+    flex-direction: column;
+    border: 3px solid #513BDB;
+    border-radius: 30px 30px;
+    background-color: white;
+    padding: 15px;
   }
 }
+
 
 .button{
   font-family: DM Roboto, sans-serif;

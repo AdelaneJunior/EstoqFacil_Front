@@ -26,9 +26,10 @@
       <mat-error *ngIf="formGroup.hasError('senhasDiferentes')">As senhas não coincidem</mat-error>
     </mat-form-field>
   </div>
-
+  <div class="botoes">
     <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
     <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
     <button mat-raised-button color="warn" routerLink="/usuario" class="button botao-cancelar">Cancelar</button>
+  </div>
 </form>
 </div>

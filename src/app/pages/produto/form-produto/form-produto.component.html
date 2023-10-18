@@ -1,13 +1,12 @@
-<div class="container">
+<div class="formPadrao">
 <form
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
   class="form"
 >
-  <div class="form-content">
+
     <h2>{{acao}} de <br> Produto</h2>
-    <div class="separador" fxLayout="row wrap">
-    <div class="div-campos">
+  <div class="form-content">
       <div class="alinhar2">
     <mat-form-field>
       <mat-label>Nome*</mat-label>
@@ -48,8 +47,8 @@
       <input matInput formControlName="custo">
     </mat-form-field>
     </div>
-    </div>
-      <div class="div-imagem" fxLayout="column" fxLayoutAlign="start center">
+  </div>
+      <div class="div-imagem">
         <input formControlName="imagemId" style="display: none" value="{{imagemId}}">
         <input
           style="display: none"
@@ -62,11 +61,11 @@
         <img *ngIf="imagemId && !imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}">
       <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
         <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
-      </div>
     </div>
-  </div>
+  <div class="botoes">
   <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
   <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
   <button mat-raised-button color="warn" type="button" class="button botao-cancelar" (click)="cancelar()">Cancelar</button>
+  </div>
 </form>
 </div>
