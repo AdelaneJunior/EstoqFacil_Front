@@ -134,7 +134,7 @@ export class FormFuncionarioComponent implements OnInit{
         retorno => {
           this.acao = this.ACAO_EDITAR;
           console.log("retorno", retorno);
-          this.codigo = retorno.codigo || "";
+          this.codigo = retorno.cpf || "";
           this.formGroup.patchValue(retorno);
         },error => {
           console.log("erro", error);
