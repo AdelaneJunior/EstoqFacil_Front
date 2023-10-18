@@ -17,7 +17,7 @@ import {
 })
 export class ListProdutoComponent implements OnInit{
 
-  colunasMostrar = ['codigo','imagem','categoriaId','nome', 'descricao','marca','quantidade','preco','acao'];
+  colunasMostrar = [' ', 'codigo','imagem','categoriaId','nome', 'descricao','marca','quantidade','preco','acao'];
   produtoListaDataSource: MatTableDataSource<ProdutoDto> = new MatTableDataSource<ProdutoDto>();
 
   constructor(

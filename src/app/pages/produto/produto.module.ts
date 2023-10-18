@@ -18,6 +18,7 @@ import {produtoRoutes} from "./produto-routing.module";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatMenuModule} from "@angular/material/menu";
 import {FlexModule} from "@angular/flex-layout";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -25,22 +26,23 @@ import {FlexModule} from "@angular/flex-layout";
     HomeProdutoComponent,
     FormProdutoComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild(produtoRoutes),
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatTableModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatDatepickerModule,
-        ReactiveFormsModule,
-        MatNativeDateModule,
-        MatPaginatorModule,
-        MatMenuModule,
-        FlexModule
-    ]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(produtoRoutes),
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    FlexModule,
+    MatCheckboxModule
+  ]
 })
 export class ProdutoModule { }
