@@ -6,17 +6,12 @@ h2{
 }
 
 .form-content {
-  font-family: DM Roboto, sans-serif;
-  display: flex;
-  flex-direction: column;
-  place-content: center;
-  align-items: center;
+
 }
 
 @media (min-width: 500px) {
-  .container {
-    margin: 70px;
-    width: 350px;
+  .formPadrao {
+    width: auto;
     padding-bottom: 20px;
     display: flex;
     flex-direction: row;
@@ -29,9 +24,8 @@ h2{
   }
 }
 @media (min-width: 765px) {
-  .container {
-    margin-left: 34%;
-    width: 33%;
+  .formPadrao {
+    width: auto;
     padding-bottom: 20px;
     display: flex;
     flex-direction: row;
@@ -43,17 +37,14 @@ h2{
   }
 }
 @media (min-width: 1200px) {
-  .container {
-    margin-left: 34%;
-    width: 40%;
-    padding-bottom: 20px;
+  .formPadrao {
     display: flex;
     flex-direction: row;
     place-content: center;
     align-items: center;
-    border: 3px solid #513BDB;
-    border-radius: 50px 50px;
-    background-color: white;
+    width: calc(100% - 700px);
+    margin-left: 24%;
+    margin-top: 2%;
   }
 }
 
@@ -92,18 +83,16 @@ h2{
   color: black;
 }
 
-.input-maior{
-  width: 95%;
+mat-form-field{
+  width: 100%;
+  margin: 5px;
 }
 
 .alinhar2{
-  display: line;
+  display: flex;
   align-items: center;
   alignment-baseline: center;
+  width: auto;
   position: relative;
 }
 
-.input-comum{
-  margin: 3px;
-  width: 47%;
-}
