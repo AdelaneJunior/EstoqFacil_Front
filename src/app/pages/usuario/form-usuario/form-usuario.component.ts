@@ -73,7 +73,7 @@ export class FormUsuarioComponent implements OnInit{
       this.usuarioService.usuarioControllerObterPorId({id: this.codigo as number}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            funcionarioCodigo: [retorno.funcionarioCodigo, Validators.required],
+            funcionarioCpf: [retorno.funcionarioCpf, Validators.required],
             senha: ['', Validators.required],
             confirmarSenha: ['', Validators.required]
           }));

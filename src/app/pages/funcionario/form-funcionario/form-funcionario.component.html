@@ -13,7 +13,7 @@
     <div class="alinhar2">
     <mat-form-field>
       <mat-label>CPF*</mat-label>
-      <input matInput formControlName="cpf">
+      <input matInput formControlName="cpf" [readonly]="acao === 'Editar'">
     </mat-form-field>
 
     <mat-form-field>

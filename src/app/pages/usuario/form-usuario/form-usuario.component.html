@@ -8,9 +8,10 @@
     <h2>{{acao}} de <br> Usuário</h2>
     <mat-form-field>
       <mat-label>Nome*</mat-label>
-      <mat-select formControlName="funcionarioCodigo">
+      <mat-select formControlName="funcionarioCodigo" *ngIf="acao === 'Cadastro'">
         <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.cpf">{{ funcionario.nome }}</mat-option>
       </mat-select>
+      <input matInput formControlName="funcionarioCpf" *ngIf="acao === 'Editar'" value="{{ formGroup.get('funcionarioCpf')?.value || ''}}" readonly>
     </mat-form-field>
 
     <mat-form-field>
