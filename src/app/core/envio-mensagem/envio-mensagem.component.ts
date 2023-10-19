@@ -52,7 +52,7 @@ export class EnvioMensagemComponent {
         this.dialogRef.close();
         this.showMensagemSimples("E-mail enviado com sucesso!")
       }, erro => {
-        this.showMensagemSimples("E-mail inválido!")
+        this.showError(erro);
       })
     }
   }

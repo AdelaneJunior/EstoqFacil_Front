@@ -93,16 +93,19 @@ export class ListProdutoComponent implements OnInit{
   }
 
   enviarproduto(){
-    const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
-      data: {
-        titulo: 'Enviar Produto Por E-mail',
-        mensagem: `Digite o E-mail: `,
-        dado: this.listProdutosEnviar
-      },
-    });
-    enviarMensagem.afterClosed().subscribe(() => {
-
-    })
+      if(!this.listProdutosEnviar || this.listProdutosEnviar.length === 0){
+        this.showMensagemSimples("Selecione Produtos na checkBox da tabela para enviar!",5000)
+      }
+      else{
+      const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
+        data: {
+          titulo: 'Enviar Produto Por E-mail',
+          mensagem: `Digite o E-mail: `,
+          dado: this.listProdutosEnviar
+        },
+      });
+      enviarMensagem.afterClosed().subscribe(() => {})
+    }
   }
   selecionarLinha(row: ProdutoDto) {
     // Verifica se a linha já está no array listProdutosEnviar
