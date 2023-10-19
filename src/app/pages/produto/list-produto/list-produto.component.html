@@ -9,8 +9,12 @@
       <input type="text" class="txtBusca" placeholder="Digite o que buscar..." />
       <button class="pesquisa-icon" title="Pesquisar"><mat-icon class="icone">search</mat-icon></button>
     </div>
-    <button class="filtro" title="Filtros" (click)="enviarproduto()">
+    <button class="filtro" title="Filtros" >
       <mat-icon>filter_list</mat-icon>
+    </button>
+    <button  class="enviar" title="EnviarProduto" (click)="enviarproduto()">
+      <span>Enviar</span>
+      <mat-icon class="icone">send</mat-icon>
     </button>
   </mat-card-actions>
   <mat-card-content>

@@ -51,16 +51,11 @@ export class ListProdutoComponent implements OnInit{
       .subscribe(
         retorno => {
           this.buscarDados();
-          this.showMensagemSimples("Excluído com sucesso", 5000);
-          console.log("Exclusão:", retorno);
-        },
-        error => {
-          if (error.status === 404) {
-            this.showMensagemSimples("Produto não existe mais");
-          } else {
-            this.showMensagemSimples("Erro ao excluir");
-            console.log("Erro:", error);
+          if(retorno != null) {
+            this.showMensagemSimples("Excluído com sucesso!", 5000);
+            console.log("Exclusão:", retorno);
           }
+          this.showMensagemSimples("Erro ao excluir, existe movimentação no produto!", 5000);
         }
       );
   }
@@ -98,16 +93,19 @@ export class ListProdutoComponent implements OnInit{
   }
 
   enviarproduto(){
-    const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
-      data: {
-        titulo: 'Enviar Produto Por E-mail',
-        mensagem: `Digite o E-mail: `,
-        dado: this.listProdutosEnviar
-      },
-    });
-    enviarMensagem.afterClosed().subscribe(() => {
-
-    })
+      if(!this.listProdutosEnviar || this.listProdutosEnviar.length === 0){
+        this.showMensagemSimples("Selecione Produtos na checkBox da tabela para enviar!",5000)
+      }
+      else{
+      const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
+        data: {
+          titulo: 'Enviar Produto Por E-mail',
+          mensagem: `Digite o E-mail: `,
+          dado: this.listProdutosEnviar
+        },
+      });
+      enviarMensagem.afterClosed().subscribe(() => {})
+    }
   }
   selecionarLinha(row: ProdutoDto) {
     // Verifica se a linha já está no array listProdutosEnviar

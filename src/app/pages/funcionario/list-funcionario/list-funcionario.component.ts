@@ -46,16 +46,13 @@ export class ListFuncionarioComponent implements OnInit {
       .subscribe(
         retorno => {
           this.buscarDados();
-          this.showMensagemSimples("Excluído com sucesso", 5000);
-          console.log("Exclusão:", retorno);
-        },
-        error => {
-          if (error.status === 404) {
-            this.showMensagemSimples("Funcionario não existe mais");
-          } else {
-            this.showMensagemSimples("Erro ao excluir");
-            console.log("Erro:", error);
+          this.buscarDados();
+          if(retorno != null) {
+            this.showMensagemSimples("Excluído com sucesso!", 5000);
+            console.log("Exclusão:", retorno);
           }
+          this.showMensagemSimples("Erro ao excluir, funcionário improtante!", 5000);
+          console.log("Exclusão:", retorno);
         }
       );
   }
