@@ -24,6 +24,7 @@ export class FormUsuarioComponent implements OnInit{
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
   funcionarios: FuncionarioDto[] = [];
+  usuario!: UsuarioDto;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,10 +62,8 @@ export class FormUsuarioComponent implements OnInit{
     const confirmarSenha = control.get('confirmarSenha');
 
     if (senha?.value !== confirmarSenha?.value) {
-      console.log(senha?.value)
       return { senhasDiferentes: true };
     }
-
     return {senhasDiferentes: false};
   }
 
@@ -74,19 +73,15 @@ export class FormUsuarioComponent implements OnInit{
       this.usuarioService.usuarioControllerObterPorId({id: this.codigo as number}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
-            funcionarioCpf: [retorno.funcionarioCpf, Validators.required],
-            senha: ['', Validators.required],
-            confirmarSenha: ['', [Validators.required]]
-          }, {
-            validators: this.confirmarSenhaValidator
+            funcionarioNome: [retorno.funcionarioNome, Validators.required],
+            senha: [retorno.senha, Validators.required],
+            confirmarSenha: [null, Validators.required]
           }));
     }else{
       this.formGroup = this.formBuilder.group({
-        funcionarioCodigo: [null, Validators.required],
-        senha: ['', [Validators.required, Validators.minLength(6)]],
-        confirmarSenha: ['', [Validators.required]],
-      }, {
-        validators: this.confirmarSenhaValidator
+        funcionarioNome: [null, Validators.required],
+        senha: [null, [Validators.required, Validators.minLength(6)]],
+        confirmarSenha: [null, Validators.required],
       })
     }
   }
@@ -96,18 +91,20 @@ export class FormUsuarioComponent implements OnInit{
   onSubmit() {
     if (this.formGroup.valid) {
       if(!this.codigo){
+        console.log("teste");
         this.realizarInclusao();
       }else{
         this.realizarEdicao();
       }
+    } else {
+      console.log(this.formGroup.value);
     }
-
   }
 
   private realizarInclusao(){
     let novoUsuario: UsuarioDto;
     novoUsuario = {};
-    novoUsuario.funcionarioCpf = this.formGroup.get("funcionarioCodigo")?.value;
+    novoUsuario.funcionarioCpf = this.formGroup.get("funcionarioNome")?.value;
     novoUsuario.senha = this.formGroup.get("senha")?.value;
     console.log("Dados:",this.formGroup.value);
     this.usuarioService.usuarioControllerIncluir({usuarioDTO: novoUsuario})
@@ -172,15 +169,17 @@ export class FormUsuarioComponent implements OnInit{
 
   private realizarEdicao(){
     console.log("Dados:", this.formGroup.value);
-    const usuario: UsuarioDto = this.formGroup.value;
-    this.usuarioService.usuarioControllerAlterar( {id: this.codigo as number, body: usuario})
-      .subscribe(retorno => {
-        console.log("Retorno:", retorno);
-        this.confirmarAcao(retorno, this.ACAO_EDITAR);
-        this.router.navigate(["/usuario"]);
-      }, erro => {
-        console.log("Erro:", erro.error);
-        //this.showError(erro.error, this.ACAO_EDITAR);
-      })
+    this.usuarioService.usuarioControllerObterPorId({id: this.codigo}).subscribe(retorno =>{
+      this.usuario = retorno;
+      this.usuario.senha = this.formGroup.get('senha')?.value;
+      this.usuarioService.usuarioControllerAlterar( {id: this.codigo as number, body: this.usuario})
+        .subscribe(retorno => {
+          console.log("Retorno:", retorno);
+          this.confirmarAcao(retorno, this.ACAO_EDITAR);
+          this.router.navigate(["/usuario"]);
+        }, erro => {
+          console.log("Erro:", erro.error);
+        })
+    });
   }
 }
