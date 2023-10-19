@@ -36,10 +36,10 @@ export class FormUsuarioComponent implements OnInit{
     private snackBar: MatSnackBar
   ) {
     this._adapter.setLocale('pt-br');
+    this.createForm();
   }
 
   ngOnInit() {
-    this.createForm();
     this._adapter.setLocale('pt-br');
     this.carregarFuncionarios();
     this.prepararEdicao();

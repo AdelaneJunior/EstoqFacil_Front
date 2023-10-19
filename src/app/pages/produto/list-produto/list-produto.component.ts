@@ -9,17 +9,20 @@ import {
   ConfirmationDialog,
   ConfirmationDialogResult
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
-
+import {EnvioMensagemComponent} from "../../../core/envio-mensagem/envio-mensagem.component";
 @Component({
   selector: 'app-list-produto',
   templateUrl: './list-produto.component.html',
   styleUrls: ['./list-produto.component.scss']
 })
+
+
 export class ListProdutoComponent implements OnInit{
 
-  colunasMostrar = [' ', 'codigo','imagem','categoriaId','nome', 'descricao','marca','quantidade','preco','acao'];
+  colunasMostrar = ['check', 'codigo','imagem','categoriaId','nome', 'descricao','marca','quantidade','preco','acao'];
   produtoListaDataSource: MatTableDataSource<ProdutoDto> = new MatTableDataSource<ProdutoDto>();
-
+  listProdutosEnviar: Array<ProdutoDto> = [];
+  linhaSelecionada!: ProdutoDto ;
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -90,5 +93,32 @@ export class ListProdutoComponent implements OnInit{
     });
   }
 
+
+  enviarproduto(ProdutoDto: ProdutoDto){
+    const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
+      data: {
+        titulo: 'Enviar Produto Por E-mail',
+        mensagem: `Digite o E-mail: `,
+        dado: document.querySelectorAll('td [type="checkbox"]:checked')
+      },
+    });
+    enviarMensagem.afterClosed().subscribe(() => {
+
+    })
+  }
+  selecionarLinha(row: ProdutoDto) {
+    // Verifica se a linha já está no array listProdutosEnviar
+    const index = this.listProdutosEnviar.indexOf(row);
+
+    if (index !== -1) {
+      // Se a linha já está no array, a remova
+      this.listProdutosEnviar.splice(index, 1);
+    } else {
+      // Se a linha não está no array, a adicione
+      this.listProdutosEnviar.push(row);
+    }
+
+    console.log(this.listProdutosEnviar);
+  }
 
 }

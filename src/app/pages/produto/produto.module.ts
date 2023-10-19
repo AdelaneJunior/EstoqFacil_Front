@@ -9,7 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatNativeDateModule} from "@angular/material/core";
 import {ListProdutoComponent} from "./list-produto/list-produto.component";
 import {HomeProdutoComponent} from "./home-produto/home-produto.component";
@@ -26,23 +26,24 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     HomeProdutoComponent,
     FormProdutoComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(produtoRoutes),
-    MatCardModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatNativeDateModule,
-    MatPaginatorModule,
-    MatMenuModule,
-    FlexModule,
-    MatCheckboxModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(produtoRoutes),
+        MatCardModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatMenuModule,
+        FlexModule,
+        MatCheckboxModule,
+        FormsModule
+    ]
 })
 export class ProdutoModule { }

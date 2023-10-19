@@ -28,14 +28,18 @@ import {CategoriaModule} from "./pages/categoria/categoria.module";
 import {FuncionarioModule} from "./pages/funcionario/funcionario.module";
 import {ClienteModule} from "./pages/cliente/cliente.module";
 import {UsuarioModule} from "./pages/usuario/usuario.module";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {EnvioMensagemComponent} from "./core/envio-mensagem/envio-mensagem.component";
+import {MatInputModule} from "@angular/material/input";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoaderDialogComponent,
-    ConfirmationDialog
+    ConfirmationDialog,
+    EnvioMensagemComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +67,10 @@ import {ReactiveFormsModule} from "@angular/forms";
     CategoriaModule,
     FuncionarioModule,
     ClienteModule,
-    UsuarioModule
+    UsuarioModule,
+    MatInputModule,
+    FormsModule,
+    MatCheckboxModule
   ],
   providers: [
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
