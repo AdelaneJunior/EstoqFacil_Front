@@ -51,16 +51,11 @@ export class ListProdutoComponent implements OnInit{
       .subscribe(
         retorno => {
           this.buscarDados();
-          this.showMensagemSimples("Excluído com sucesso", 5000);
-          console.log("Exclusão:", retorno);
-        },
-        error => {
-          if (error.status === 404) {
-            this.showMensagemSimples("Produto não existe mais");
-          } else {
-            this.showMensagemSimples("Erro ao excluir");
-            console.log("Erro:", error);
+          if(retorno != null) {
+            this.showMensagemSimples("Excluído com sucesso!", 5000);
+            console.log("Exclusão:", retorno);
           }
+          this.showMensagemSimples("Erro ao excluir, existe movimentação no produto!", 5000);
         }
       );
   }
