@@ -8,6 +8,8 @@ import {ProdutoDto} from "../../api/models/produto-dto";
 import {MessageResponse} from "../../api/models/message-response";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {EnviaEmailDto} from "../../api/models/envia-email-dto";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-envio-mensagem',
@@ -19,14 +21,16 @@ export class EnvioMensagemComponent {
 
   titulo = "Titulo: Confirmar?";
   mensagem: string = "Enviar produto para: "
-  private produto?: ProdutoDto;
+  private produto?: ProdutoDto[];
   document !: Document;
+
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     public produtoControllerService: ProdutoControllerService,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
     private router: Router,
 
     @Inject(MAT_DIALOG_DATA) private data: ConfirmationDialogData,
@@ -42,22 +46,28 @@ export class EnvioMensagemComponent {
   onSubmit() {
 
     if (this.formGroup.valid) {
-
-
-      this.produtoControllerService.produtoControllerEnviaEmail( {body: this.formGroup.value }).subscribe(link => {
-
-
+      const email: string = this.formGroup.get('emailCliente')?.value;
+      console.log(email);
+      this.produtoControllerService.produtoControllerEnviaEmail( {body: {email: email, listaProdutos: this.produto} }).subscribe(link => {
+        this.dialogRef.close();
+        this.showMensagemSimples("E-mail enviado com sucesso!")
       }, erro => {
         this.showError(erro);
       })
-
-
     }
   }
 
+  showMensagemSimples( mensagem: string, duracao: number = 2000) {
+    this.snackBar.open(mensagem, 'Fechar', {
+      duration: duracao,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
   createForm() {
     this.formGroup = this.formBuilder.group({
-      numeroTelefone: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+      listaProduto: [this.produto, Validators.required],
+      emailCliente: [null, Validators.required]
     });
   }
 

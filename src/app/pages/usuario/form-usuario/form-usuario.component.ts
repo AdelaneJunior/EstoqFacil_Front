@@ -60,11 +60,12 @@ export class FormUsuarioComponent implements OnInit{
     const senha = control.get('senha');
     const confirmarSenha = control.get('confirmarSenha');
 
-    if (senha && confirmarSenha && senha.value !== confirmarSenha.value) {
+    if (senha?.value !== confirmarSenha?.value) {
+      console.log(senha?.value)
       return { senhasDiferentes: true };
     }
 
-    return null;
+    return {senhasDiferentes: false};
   }
 
 
@@ -75,13 +76,15 @@ export class FormUsuarioComponent implements OnInit{
           this.formGroup = this.formBuilder.group({
             funcionarioCpf: [retorno.funcionarioCpf, Validators.required],
             senha: ['', Validators.required],
-            confirmarSenha: ['', Validators.required]
+            confirmarSenha: ['', [Validators.required]]
+          }, {
+            validators: this.confirmarSenhaValidator
           }));
     }else{
       this.formGroup = this.formBuilder.group({
         funcionarioCodigo: [null, Validators.required],
         senha: ['', [Validators.required, Validators.minLength(6)]],
-        confirmarSenha: ['', Validators.required],
+        confirmarSenha: ['', [Validators.required]],
       }, {
         validators: this.confirmarSenhaValidator
       })

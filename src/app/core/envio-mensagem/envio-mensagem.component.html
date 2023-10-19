@@ -12,25 +12,20 @@
 
   <mat-dialog-content class="centered-content">
   <mat-form-field>
-    <mat-label>Telefone do Whatsapp</mat-label>
-    <input matInput mask="(00) 0 0000-0000" formControlName="numeroTelefone" >
-    <mat-error *ngIf="handleError('numeroTelefone', 'required')">
-      Digite um telefone válido
-    </mat-error>
+    <mat-label>E-mail do cliente</mat-label>
+    <input formControlName="listaProduto" style="display: none">
+    <input matInput placeholder="email@example.com" formControlName="emailCliente" >
   </mat-form-field>
   </mat-dialog-content>
 
-  <mat-dialog-content class="centered-content">
-    Para informar um número fixo substitua o primeiro 9 por 0.
-  </mat-dialog-content>
-
-
 <mat-dialog-actions align="center">
   <button mat-raised-button
+          class="button botao-cadastro"
           color="primary"
           type="submit"
           tabindex="1">Enviar</button>
   <button *ngIf="showCancelButton"
+          class="button botao-cancelar"
           mat-dialog-close
           mat-raised-button
           tabindex="-1">

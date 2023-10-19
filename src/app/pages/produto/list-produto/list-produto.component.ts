@@ -93,13 +93,16 @@ export class ListProdutoComponent implements OnInit{
     });
   }
 
+  openDialog(){
+    const dialogRef = this.dialog.open(EnvioMensagemComponent, )
+  }
 
-  enviarproduto(ProdutoDto: ProdutoDto){
+  enviarproduto(){
     const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
       data: {
         titulo: 'Enviar Produto Por E-mail',
         mensagem: `Digite o E-mail: `,
-        dado: document.querySelectorAll('td [type="checkbox"]:checked')
+        dado: this.listProdutosEnviar
       },
     });
     enviarMensagem.afterClosed().subscribe(() => {
