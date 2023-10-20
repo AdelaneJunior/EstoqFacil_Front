@@ -10,6 +10,7 @@ import {
   ConfirmationDialogResult
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {EnvioMensagemComponent} from "../../../core/envio-mensagem/envio-mensagem.component";
+import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
 @Component({
   selector: 'app-list-produto',
   templateUrl: './list-produto.component.html',
@@ -27,6 +28,7 @@ export class ListProdutoComponent implements OnInit{
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
+    private imagemService: ImagemControllerService,
     private router: Router
   ){
   }
@@ -50,6 +52,7 @@ export class ListProdutoComponent implements OnInit{
     this.produtoService.produtoControllerRemover({ id: codigoDoProduto})
       .subscribe(
         retorno => {
+          this.imagemService.imagemControllerExcluirFoto({id: retorno.imagemId}).subscribe();
           this.buscarDados();
           if(retorno != null) {
             this.showMensagemSimples("Excluído com sucesso!", 5000);
