@@ -25,7 +25,7 @@
       <mat-label>Confirmar Senha</mat-label>
       <input matInput type="password" formControlName="confirmarSenha" placeholder="Confirmar Senha*">
       <mat-error *ngIf="formGroup.get('confirmarSenha')?.hasError('required')">Confirmação de senha é obrigatória</mat-error>
-      <mat-error *ngIf="formGroup.hasError('senhasDiferentes')">As senhas não coincidem</mat-error>
+      <mat-error *ngIf="formGroup.hasError">As senhas não coincidem</mat-error>
     </mat-form-field>
   </div>
   <div class="botoes">

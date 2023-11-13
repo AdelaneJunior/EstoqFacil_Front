@@ -57,14 +57,23 @@ export class FormUsuarioComponent implements OnInit{
     );
   }
 
-  confirmarSenhaValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const senha = control.get('senha');
-    const confirmarSenha = control.get('confirmarSenha');
-
-    if (senha?.value !== confirmarSenha?.value) {
-      return { senhasDiferentes: true };
+  validarSenhas() {
+    // Obtém os valores das senhas
+    const senha = this.formGroup.get('senha')?.value;
+    const confirmarSenha = this.formGroup.get('confirmarSenha')?.value;
+    // Verifica se as senhas são iguais
+    if (senha !== confirmarSenha) {
+      // Adiciona um erro personalizado ao formulário
+      this.formGroup.get('confirmarSenha')?.setErrors({
+        igual: {
+          message: 'As senhas não são iguais. Por favor, verifique e tente novamente.',
+        },
+      });
+      // Retorna falso
+      return false;
     }
-    return {senhasDiferentes: false};
+    // Retorna verdadeiro
+    return true;
   }
 
 
@@ -74,14 +83,14 @@ export class FormUsuarioComponent implements OnInit{
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
             funcionarioNome: [retorno.funcionarioNome, Validators.required],
-            senha: [retorno.senha, Validators.required],
+            senha: [retorno.senha, Validators.required, Validators.minLength(6)],
             confirmarSenha: [null, Validators.required]
           }));
     }else{
       this.formGroup = this.formBuilder.group({
         funcionarioNome: [null, Validators.required],
         senha: [null, [Validators.required, Validators.minLength(6)]],
-        confirmarSenha: [null, Validators.required],
+        confirmarSenha: [null, Validators.required]
       })
     }
   }
@@ -89,6 +98,11 @@ export class FormUsuarioComponent implements OnInit{
 
 
   onSubmit() {
+    // Valida as senhas
+    if (!this.validarSenhas()) {
+      return;
+    }
+
     if (this.formGroup.valid) {
       if(!this.codigo){
         console.log("teste");
