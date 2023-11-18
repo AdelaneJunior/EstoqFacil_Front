@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { MovimentacaoDto } from '../models/movimentacao-dto';
+import { SearchField } from '../models/search-field';
+import { SearchFieldValue } from '../models/search-field-value';
 
 @Injectable({
   providedIn: 'root',
@@ -303,6 +305,117 @@ export class MovimentacaoControllerService extends BaseService {
 ): Observable<any> {
 
     return this.movimentacaoControllerIncluir$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerSearchFieldsList
+   */
+  static readonly MovimentacaoControllerSearchFieldsListPath = '/api/v1/movimentacao/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerSearchFieldsList$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<SearchField>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerSearchFieldsListPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<SearchField>>;
+      })
+    );
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerSearchFieldsList(params?: {
+  },
+  context?: HttpContext
+
+): Observable<Array<SearchField>> {
+
+    return this.movimentacaoControllerSearchFieldsList$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerSearchFieldsAction
+   */
+  static readonly MovimentacaoControllerSearchFieldsActionPath = '/api/v1/movimentacao/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  movimentacaoControllerSearchFieldsAction$Response(params: {
+    body: Array<SearchFieldValue>
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerSearchFieldsActionPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  movimentacaoControllerSearchFieldsAction(params: {
+    body: Array<SearchFieldValue>
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.movimentacaoControllerSearchFieldsAction$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

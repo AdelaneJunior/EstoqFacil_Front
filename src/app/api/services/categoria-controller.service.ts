@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CategoriaDto } from '../models/categoria-dto';
+import { SearchField } from '../models/search-field';
+import { SearchFieldValue } from '../models/search-field-value';
 
 @Injectable({
   providedIn: 'root',
@@ -303,6 +305,117 @@ export class CategoriaControllerService extends BaseService {
 ): Observable<any> {
 
     return this.categoriaControllerIncluir$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation categoriaControllerSearchFieldsList
+   */
+  static readonly CategoriaControllerSearchFieldsListPath = '/api/v1/categoria/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerSearchFieldsList$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<SearchField>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerSearchFieldsListPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<SearchField>>;
+      })
+    );
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerSearchFieldsList(params?: {
+  },
+  context?: HttpContext
+
+): Observable<Array<SearchField>> {
+
+    return this.categoriaControllerSearchFieldsList$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
+    );
+  }
+
+  /**
+   * Path part for operation categoriaControllerSearchFieldsAction
+   */
+  static readonly CategoriaControllerSearchFieldsActionPath = '/api/v1/categoria/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoriaControllerSearchFieldsAction$Response(params: {
+    body: Array<SearchFieldValue>
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerSearchFieldsActionPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoriaControllerSearchFieldsAction(params: {
+    body: Array<SearchFieldValue>
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.categoriaControllerSearchFieldsAction$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
