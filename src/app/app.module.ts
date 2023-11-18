@@ -32,6 +32,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EnvioMensagemComponent} from "./core/envio-mensagem/envio-mensagem.component";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatSelectModule} from "@angular/material/select";
+import {FlexModule} from "@angular/flex-layout";
 import {NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask} from "ngx-mask";
 
 @NgModule({
@@ -71,6 +73,9 @@ import {NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask} from "ngx-mask
     UsuarioModule,
     MatInputModule,
     FormsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    FlexModule
     MatCheckboxModule,
     NgxMaskDirective,
     NgxMaskPipe,

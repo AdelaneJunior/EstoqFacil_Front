@@ -103,7 +103,7 @@ export class ListProdutoComponent implements OnInit{
       const enviarMensagem= this.dialog.open(EnvioMensagemComponent, {
         data: {
           titulo: 'Enviar Produto Por E-mail',
-          mensagem: `Digite o E-mail: `,
+          mensagem: `Selecione o cliente ou Digite o E-mail: `,
           dado: this.listProdutosEnviar
         },
       });

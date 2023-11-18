@@ -11,6 +11,8 @@ import { map, filter } from 'rxjs/operators';
 
 import { EnviaEmailDto } from '../models/envia-email-dto';
 import { ProdutoDto } from '../models/produto-dto';
+import { SearchField } from '../models/search-field';
+import { SearchFieldValue } from '../models/search-field-value';
 
 @Injectable({
   providedIn: 'root',
@@ -309,26 +311,137 @@ export class ProdutoControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation produtoControllerEnviaEmail
+   * Path part for operation produtoControllerSearchFieldsList
    */
-  static readonly ProdutoControllerEnviaEmailPath = '/api/v1/produto/envia';
+  static readonly ProdutoControllerSearchFieldsListPath = '/api/v1/produto/search-fields';
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `produtoControllerSearchFieldsList()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  produtoControllerSearchFieldsList$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<Array<SearchField>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerSearchFieldsListPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<SearchField>>;
+      })
+    );
+  }
+
+  /**
+   * Listagem dos campos de busca
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `produtoControllerSearchFieldsList$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  produtoControllerSearchFieldsList(params?: {
+  },
+  context?: HttpContext
+
+): Observable<Array<SearchField>> {
+
+    return this.produtoControllerSearchFieldsList$Response(params,context).pipe(
+      map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
+    );
+  }
+
+  /**
+   * Path part for operation produtoControllerSearchFieldsAction
+   */
+  static readonly ProdutoControllerSearchFieldsActionPath = '/api/v1/produto/search-fields';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `produtoControllerSearchFieldsAction()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  produtoControllerSearchFieldsAction$Response(params: {
+    body: Array<SearchFieldValue>
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerSearchFieldsActionPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `produtoControllerSearchFieldsAction$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  produtoControllerSearchFieldsAction(params: {
+    body: Array<SearchFieldValue>
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.produtoControllerSearchFieldsAction$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation produtoControllerEnviaEmailComPdf
+   */
+  static readonly ProdutoControllerEnviaEmailComPdfPath = '/api/v1/produto/envia';
 
   /**
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `produtoControllerEnviaEmail()` instead.
+   * To access only the response body, use `produtoControllerEnviaEmailComPdf()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  produtoControllerEnviaEmail$Response(params: {
+  produtoControllerEnviaEmailComPdf$Response(params: {
     body: EnviaEmailDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<boolean>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerEnviaEmailPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerEnviaEmailComPdfPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -349,18 +462,18 @@ export class ProdutoControllerService extends BaseService {
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `produtoControllerEnviaEmail$Response()` instead.
+   * To access the full response (for headers, for example), `produtoControllerEnviaEmailComPdf$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  produtoControllerEnviaEmail(params: {
+  produtoControllerEnviaEmailComPdf(params: {
     body: EnviaEmailDto
   },
   context?: HttpContext
 
 ): Observable<boolean> {
 
-    return this.produtoControllerEnviaEmail$Response(params,context).pipe(
+    return this.produtoControllerEnviaEmailComPdf$Response(params,context).pipe(
       map((r: StrictHttpResponse<boolean>) => r.body as boolean)
     );
   }

@@ -1,35 +1,56 @@
 <h1 mat-dialog-title class="centered-content">
   {{titulo}}
 </h1>
-<form
-  [formGroup]="formGroup"
-  (ngSubmit)="onSubmit()"
-  class="form"
->
 <mat-dialog-content class="centered-content">
   {{mensagem}}
 </mat-dialog-content>
 
-  <mat-dialog-content class="centered-content">
-  <mat-form-field>
-    <mat-label>E-mail do cliente</mat-label>
-    <input formControlName="listaProduto" style="display: none">
-    <input matInput placeholder="email@example.com" formControlName="emailCliente" >
-  </mat-form-field>
-  </mat-dialog-content>
+<mat-dialog-content class="centered-content">
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field>
+      <mat-label>Cliente</mat-label>
+      <mat-select [(ngModel)]="clienteParaEnvio" (ngModelChange)="atualizaClienteEmail()">
+        <mat-option></mat-option>
+        <mat-option *ngFor="let cliente of clientes" [value]="cliente">{{cliente.nome}}</mat-option>
+      </mat-select>
+      <mat-error validationMessage></mat-error>
+    </mat-form-field>
 
+    <mat-form-field class="centered-content">
+      <mat-label>E-mail</mat-label>
+      <input matInput placeholder="exemplo@email.com" title="E-mail"
+             [(ngModel)]="emailCliente" name="email" required maxlength="50"
+             [disabled]="emailClientePreenchido">
+      <mat-error validationMessage></mat-error>
+    </mat-form-field>
+
+    <mat-checkbox class="centered-content" color="primary" [(ngModel)]="promocao">
+      Promoção
+    </mat-checkbox>
+  </div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <mat-form-field class="desconto" *ngIf="promocao">
+    <input matInput placeholder="Desconto %" title="Desconto"
+           [(ngModel)]="desconto" name="desconto" required min="0" max="99" type="number"
+    >
+    <mat-error validationMessage></mat-error>
+  </mat-form-field>
+</div>
 <mat-dialog-actions align="center">
-  <button mat-raised-button
+  <button (click)="onSubmit()"
+          mat-raised-button
           class="button"
           color="primary"
           type="submit"
-          tabindex="1">Enviar</button>
+          tabindex="1">Enviar
+
+  </button>
   <button *ngIf="showCancelButton"
           class="button botao-cancelar"
           mat-dialog-close
           mat-raised-button
           tabindex="-1">
-          Cancelar
+    Cancelar
   </button>
 </mat-dialog-actions>
-</form>

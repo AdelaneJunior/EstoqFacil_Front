@@ -6,6 +6,7 @@ export interface ProdutoDto {
   codigo?: number;
   custo?: number;
   descricao?: string;
+  imagem?: string;
   imagemId?: number;
   marca?: string;
   nome?: string;
