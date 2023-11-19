@@ -2,14 +2,14 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
   <div class="form-content">
     <h2>{{acao}} de <br> Categoria</h2>
-    <mat-form-field class="input-maior" appearance="outline">
+    <mat-form-field appearance="outline">
 
       <mat-label>Categoria</mat-label>
       <input matInput formControlName="nome">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="input-maior" appearance="outline">
+    <mat-form-field  appearance="outline">
 
       <mat-label>Descrição</mat-label>
       <textarea matInput formControlName="descricao"></textarea>

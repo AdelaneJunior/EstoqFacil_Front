@@ -1,4 +1,8 @@
+
 <div class="formPadrao">
+
+<div class="container">
+
 <form
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
@@ -9,10 +13,10 @@
     <mat-form-field>
       <mat-label>Nome</mat-label>
       <input *ngIf="acao === 'Editar'" matInput formControlName="funcionarioNome" readonly>
+      <mat-label>Funcionário</mat-label>
       <mat-select formControlName="funcionarioNome" *ngIf="acao === 'Cadastro'">
         <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.cpf">{{ funcionario.nome }}</mat-option>
       </mat-select>
-
     </mat-form-field>
 
     <mat-form-field>
@@ -32,6 +36,15 @@
     <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
     <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
     <button mat-raised-button color="warn" routerLink="/usuario" class="button botao-cancelar">Cancelar</button>
+
+
+    <div class="botoes">
+    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <button mat-raised-button color="warn" routerLink="/usuario" class="button botao-cancelar">Cancelar</button>
+    </div>
+
   </div>
 </form>
+</div>
 </div>

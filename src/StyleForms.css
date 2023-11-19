@@ -46,6 +46,7 @@ h2{
   .formPadrao {
     display: flex;
     flex-direction: column;
+    flex-direction: row;
     border: 3px solid #513BDB;
     border-radius: 30px 30px;
     background-color: white;
@@ -93,6 +94,7 @@ h2{
 mat-form-field{
   width: 100%;
   margin: 5px;
+  margin: 2px;
 }
 
 .alinhar2{
@@ -101,5 +103,11 @@ mat-form-field{
   alignment-baseline: center;
   width: auto;
   position: relative;
+  width: 100%;
+}
+
+.botoes{
+  justify-content: left;
+  width: 100%;
 }
 

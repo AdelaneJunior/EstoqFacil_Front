@@ -51,9 +51,9 @@
           <button mat-menu-item (click)="confirmarExcluir(element)">
             <mat-icon>delete_forever</mat-icon>Excluir
           </button>
-          <!--<button mat-menu-item [routerLink] = "['/home/cadastroProduto',element.produtoCodigo]">
-            <mat-icon>edit</mat-icon>Alterar
-          </button>-->
+          <button mat-menu-item [routerLink]="['/categoria',element.codigo]">
+            <mat-icon>edit</mat-icon>Editar
+          </button>
         </mat-menu>
         <!--
        <th mat-header-cell class="coluna" *matHeaderCellDef> Ação </th>
@@ -66,6 +66,11 @@
          <button mat-icon-button [routerLink]="['/emprestimos/emprestar',element.idLivro]" [disabled]="element.emprestado">
            <mat-icon>event</mat-icon>
          </button>-->
+
+        <button mat-icon-button [routerLink]="['/emprestimos/emprestar',element.idLivro]" [disabled]="element.emprestado">
+          <mat-icon>event</mat-icon>
+        </button>-->
+
       </td>
     </ng-container>
 

@@ -1,19 +1,21 @@
+
 <div class="formPadrao">
+
 <form
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
   class="form"
 >
 
-    <h2>{{acao}} de <br> Produto</h2>
   <div class="form-content">
-      <div class="alinhar2">
+    <h2>{{acao}} de <br> Produto</h2>
+
     <mat-form-field>
       <mat-label>Nome</mat-label>
       <input matInput formControlName="nome">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
-      </div>
+
     <div class="alinhar2">
     <mat-form-field>
       <mat-label>Categoria</mat-label>
@@ -28,14 +30,14 @@
       <mat-error *ngIf="handleError('marca', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
-      <div class="alinhar2">
+
         <mat-form-field>
           <mat-label>Descrição</mat-label>
           <textarea matInput formControlName="descricao"></textarea>
           <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
         </mat-form-field>
-      </div>
-    <div class="alinhar2">
+
+  <div class="alinhar2">
     <mat-form-field>
       <mat-label>Quantidade Inicial</mat-label>
       <input matInput formControlName="quantidade" type="number">
@@ -54,8 +56,8 @@
       <mat-error *ngIf="handleError('custo', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
-  </div>
-      <div class="div-imagem">
+
+    <div class="div-imagem">
         <input formControlName="imagemId" style="display: none" value="{{imagemId}}">
         <input
           style="display: none"
@@ -69,12 +71,14 @@
       <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
         <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
 
-
     </div>
   <div class="botoes">
   <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
   <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
   <button mat-raised-button color="warn" type="button" (click)="cancelar()" class="button botao-cancelar">Cancelar</button>
   </div>
+  </div>
 </form>
 </div>
+
+

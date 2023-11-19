@@ -1,4 +1,8 @@
+
 <div class="formPadrao">
+
+<div class="container">
+
 <form
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
@@ -22,8 +26,13 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
     </div>
     <div class="alinhar2">
+
+      </div>
+      <div class="alinhar2">
+
     <mat-form-field>
       <mat-label>Telefone</mat-label>
       <input matInput formControlName="telefone">
@@ -33,16 +42,24 @@
       <mat-label>Email</mat-label>
       <input matInput formControlName="email">
     </mat-form-field>
+
     </div>
+
+      </div>
+
     <mat-form-field>
       <mat-label>Cargo:</mat-label>
       <mat-select formControlName="cargoId">
         <mat-option *ngFor="let cargo of cargos" [value]="cargo.codigo">{{ cargo.nome }}</mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
-  <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-  <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-  <button mat-raised-button color="warn" routerLink="/funcionario" class="button botao-cancelar">Cancelar</button>
+
+    <div class="botoes">
+    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
+    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar </button>
+    <button mat-raised-button color="warn" routerLink="/funcionario" class="button botao-cancelar">Cancelar</button>
+    </div>
+
 </form>
+</div>
 </div>
