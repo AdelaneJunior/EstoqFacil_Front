@@ -7,7 +7,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
-import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
+import {
+  ConfirmationDialog,
+  ConfirmationDialogResult
+} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 
 
@@ -45,7 +48,7 @@ export class FormCategoriaComponent implements OnInit{
 
 
   private createForm() {
-    if(this.acao == "Editar"){
+    if(this.acao == this.ACAO_EDITAR){
       this.categoriaService.categoriaControllerObterPorId({id: this.codigo as number}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
@@ -54,7 +57,7 @@ export class FormCategoriaComponent implements OnInit{
             usuarioId: this.securityService.getUserId()
 
           }));
-    }else{
+    }else if(this.acao == this.ACAO_INCLUIR){
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
         descricao: [null, Validators.required],
@@ -62,6 +65,10 @@ export class FormCategoriaComponent implements OnInit{
       })
     }
   }
+
+  public handleError = (controlName: string, errorName: string) => {
+    return this.formGroup.controls[controlName].hasError(errorName);
+  };
 
 
 
@@ -87,24 +94,21 @@ export class FormCategoriaComponent implements OnInit{
       this.categoriaService.categoriaControllerIncluir({ body: dadosFormulario }) // Usar dadosFormulario em vez de this.formGroup.value
         .subscribe(retorno => {
           console.log("Retorno:", retorno);
-          this.confirmarInclusao(retorno);
+          this.confirmarAcao(retorno, this.ACAO_INCLUIR);
           this.router.navigate(["/categoria"]);
         }, erro => {
           console.log("Erro:" + erro);
-          alert("Erro ao incluir!");
+          this.confirmarErro(this.ACAO_INCLUIR, erro)
         });
     }
   }
 
 
-
-
-
-  confirmarInclusao(categoriaDto: CategoriaDto){
+  confirmarErro(acao: String, erro: String){
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: ${categoriaDto.nome} (ID: ${categoriaDto.codigo}) realiza com sucesso!`,
+        mensagem: `Erro no ${acao} \n !` + erro,
         textoBotoes: {
           ok: 'ok',
         },
@@ -131,6 +135,7 @@ export class FormCategoriaComponent implements OnInit{
           this.formGroup.patchValue(retorno);
         },error => {
           console.log("erro", error);
+          this.confirmarErro(this.ACAO_EDITAR, error)
         }
       )
     }
@@ -157,8 +162,26 @@ export class FormCategoriaComponent implements OnInit{
         this.router.navigate(["/categoria"]);
       }, erro => {
         console.log("Erro:", erro.error);
+        this.confirmarErro(this.ACAO_EDITAR, erro)
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
   }
 
+  acaoCancelar(){
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'TEM CERTEZA QUE DESEJA CANCELAR ?',
+        textoBotoes: {
+          ok: 'Sim',
+          cancel: 'Não',
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: ConfirmationDialogResult) => {
+      if (confirmed?.resultado) {
+        this.router.navigate(["/categoria"]);
+      }
+    });
+  }
 }

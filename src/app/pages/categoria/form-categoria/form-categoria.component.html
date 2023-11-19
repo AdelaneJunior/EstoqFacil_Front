@@ -6,17 +6,19 @@
 
       <mat-label>Categoria</mat-label>
       <input matInput formControlName="nome">
+      <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field class="input-maior" appearance="outline">
 
       <mat-label>Descrição</mat-label>
       <textarea matInput formControlName="descricao"></textarea>
+      <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
   </div>
     <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-    <button mat-raised-button color="warn" routerLink="/categoria" class="button botao-cancelar">Cancelar</button>
+    <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <button mat-raised-button color="warn" type="button" (click)="acaoCancelar()" class="button botao-cancelar">Cancelar</button>
 
 </form>
 

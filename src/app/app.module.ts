@@ -32,6 +32,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {EnvioMensagemComponent} from "./core/envio-mensagem/envio-mensagem.component";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -70,9 +71,12 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     UsuarioModule,
     MatInputModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
   providers: [
+    provideEnvironmentNgxMask(),
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
     {
       provide: HTTP_INTERCEPTORS,

@@ -1,5 +1,6 @@
 import {Component, Inject} from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -8,16 +9,17 @@ import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dial
   styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialog {
-  titulo = "Titulo: Confirmar?";
-  mensagem: string = "Tem certeza?"
-  textoBotaoOk = "Sim"
+  titulo?: string;
+  mensagem?: string;
+  textoBotaoOk = "Ok"
   textoBotaoCancelar = "Cancelar"
+
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: ConfirmationDialogData,
     private dialogRef: MatDialogRef<ConfirmationDialog, ConfirmationDialogResult>) {
     if(data){
-      this.titulo = data?.titulo || this.titulo
-      this.mensagem = data.mensagem || this.mensagem;
+      this.titulo = data?.titulo;
+      this.mensagem = data.mensagem;
       this.textoBotaoOk = data?.textoBotoes?.ok || this.textoBotaoOk;
       this.textoBotaoCancelar = data?.textoBotoes?.cancel || this.textoBotaoCancelar;
     }
@@ -31,9 +33,11 @@ export class ConfirmationDialog {
   }
 
   onConfirmClick(): void {
-    this.dialogRef.close({
-      resultado: true,
-      dado: this.data?.dado
+
+    this.dialogRef.close(
+      {
+        resultado: true,
+        dado: this.data?.dado
     });
   }
 
@@ -44,6 +48,7 @@ export interface ConfirmationDialogData {
   textoBotoes?: {
     ok?: string;
     cancel?: string;
+    sim?: string;
   }
   dado?: any
 }

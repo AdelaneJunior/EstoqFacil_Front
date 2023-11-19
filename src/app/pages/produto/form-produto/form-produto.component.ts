@@ -9,7 +9,10 @@ import {ProdutoControllerService} from "../../../api/services/produto-controller
 import {ProdutoDto} from "../../../api/models/produto-dto";
 import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
-import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
+import {
+  ConfirmationDialog,
+  ConfirmationDialogResult
+} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {UsuarioDto} from "../../../api/models/usuario-dto";
 import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
@@ -93,6 +96,10 @@ export class FormProdutoComponent implements OnInit{
       })
     }
   }
+
+  public handleError = (controlName: string, errorName: string) => {
+    return this.formGroup.controls[controlName].hasError(errorName);
+  };
 
 
 
@@ -218,7 +225,21 @@ export class FormProdutoComponent implements OnInit{
     } else if (this.imagemId){
       this.imagemService.imagemControllerExcluirFoto({id: this.imagemId}).subscribe();
     }
-    this.router.navigateByUrl('/produto');
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'TEM CERTEZA QUE DESEJA CANCELAR ?',
+        textoBotoes: {
+          ok: 'Sim',
+          cancel: 'Não',
+        },
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: ConfirmationDialogResult) => {
+      if (confirmed?.resultado) {
+        this.router.navigate(["/produto"]);
+      }
+    });
   }
 
 }

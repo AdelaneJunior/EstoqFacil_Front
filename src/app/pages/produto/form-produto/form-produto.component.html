@@ -11,6 +11,7 @@
     <mat-form-field>
       <mat-label>Nome</mat-label>
       <input matInput formControlName="nome">
+      <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
       </div>
     <div class="alinhar2">
@@ -19,32 +20,38 @@
       <mat-select formControlName="categoriaId">
         <mat-option *ngFor="let categoria of categorias" [value]="categoria.codigo">{{ categoria.nome }}</mat-option>
       </mat-select>
+      <mat-error *ngIf="handleError('categoriaId', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Marca</mat-label>
       <input matInput formControlName="marca">
+      <mat-error *ngIf="handleError('marca', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
       <div class="alinhar2">
         <mat-form-field>
           <mat-label>Descrição</mat-label>
           <textarea matInput formControlName="descricao"></textarea>
+          <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
         </mat-form-field>
       </div>
     <div class="alinhar2">
     <mat-form-field>
       <mat-label>Quantidade Inicial</mat-label>
-      <input matInput formControlName="quantidade">
+      <input matInput formControlName="quantidade" type="number">
+      <mat-error *ngIf="handleError('quantidade', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Preço de venda</mat-label>
-      <input matInput formControlName="preco">
+      <input matInput formControlName="preco" type="number" mask="separator.2" decimalSeparator="," placeholder="0,00">
+      <mat-error *ngIf="handleError('preco', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Custo de aquisição</mat-label>
-      <input matInput formControlName="custo">
+      <input matInput formControlName="custo" type="number" mask="separator.2" decimalSeparator="," placeholder="0,00">
+      <mat-error *ngIf="handleError('custo', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
   </div>
@@ -61,11 +68,13 @@
         <img *ngIf="imagemId && !imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}">
       <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
         <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
+
+
     </div>
   <div class="botoes">
   <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-  <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-  <button mat-raised-button color="warn" type="button" class="button botao-cancelar" (click)="cancelar()">Cancelar</button>
+  <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+  <button mat-raised-button color="warn" type="button" (click)="cancelar()" class="button botao-cancelar">Cancelar</button>
   </div>
 </form>
 </div>
