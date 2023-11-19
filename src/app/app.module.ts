@@ -75,7 +75,10 @@ import {NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask} from "ngx-mask
     FormsModule,
     MatCheckboxModule,
     MatSelectModule,
-    FlexModule
+    FlexModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    FlexModule,
     MatCheckboxModule,
     NgxMaskDirective,
     NgxMaskPipe,
