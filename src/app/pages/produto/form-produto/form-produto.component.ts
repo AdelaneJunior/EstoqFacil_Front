@@ -73,6 +73,7 @@ export class FormProdutoComponent implements OnInit{
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
             categoriaId: [retorno.categoriaId, Validators.required],
+            codigoBarras: [retorno.categoriaId, Validators.required],
             nome: [retorno.nome, Validators.required],
             marca: [retorno.marca, Validators.required],
             descricao: [retorno.descricao, Validators.required],
@@ -85,6 +86,7 @@ export class FormProdutoComponent implements OnInit{
     }else{
       this.formGroup = this.formBuilder.group({
         categoriaId: [null, Validators.required],
+        codigoBarras: [null, Validators.required],
         nome: [null, Validators.required],
         marca: [null, Validators.required],
         descricao: [null, Validators.required],

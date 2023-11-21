@@ -20,7 +20,7 @@ import {ImagemControllerService} from "../../../api/services/imagem-controller.s
 
 export class ListProdutoComponent implements OnInit{
 
-  colunasMostrar = ['check', 'codigo','imagem','categoriaId','nome', 'descricao','marca','quantidade','preco','acao'];
+  colunasMostrar = ['check', 'codigo','codigoBarras','imagem','categoriaId','nome', 'descricao','marca','quantidade','preco','acao'];
   produtoListaDataSource: MatTableDataSource<ProdutoDto> = new MatTableDataSource<ProdutoDto>();
   listProdutosEnviar: Array<ProdutoDto> = [];
   linhaSelecionada!: ProdutoDto ;

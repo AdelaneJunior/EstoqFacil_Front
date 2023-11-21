@@ -4,6 +4,7 @@ export interface ProdutoDto {
   categoriaId?: number;
   categoriaNome?: string;
   codigo?: number;
+  codigoBarras?: number;
   custo?: number;
   descricao?: string;
   imagem?: string;

@@ -11,6 +11,12 @@
     <h2>{{acao}} de <br> Produto</h2>
 
     <mat-form-field>
+      <mat-label>Codigo de barras</mat-label>
+      <input matInput formControlName="codigoBarras">
+      <mat-error *ngIf="handleError('codigoBarras', 'required')">Campo Obrigatório</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
       <mat-label>Nome</mat-label>
       <input matInput formControlName="nome">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
