@@ -44,19 +44,19 @@
         </mat-form-field>
 
   <div class="alinhar2">
-    <mat-form-field>
+    <mat-form-field *ngIf="ACAO_INCLUIR === acao">
       <mat-label>Quantidade Inicial</mat-label>
       <input matInput formControlName="quantidade" type="number">
       <mat-error *ngIf="handleError('quantidade', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="ACAO_INCLUIR === acao" >
       <mat-label>Preço de venda</mat-label>
       <input matInput formControlName="preco" type="number" mask="separator.2" decimalSeparator="," placeholder="0,00">
       <mat-error *ngIf="handleError('preco', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field *ngIf="ACAO_INCLUIR === acao">
       <mat-label>Custo de aquisição</mat-label>
       <input matInput formControlName="custo" type="number" mask="separator.2" decimalSeparator="," placeholder="0,00">
       <mat-error *ngIf="handleError('custo', 'required')">Campo Obrigatório</mat-error>
