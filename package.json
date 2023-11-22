@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "ng-openapi-gen": "ng-openapi-gen",
-    "start": "npm run ng-openapi-gen && npm run ng -- serve -o",
+    "start": "npm run ng-openapi-gen && npm run ng -- serve",
     "build": "npm run ng-openapi-gen && npm run ng -- build -prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

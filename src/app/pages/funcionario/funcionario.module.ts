@@ -17,6 +17,8 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {SearchModule} from "../../arquitetura/search-module/search.module";
+import {FlexModule} from "@angular/flex-layout";
 
 
 
@@ -27,23 +29,25 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     ListFuncionarioComponent,
     FormFuncionarioComponent
   ],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        RouterOutlet,
-        RouterLink,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatMenuModule,
-        MatTableModule,
-        MatOptionModule,
-        MatSelectModule,
-        MatDatepickerModule
-    ]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    RouterOutlet,
+    RouterLink,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatTableModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    SearchModule,
+    FlexModule
+  ]
 })
 export class FuncionarioModule { }

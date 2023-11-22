@@ -19,11 +19,12 @@ import {ClienteDto} from "../../../api/models/cliente-dto";
 })
 export class ListClienteComponent implements OnInit {
   colunasMostrar = ['cpf','nome', 'telefone','email','acao'];
-  funcionarioListaDataSource: MatTableDataSource<ClienteDto> = new MatTableDataSource<ClienteDto>();
+  clienteListaDataSource: MatTableDataSource<ClienteDto> = new MatTableDataSource<ClienteDto>();
 
   constructor(
     public clienteService: ClienteControllerService,
     private dialog: MatDialog,
+
     private snackBar: MatSnackBar,
     private router: Router
   ){
@@ -37,7 +38,7 @@ export class ListClienteComponent implements OnInit {
 
   private buscarDados() {
     this.clienteService.clienteControllerListAll().subscribe(data => {
-      this.funcionarioListaDataSource.data = data;
+      this.clienteListaDataSource.data = data;
       console.log(JSON.stringify(data));
     })
   }
@@ -86,4 +87,7 @@ export class ListClienteComponent implements OnInit {
     });
   }
 
+  showResult($event: any[]) {
+    this.clienteListaDataSource.data = $event;
+  }
 }

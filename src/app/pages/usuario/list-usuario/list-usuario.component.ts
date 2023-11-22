@@ -33,7 +33,9 @@ export class ListUsuarioComponent implements OnInit {
     this.buscarDados();
   }
 
-
+  showResult($event: any[]) {
+    this.usuarioListaDataSource.data = $event;
+  }
 
   private buscarDados() {
     this.usuarioService.usuarioControllerListAll().subscribe(data => {

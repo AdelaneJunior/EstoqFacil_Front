@@ -37,6 +37,10 @@ export class ListCategoriaComponent implements OnInit {
     })
   }
 
+  showResult($event: any[]) {
+    this.categoriaListaDataSource.data = $event;
+  }
+
   remover(categoriaDto: CategoriaDto) {
     console.log("Removido", categoriaDto.codigo);
     let codigoDaCategoria: number = categoriaDto.codigo || 0;
