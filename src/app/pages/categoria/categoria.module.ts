@@ -13,6 +13,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatMenuModule} from "@angular/material/menu";
 import {FlexModule} from "@angular/flex-layout";
+import {SearchModule} from "../../arquitetura/search-module/search.module";
 
 
 
@@ -23,19 +24,20 @@ import {FlexModule} from "@angular/flex-layout";
     FormCategoriaComponent,
     ListCategoriaComponent
   ],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    RouterOutlet,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatTableModule,
-    RouterLink,
-    MatPaginatorModule,
-    MatMenuModule,
-    FlexModule
-  ]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        RouterOutlet,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatTableModule,
+        RouterLink,
+        MatPaginatorModule,
+        MatMenuModule,
+        FlexModule,
+        SearchModule
+    ]
 })
 export class CategoriaModule { }

@@ -15,6 +15,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
+import {SearchModule} from "../../arquitetura/search-module/search.module";
+import {FlexModule} from "@angular/flex-layout";
 
 
 
@@ -39,7 +41,9 @@ import {MatSelectModule} from "@angular/material/select";
     MatMenuModule,
     MatTableModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    SearchModule,
+    FlexModule
   ]
 })
 export class UsuarioModule { }

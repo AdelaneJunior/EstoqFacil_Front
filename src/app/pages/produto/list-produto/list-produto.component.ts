@@ -46,6 +46,10 @@ export class ListProdutoComponent implements OnInit{
     })
   }
 
+  showResult($event: any[]) {
+    this.produtoListaDataSource.data = $event;
+  }
+
   remover(produtoDto: ProdutoDto) {
     console.log("Removido", produtoDto.codigo);
     let codigoDoProduto: number = produtoDto.codigo || 0;
@@ -123,6 +127,9 @@ export class ListProdutoComponent implements OnInit{
     }
 
     console.log(this.listProdutosEnviar);
+  }
+
+  setAll(completed: boolean) {
   }
 
 }

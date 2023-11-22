@@ -40,6 +40,10 @@ export class ListFuncionarioComponent implements OnInit {
     })
   }
 
+  showResult($event: any[]) {
+    this.funcionarioListaDataSource.data = $event;
+  }
+
   remover(funcionarioDto: FuncionarioDto) {
     console.log("Removido", funcionarioDto.cpf);
     this.funcionarioService.funcionarioControllerRemover({ id: funcionarioDto.cpf || ''})

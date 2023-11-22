@@ -16,6 +16,8 @@ import {HomeClienteComponent} from "./home-cliente/home-cliente.component";
 import {FormClienteComponent} from "./form-cliente/form-cliente.component";
 import {ListClienteComponent} from "./list-cliente/list-cliente.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {SearchModule} from "../../arquitetura/search-module/search.module";
+import {FlexModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -24,21 +26,23 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     FormClienteComponent,
     ListClienteComponent
   ],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        RouterOutlet,
-        RouterLink,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatMenuModule,
-        MatTableModule,
-        MatDatepickerModule
-    ]
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    RouterOutlet,
+    RouterLink,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatMenuModule,
+    MatTableModule,
+    MatDatepickerModule,
+    SearchModule,
+    FlexModule
+  ]
 })
 export class ClienteModule { }

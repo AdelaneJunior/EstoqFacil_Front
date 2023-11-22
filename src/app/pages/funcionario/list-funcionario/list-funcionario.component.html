@@ -1,17 +1,13 @@
 <h2> Controle de <br>Funcionários</h2>
 <mat-card>
-<mat-card-actions>
+<mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly center">
 <button class="button-config" mat-raised-button [routerLink]="['/funcionario','novo']">
   <span>Cadastrar Funcionário</span>
   <mat-icon>add</mat-icon>
 </button>
-<div class="divBusca">
-  <input type="text" class="txtBusca" placeholder="Digite o que buscar..." />
-  <button class="pesquisa-icon" title="Pesquisar"><mat-icon id="icone">search</mat-icon></button>
+<div>
+  <app-search-component [controller]="funcionarioService" (onSearchResult)="showResult($event)"/>
 </div>
-<button class="filtro" title="Filtros">
-  <mat-icon>filter_list</mat-icon>
-</button>
 </mat-card-actions>
   <mat-card-content>
 <section class="example-container mat-elevation-z8" tabindex="0">
