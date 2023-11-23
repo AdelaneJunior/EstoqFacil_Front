@@ -12,34 +12,34 @@
 
     <mat-form-field>
       <mat-label>Codigo de barras</mat-label>
-      <input matInput formControlName="codigoBarras">
+      <input matInput formControlName="codigoBarras" placeholder="Insira o código de barras">
       <mat-error *ngIf="handleError('codigoBarras', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Nome</mat-label>
-      <input matInput formControlName="nome">
+      <input matInput formControlName="nome" placeholder="Nome do produto">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <div class="alinhar2">
     <mat-form-field>
       <mat-label>Categoria</mat-label>
-      <mat-select formControlName="categoriaId">
+      <mat-select formControlName="categoriaId" placeholder="Selecione a categoria">
         <mat-option *ngFor="let categoria of categorias" [value]="categoria.codigo">{{ categoria.nome }}</mat-option>
       </mat-select>
       <mat-error *ngIf="handleError('categoriaId', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Marca</mat-label>
-      <input matInput formControlName="marca">
+      <input matInput formControlName="marca" placeholder="Nome da marca">
       <mat-error *ngIf="handleError('marca', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
 
         <mat-form-field>
           <mat-label>Descrição</mat-label>
-          <textarea matInput formControlName="descricao"></textarea>
+          <textarea matInput formControlName="descricao" placeholder="Descreva o produto"></textarea>
           <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
         </mat-form-field>
 

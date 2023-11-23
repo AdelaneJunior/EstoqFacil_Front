@@ -20,6 +20,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {FlexModule} from "@angular/flex-layout";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {SearchModule} from "../../arquitetura/search-module/search.module";
+import {NgxMaskDirective} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {SearchModule} from "../../arquitetura/search-module/search.module";
         FlexModule,
         MatCheckboxModule,
         FormsModule,
-        SearchModule
+        SearchModule,
+        NgxMaskDirective
     ]
 })
 export class ProdutoModule { }

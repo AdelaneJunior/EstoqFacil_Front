@@ -10,6 +10,9 @@ import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {ClienteControllerService} from "../../../api/services/cliente-controller.service";
 import {ClienteDto} from "../../../api/models/cliente-dto";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {Validacoes} from "../../../../Validacoes";
+import {SecurityService} from "../../../arquitetura/security/security.service";
 
 @Component({
   selector: 'app-form-cliente',
@@ -22,6 +25,10 @@ export class FormClienteComponent implements OnInit{
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: string;
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar)
+  validacoes: Validacoes = new Validacoes();
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +37,8 @@ export class FormClienteComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private securityService: SecurityService,
   ) {
     this._adapter.setLocale('pt-br');
   }
@@ -41,30 +49,31 @@ export class FormClienteComponent implements OnInit{
     this.prepararEdicao();
   }
 
-
-
   private createForm() {
     if(this.acao == "Editar"){
       this.clienteService.clienteControllerObterPorId({id: this.codigo}).
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
             nome: [retorno.nome, Validators.required],
-            cpf: [retorno.cpf, Validators.required],
+            cpf: [retorno.cpf, [Validators.required, this.validacoes.validarCpf]],
             nascimento: [retorno.nascimento, Validators.required],
-            telefone: [retorno.telefone, Validators.required],
-            email: [retorno.email, Validators.required]
+            telefone: [retorno.telefone, [Validators.required, this.validacoes.validarTelefone]],
+            email: [retorno.email, [Validators.required, this.validacoes.validarEmail]],
           }));
     }else{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
-        cpf: [null, Validators.required],
+        cpf: [null, [Validators.required, this.validacoes.validarCpf]],
         nascimento: [null, Validators.required],
-        telefone: [null, Validators.required],
-        email: [null, Validators.required]
+        telefone: [null, [Validators.required, this.validacoes.validarTelefone]],
+        email: [null, [Validators.required, this.validacoes.validarEmail]],
       })
     }
   }
 
+  public handleError = (controlName: string, errorName: string) => {
+    return this.formGroup.controls[controlName].hasError(errorName);
+  };
 
 
   onSubmit() {
@@ -91,30 +100,20 @@ export class FormClienteComponent implements OnInit{
     this.clienteService.clienteControllerIncluir({body: clienteDto})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
-        this.confirmarInclusao(retorno);
+        this.confirmarAcao(retorno, this.ACAO_INCLUIR);
         this.router.navigate(["/cliente"]);
       }, erro =>{
         console.log("Erro:"+erro);
-        alert("Erro ao incluir!");
+        this.mensagens.confirmarErro(this.ACAO_INCLUIR, erro.message)
       })
-  }
-
-
-  confirmarInclusao(clienteDto: ClienteDto){
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: ${clienteDto.nome} (ID: ${clienteDto.cpf}) realiza com sucesso!`,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
   }
 
 
   limparFormulario() {
     this.formGroup.reset(); // limpa os campos do formulario.
+    this.formGroup.patchValue({
+      usuarioId: this.securityService.getUserId()
+    });
   }
 
 
@@ -131,6 +130,7 @@ export class FormClienteComponent implements OnInit{
           this.formGroup.patchValue(retorno);
         },error => {
           console.log("erro", error);
+          this.mensagens.confirmarErro(this.ACAO_EDITAR, error.message)
         }
       )
     }
@@ -158,6 +158,7 @@ export class FormClienteComponent implements OnInit{
         this.router.navigate(["/cliente"]);
       }, erro => {
         console.log("Erro:", erro.error);
+        this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message)
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
   }

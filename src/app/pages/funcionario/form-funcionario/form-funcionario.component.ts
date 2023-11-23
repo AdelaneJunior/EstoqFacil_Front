@@ -28,6 +28,8 @@ export class FormFuncionarioComponent implements OnInit{
   cargos: CargoDto[] = [];
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
   validacoes: Validacoes = new Validacoes();
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +40,7 @@ export class FormFuncionarioComponent implements OnInit{
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private securityService: SecurityService
+    private securityService: SecurityService,
   ) {
     this._adapter.setLocale('pt-br');
   }
@@ -68,18 +70,18 @@ export class FormFuncionarioComponent implements OnInit{
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
             nome: [retorno.nome, Validators.required],
-            cpf: [retorno.cpf, Validators.required],
+            cpf: [retorno.cpf, [Validators.required, this.validacoes.validarCpf]],
             nascimento: [retorno.nascimento, Validators.required],
-            telefone: [retorno.telefone, Validators.required],
+            telefone: [retorno.telefone, [Validators.required, this.validacoes.validarTelefone]],
             email: [retorno.email, [Validators.required, this.validacoes.validarEmail]],
             cargoId: [retorno.cargoId, Validators.required]
           }));
     }else{
       this.formGroup = this.formBuilder.group({
         nome: [null, Validators.required],
-        cpf: [null, Validators.required],
+        cpf: [null, [Validators.required, this.validacoes.validarCpf]],
         nascimento: [null, Validators.required],
-        telefone: [null, Validators.required],
+        telefone: [null, [Validators.required, this.validacoes.validarTelefone]],
         email: [null, [Validators.required, this.validacoes.validarEmail]],
         cargoId: [null, Validators.required]
       })

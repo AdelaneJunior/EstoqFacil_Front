@@ -11,6 +11,7 @@ import {FuncionarioControllerService} from "../../../api/services/funcionario-co
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {ClienteControllerService} from "../../../api/services/cliente-controller.service";
 import {ClienteDto} from "../../../api/models/cliente-dto";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
 
 @Component({
   selector: 'app-list-cliente',
@@ -20,7 +21,7 @@ import {ClienteDto} from "../../../api/models/cliente-dto";
 export class ListClienteComponent implements OnInit {
   colunasMostrar = ['cpf','nome', 'telefone','email','acao'];
   clienteListaDataSource: MatTableDataSource<ClienteDto> = new MatTableDataSource<ClienteDto>();
-
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar)
   constructor(
     public clienteService: ClienteControllerService,
     private dialog: MatDialog,
@@ -50,11 +51,10 @@ export class ListClienteComponent implements OnInit {
       .subscribe(
         retorno => {
           this.buscarDados();
-          if(retorno != null) {
-            this.showMensagemSimples("Excluído com sucesso!", 5000);
-            console.log("Exclusão:", retorno);
-          }
-          this.showMensagemSimples("Erro ao excluir!", 5000);
+          this.mensagens.showMensagemSimples("Excluído com sucesso!");
+          console.log("Exclusão:", retorno);
+        },error => {
+          this.mensagens.confirmarErro("Excluir", error.message)
         }
       );
   }
@@ -77,13 +77,6 @@ export class ListClienteComponent implements OnInit {
       if (confirmed?.resultado) {
         this.remover(confirmed.dado);
       }
-    });
-  }
-  showMensagemSimples( mensagem: string, duracao: number = 2000) {
-    this.snackBar.open(mensagem, 'Fechar', {
-      duration: duracao,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
     });
   }
 

@@ -18,6 +18,7 @@ import {ListClienteComponent} from "./list-cliente/list-cliente.component";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {SearchModule} from "../../arquitetura/search-module/search.module";
 import {FlexModule} from "@angular/flex-layout";
+import {NgxMaskDirective} from "ngx-mask";
 
 
 @NgModule({
@@ -26,23 +27,24 @@ import {FlexModule} from "@angular/flex-layout";
     FormClienteComponent,
     ListClienteComponent
   ],
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    RouterOutlet,
-    RouterLink,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatMenuModule,
-    MatTableModule,
-    MatDatepickerModule,
-    SearchModule,
-    FlexModule
-  ]
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        RouterOutlet,
+        RouterLink,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatMenuModule,
+        MatTableModule,
+        MatDatepickerModule,
+        SearchModule,
+        FlexModule,
+        NgxMaskDirective
+    ]
 })
 export class ClienteModule { }

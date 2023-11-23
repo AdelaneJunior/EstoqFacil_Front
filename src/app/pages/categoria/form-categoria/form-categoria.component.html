@@ -5,14 +5,14 @@
     <mat-form-field appearance="outline">
 
       <mat-label>Categoria</mat-label>
-      <input matInput formControlName="nome">
+      <input matInput formControlName="nome" placeholder="Nome da categoria">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field  appearance="outline">
 
       <mat-label>Descrição</mat-label>
-      <textarea matInput formControlName="descricao"></textarea>
+      <textarea matInput formControlName="descricao" placeholder="Descreva a categoria"></textarea>
       <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
   </div>

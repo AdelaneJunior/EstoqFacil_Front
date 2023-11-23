@@ -7,47 +7,48 @@
   <div class="form-content">
     <h2>{{acao}} de <br> Cliente</h2>
 
-    <mat-form-field class="input-comum">
-
+    <mat-form-field>
       <mat-label>Nome</mat-label>
-      <input  matInput formControlName="nome">
+      <input matInput formControlName="nome" placeholder="Digite o nome do cliente">
+      <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     <div class="alinhar2">
+      <mat-form-field>
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00">
+        <mat-error *ngIf="handleError('cpf', 'required')">Campo Obrigatório</mat-error>
+        <mat-error *ngIf="handleError('cpf', 'cpfInvalido')">CPF Inválido</mat-error>
+      </mat-form-field>
 
-    <mat-form-field class="input-comum">
-      <mat-label>CPF</mat-label>
-      <input matInput formControlName="cpf" [readonly]="acao === 'Editar'">
-    </mat-form-field>
-
-    <mat-form-field class="input-comum">
-      <mat-label>CPF</mat-label>
-      <input matInput formControlName="cpf">
-    </mat-form-field>
-
-    <mat-form-field class="input-comum">
-      <mat-label>Data de Nascimento</mat-label>
-      <input matInput formControlName="nascimento" [matDatepicker]="picker" placeholder="Escolha uma data">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
+      <mat-form-field>
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput readonly formControlName="nascimento" placeholder="Escolha uma data" [matDatepicker]="dp3" [min]="minDate" [max]="maxDate">
+        <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3></mat-datepicker>
+        <mat-error *ngIf="handleError('nascimento', 'required')">Campo Obrigatório</mat-error>
+      </mat-form-field>
     </div>
     <div class="alinhar2">
-    <mat-form-field class="input-comum">
 
-      <mat-label>Telefone</mat-label>
-      <input matInput formControlName="telefone">
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Telefone</mat-label>
+        <input matInput mask="(00) 0 0000-0000" formControlName="telefone" placeholder="(00) 0 0000-0000">
+        <mat-error *ngIf="handleError('telefone', 'required')">Campo Obrigatório</mat-error>
+        <mat-error *ngIf="handleError('telefone', 'telefoneInvalido')">Telefone Inválido</mat-error>
+      </mat-form-field>
 
-    <mat-form-field class="input-comum">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
-    </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="exemplo@exemplo.com" formControlName="email" >
+        <mat-error *ngIf="handleError('email', 'required')">Campo Obrigatório</mat-error>
+        <mat-error *ngIf="handleError('email', 'emailInvalido')">E-mail inválido</mat-error>
+      </mat-form-field>
+
     </div>
     <div class="botoes">
     <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-    <button mat-raised-button color="warn" routerLink="/cliente" class="button botao-cancelar">Cancelar</button>
+    <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
     </div>
   </div>
 </form>

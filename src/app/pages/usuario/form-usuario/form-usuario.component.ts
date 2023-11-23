@@ -11,6 +11,9 @@ import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {UsuarioControllerService} from "../../../api/services/usuario-controller.service";
 import {ClienteDto} from "../../../api/models/cliente-dto";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
+import {Validacoes} from "../../../../Validacoes";
 
 @Component({
   selector: 'app-form-usuario',
@@ -25,6 +28,9 @@ export class FormUsuarioComponent implements OnInit{
   codigo!: number;
   funcionarios: FuncionarioDto[] = [];
   usuario!: UsuarioDto;
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar)
+  validacoes: Validacoes = new Validacoes();
+  submitFormulario!: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,7 +40,8 @@ export class FormUsuarioComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private securityService: SecurityService,
   ) {
     this._adapter.setLocale('pt-br');
     this.createForm();
@@ -53,6 +60,7 @@ export class FormUsuarioComponent implements OnInit{
       },
       (error) => {
         console.error('Erro ao carregar funcionario:', error);
+        this.mensagens.confirmarErro("Carregar Funcionarios", error.message)
       }
     );
   }
@@ -83,13 +91,21 @@ export class FormUsuarioComponent implements OnInit{
       subscribe(retorno =>
           this.formGroup = this.formBuilder.group({
             funcionarioNome: [retorno.funcionarioNome, Validators.required],
-            senha: [retorno.senha, Validators.required, Validators.minLength(6)],
+            senha: [retorno.senha, [Validators.required,
+                    Validators.minLength(6),
+                    this.validacoes.validarCaracterEspecial,
+                    this.validacoes.validarLetraMaiuscula,
+                    this.validacoes.validarPeloMenosTresNumeros]],
             confirmarSenha: [null, Validators.required]
           }));
     }else{
       this.formGroup = this.formBuilder.group({
         funcionarioNome: [null, Validators.required],
-        senha: [null, [Validators.required, Validators.minLength(6)]],
+        senha: [null, [Validators.required,
+          Validators.minLength(6),
+          this.validacoes.validarCaracterEspecial,
+          this.validacoes.validarLetraMaiuscula,
+          this.validacoes.validarPeloMenosTresNumeros]],
         confirmarSenha: [null, Validators.required]
       })
     }
@@ -99,6 +115,7 @@ export class FormUsuarioComponent implements OnInit{
 
   onSubmit() {
     // Valida as senhas
+    this.submitFormulario = true;
     if (!this.validarSenhas()) {
       return;
     }
@@ -124,30 +141,20 @@ export class FormUsuarioComponent implements OnInit{
     this.usuarioService.usuarioControllerIncluir({usuarioDTO: novoUsuario})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
-        this.confirmarInclusao(retorno);
+        this.confirmarAcao(retorno,this.ACAO_INCLUIR);
         this.router.navigate(["/usuario"]);
       }, erro =>{
         console.log("Erro:"+erro);
-        alert("Erro ao incluir!");
+        this.mensagens.confirmarErro(this.ACAO_INCLUIR, erro.message)
       })
   }
 
 
-  confirmarInclusao(usuarioDto: UsuarioDto){
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: (ID: ${usuarioDto.codigo}) realiza com sucesso!`,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
-  }
-
-
   limparFormulario() {
-    this.formGroup.reset(); // limpa os campos do formulario.
+    this.formGroup.reset();
+    this.formGroup.patchValue({
+      usuarioId: this.securityService.getUserId()
+    });
   }
 
 
@@ -163,6 +170,7 @@ export class FormUsuarioComponent implements OnInit{
           this.codigo = retorno.codigo || 0;
           this.formGroup.patchValue(retorno);
         },error => {
+          this.mensagens.confirmarErro(this.ACAO_EDITAR, error.message)
           console.log("erro", error);
         }
       )
@@ -193,7 +201,34 @@ export class FormUsuarioComponent implements OnInit{
           this.router.navigate(["/usuario"]);
         }, erro => {
           console.log("Erro:", erro.error);
+          this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message)
         })
     });
   }
+
+  getErrorClass(controlName: string): { [key: string]: any } | null {
+    const control = this.formGroup.get(controlName);
+
+    if (this.submitFormulario && control && control.errors){
+      const qdErros = Object.keys(control.errors).length;
+
+      return {
+        'margin-top': 17 * qdErros + 'px'
+      };
+    }
+
+    if (!this.submitFormulario && control && control.errors && control.touched){
+      const qdErros = Object.keys(control.errors).length;
+
+      return {
+        'margin-top': 17 * qdErros + 'px'
+      };
+    }
+    this.submitFormulario = false;
+    return {};
+  }
+
+
+
+
 }

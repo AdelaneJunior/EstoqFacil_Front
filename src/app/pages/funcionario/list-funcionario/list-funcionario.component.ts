@@ -9,6 +9,7 @@ import {
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
 
 @Component({
   selector: 'app-list-funcionario',
@@ -18,7 +19,7 @@ import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 export class ListFuncionarioComponent implements OnInit {
   colunasMostrar = ['cpf','nome', 'telefone','email','cargoNome','acao'];
   funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
-
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
   constructor(
     public funcionarioService: FuncionarioControllerService,
     private dialog: MatDialog,
@@ -50,13 +51,10 @@ export class ListFuncionarioComponent implements OnInit {
       .subscribe(
         retorno => {
           this.buscarDados();
-          this.buscarDados();
-          if(retorno != null) {
-            this.showMensagemSimples("Excluído com sucesso!", 5000);
+            this.mensagens.showMensagemSimples("Excluído com sucesso!");
             console.log("Exclusão:", retorno);
-          }
-          this.showMensagemSimples("Erro ao excluir, funcionário improtante!", 5000);
-          console.log("Exclusão:", retorno);
+        },error => {
+          this.mensagens.confirmarErro("Excluir", error.message)
         }
       );
   }
@@ -79,13 +77,6 @@ export class ListFuncionarioComponent implements OnInit {
       if (confirmed?.resultado) {
         this.remover(confirmed.dado);
       }
-    });
-  }
-  showMensagemSimples( mensagem: string, duracao: number = 2000) {
-    this.snackBar.open(mensagem, 'Fechar', {
-      duration: duracao,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
     });
   }
 
