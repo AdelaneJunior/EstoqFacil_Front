@@ -45,15 +45,10 @@ export class ListProdutoComponent implements OnInit {
     this.listProdutosEnviar = [];
     this.allChecked = completed;
     if (this.allChecked) {
-      this.produtoService.produtoControllerListAll({}).subscribe(
-        retorno => {
-          this.listProdutosAux = retorno;
-          this.listProdutosAux.forEach(produto => {
-            this.selecionarLinha(produto);
-          })
-          console.log(this.listProdutosEnviar);
-        }
-      )
+      this.listProdutosAux = this.produtoListaDataSource.data;
+      this.listProdutosAux.forEach(produto => {
+        this.selecionarLinha(produto);
+      })
     }
   }
 
