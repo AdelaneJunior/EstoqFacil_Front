@@ -6,6 +6,7 @@ import {CategoriaDto} from "../../../api/models/categoria-dto";
 import {MatTableDataSource} from "@angular/material/table";
 import {ConfirmationDialog,  ConfirmationDialogResult} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import { Router } from '@angular/router';
+import {MensagensUniversais} from "../../../../MensagensUniversais";
 
 @Component({
   selector: 'app-list-categoria',
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
 export class ListCategoriaComponent implements OnInit {
   colunasMostrar = ['codigo','nome', 'descricao','acao'];
   categoriaListaDataSource: MatTableDataSource<CategoriaDto> = new MatTableDataSource<CategoriaDto>();
-
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar)
   constructor(
     public categoriaService: CategoriaControllerService,
     private dialog: MatDialog,
@@ -27,8 +28,6 @@ export class ListCategoriaComponent implements OnInit {
   ngOnInit(): void {
     this.buscarDados();
   }
-
-
 
   private buscarDados() {
     this.categoriaService.categoriaControllerListAll().subscribe(data => {
@@ -48,16 +47,13 @@ export class ListCategoriaComponent implements OnInit {
       .subscribe(
         retorno => {
           this.buscarDados();
-          if(retorno != null) {
-            this.showMensagemSimples("Excluído com sucesso!", 5000);
+            this.mensagens.showMensagemSimples("Excluído com sucesso!");
             console.log("Exclusão:", retorno);
-          }
-          this.showMensagemSimples("Erro ao excluir, categoria em utilização!", 5000);
-          console.log("Exclusão:", retorno);
+        }, error => {
+            this.mensagens.confirmarErro("Excluir", error.message)
         }
       );
   }
-
 
   confirmarExcluir(categoriaDto: CategoriaDto) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -76,13 +72,6 @@ export class ListCategoriaComponent implements OnInit {
       if (confirmed?.resultado) {
         this.remover(confirmed.dado);
       }
-    });
-  }
-  showMensagemSimples( mensagem: string, duracao: number = 2000) {
-    this.snackBar.open(mensagem, 'Fechar', {
-      duration: duracao,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
     });
   }
 

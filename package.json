@@ -24,6 +24,7 @@
     "@angular/router": "^16.0.0",
     "@ngneat/until-destroy": "^10.0.0-beta.0",
     "angular-input-masks": "^4.4.1",
+    "class-validator": "^0.14.0",
     "ngx-mask": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

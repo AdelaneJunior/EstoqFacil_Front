@@ -16,6 +16,7 @@ import {
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {UsuarioDto} from "../../../api/models/usuario-dto";
 import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
 
 @Component({
   selector: 'app-form-produto',
@@ -33,6 +34,7 @@ export class FormProdutoComponent implements OnInit{
   imagem_path!: string | undefined;
   imagemIdAntigo!: number | undefined;
   selectedFile!: File;
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, 'produto', this.snackBar)
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,6 +65,7 @@ export class FormProdutoComponent implements OnInit{
       },
       (error) => {
         console.error('Erro ao carregar categorias:', error);
+        this.mensagens.confirmarErro('Carregar Categorias', error.message)
       }
     );
   }
@@ -103,8 +106,6 @@ export class FormProdutoComponent implements OnInit{
     return this.formGroup.controls[controlName].hasError(errorName);
   };
 
-
-
   onSubmit() {
     if (this.formGroup.valid) {
       if(!this.codigo){
@@ -113,7 +114,7 @@ export class FormProdutoComponent implements OnInit{
         this.realizarEdicao();
       }
     }
-
+    this.erroImagem();
   }
 
   private realizarInclusao(){
@@ -123,30 +124,21 @@ export class FormProdutoComponent implements OnInit{
     this.produtoService.produtoControllerIncluir({body: prod})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
-        this.confirmarInclusao(retorno);
+        this.confirmarAcao(retorno, this.ACAO_INCLUIR);
         this.router.navigate(["/produto"]);
       }, erro =>{
         console.log("Erro:"+erro);
-        alert("Erro ao incluir!");
+        this.mensagens.confirmarErro(this.ACAO_INCLUIR, erro.message)
       })
   }
 
-
-  confirmarInclusao(produtoDto: ProdutoDto){
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: ${produtoDto.nome} (ID: ${produtoDto.codigo}) realiza com sucesso!`,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
-  }
-
-
   limparFormulario() {
     this.formGroup.reset(); // limpa os campos do formulario.
+    this.formGroup.patchValue({
+      usuarioId: this.securityService.getUserId()
+    });
+    this.imagemId = 0;
+    this.imagemIdAntigo = 0;
   }
 
   private prepararEdicao() {
@@ -164,6 +156,7 @@ export class FormProdutoComponent implements OnInit{
           this.formGroup.patchValue(retorno);
         },error => {
           console.log("erro", error);
+          this.mensagens.confirmarErro(this.ACAO_EDITAR, error.message);
         }
       )
     }
@@ -194,6 +187,7 @@ export class FormProdutoComponent implements OnInit{
         this.router.navigate(["/produto"]);
       }, erro => {
         console.log("Erro:", erro.error);
+        this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message);
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
   }
@@ -244,4 +238,8 @@ export class FormProdutoComponent implements OnInit{
     });
   }
 
+  erroImagem(){
+    if(!this.imagemId && !this.imagemIdAntigo)
+      this.mensagens.confirmarErro(this.ACAO_INCLUIR, "Insira uma imagem para incluir!")
+  }
 }

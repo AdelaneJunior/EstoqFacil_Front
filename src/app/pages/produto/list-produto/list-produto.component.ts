@@ -11,6 +11,7 @@ import {
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {EnvioMensagemComponent} from "../../../core/envio-mensagem/envio-mensagem.component";
 import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
 
 @Component({
   selector: 'app-list-produto',
@@ -27,7 +28,7 @@ export class ListProdutoComponent implements OnInit {
   listProdutosAux: Array<ProdutoDto> = [];
   linhaSelecionada!: ProdutoDto;
   allChecked: boolean = false;
-
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar)
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -71,15 +72,13 @@ export class ListProdutoComponent implements OnInit {
         retorno => {
           this.imagemService.imagemControllerExcluirFoto({id: retorno.imagemId}).subscribe();
           this.buscarDados();
-          if (retorno != null) {
-            this.showMensagemSimples("Excluído com sucesso!", 5000);
+            this.mensagens.showMensagemSimples("Excluído com sucesso!");
             console.log("Exclusão:", retorno);
-          }
-          this.showMensagemSimples("Erro ao excluir, existe movimentação no produto!", 5000);
+          }, error => {
+          this.mensagens.confirmarErro("Excluir", error.message);
         }
       );
   }
-
 
   confirmarExcluir(produtoDto: ProdutoDto) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -101,14 +100,6 @@ export class ListProdutoComponent implements OnInit {
     });
   }
 
-  showMensagemSimples(mensagem: string, duracao: number = 2000) {
-    this.snackBar.open(mensagem, 'Fechar', {
-      duration: duracao,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
-
   enviarproduto() {
     const dialogEnviarMensagem = () => {
       return this.dialog.open(EnvioMensagemComponent, {
@@ -120,7 +111,7 @@ export class ListProdutoComponent implements OnInit {
       });
     }
     if (!this.listProdutosEnviar || this.listProdutosEnviar.length === 0) {
-      this.showMensagemSimples("Selecione Produtos na checkBox da tabela para enviar!", 5000)
+      this.mensagens.showMensagemSimples("Selecione Produtos na checkBox da tabela para enviar!")
     } else {
       const enviarMensagem = dialogEnviarMensagem.call(this);
       enviarMensagem.afterClosed().subscribe(() => {

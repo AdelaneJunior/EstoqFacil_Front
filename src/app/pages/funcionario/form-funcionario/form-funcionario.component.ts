@@ -10,6 +10,9 @@ import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {CargoControllerService} from "../../../api/services/cargo-controller.service";
 import {CargoDto} from "../../../api/models/cargo-dto";
 import {ClienteDto} from "../../../api/models/cliente-dto";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
+import {Validacoes} from "../../../../Validacoes";
 
 @Component({
   selector: 'app-form-funcionario',
@@ -23,6 +26,8 @@ export class FormFuncionarioComponent implements OnInit{
   acao: string = this.ACAO_INCLUIR;
   codigo!: string;
   cargos: CargoDto[] = [];
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
+  validacoes: Validacoes = new Validacoes();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +37,8 @@ export class FormFuncionarioComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private securityService: SecurityService
   ) {
     this._adapter.setLocale('pt-br');
   }
@@ -51,11 +57,10 @@ export class FormFuncionarioComponent implements OnInit{
       },
       (error) => {
         console.error('Erro ao carregar cargos:', error);
+        this.mensagens.confirmarErro("Carregar Cargos", error.message);
       }
     );
   }
-
-
 
   private createForm() {
     if(this.acao == "Editar"){
@@ -66,7 +71,7 @@ export class FormFuncionarioComponent implements OnInit{
             cpf: [retorno.cpf, Validators.required],
             nascimento: [retorno.nascimento, Validators.required],
             telefone: [retorno.telefone, Validators.required],
-            email: [retorno.email, Validators.required],
+            email: [retorno.email, [Validators.required, this.validacoes.validarEmail]],
             cargoId: [retorno.cargoId, Validators.required]
           }));
     }else{
@@ -75,13 +80,15 @@ export class FormFuncionarioComponent implements OnInit{
         cpf: [null, Validators.required],
         nascimento: [null, Validators.required],
         telefone: [null, Validators.required],
-        email: [null, Validators.required],
+        email: [null, [Validators.required, this.validacoes.validarEmail]],
         cargoId: [null, Validators.required]
       })
     }
   }
 
-
+  public handleError = (controlName: string, errorName: string) => {
+    return this.formGroup.controls[controlName].hasError(errorName);
+  };
 
   onSubmit() {
     if (this.formGroup.valid) {
@@ -91,7 +98,6 @@ export class FormFuncionarioComponent implements OnInit{
         this.realizarEdicao();
       }
     }
-
   }
 
   private realizarInclusao(){
@@ -99,30 +105,20 @@ export class FormFuncionarioComponent implements OnInit{
     this.funcionarioService.funcionarioControllerIncluir({body: this.formGroup.value})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
-        this.confirmarInclusao(retorno);
+        this.confirmarAcao(retorno, this.ACAO_INCLUIR);
         this.router.navigate(["/funcionario"]);
       }, erro =>{
         console.log("Erro:"+erro);
-        alert("Erro ao incluir!");
+        this.mensagens.confirmarErro(this.ACAO_INCLUIR, erro.message)
       })
-  }
-
-
-  confirmarInclusao(funcionarioDto: FuncionarioDto){
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'Mensagem!!!',
-        mensagem: `Inclusão de: ${funcionarioDto.nome} (ID: ${funcionarioDto.cpf}) realiza com sucesso!`,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
   }
 
 
   limparFormulario() {
     this.formGroup.reset(); // limpa os campos do formulario.
+    this.formGroup.patchValue({
+      usuarioId: this.securityService.getUserId()
+    });
   }
 
   private prepararEdicao() {
@@ -137,6 +133,7 @@ export class FormFuncionarioComponent implements OnInit{
           this.codigo = retorno.cpf || "";
           this.formGroup.patchValue(retorno);
         },error => {
+          this.mensagens.confirmarErro(this.ACAO_EDITAR, error.message)
           console.log("erro", error);
         }
       )
@@ -149,7 +146,7 @@ export class FormFuncionarioComponent implements OnInit{
         titulo: 'Mensagem!!!',
         mensagem: `Ação de ${acao} dados: ${funcionarioDto.nome} (ID: ${funcionarioDto.cpf}) realizada com sucesso!`,
         textoBotoes: {
-          ok: 'ok',
+          ok: 'OK',
         },
       },
     });
@@ -165,6 +162,7 @@ export class FormFuncionarioComponent implements OnInit{
         this.router.navigate(["/funcionario"]);
       }, erro => {
         console.log("Erro:", erro.error);
+        this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message)
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
   }

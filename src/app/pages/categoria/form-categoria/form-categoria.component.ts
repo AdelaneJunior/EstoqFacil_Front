@@ -12,6 +12,7 @@ import {
   ConfirmationDialogResult
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
 
 
 @Component({
@@ -25,6 +26,7 @@ export class FormCategoriaComponent implements OnInit{
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar)
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,8 +47,6 @@ export class FormCategoriaComponent implements OnInit{
     this.prepararEdicao();
   }
 
-
-
   private createForm() {
     if(this.acao == this.ACAO_EDITAR){
       this.categoriaService.categoriaControllerObterPorId({id: this.codigo as number}).
@@ -55,7 +55,6 @@ export class FormCategoriaComponent implements OnInit{
             nome: [retorno.nome, Validators.required],
             descricao: [retorno.nome, Validators.required],
             usuarioId: this.securityService.getUserId()
-
           }));
     }else if(this.acao == this.ACAO_INCLUIR){
       this.formGroup = this.formBuilder.group({
@@ -69,8 +68,6 @@ export class FormCategoriaComponent implements OnInit{
   public handleError = (controlName: string, errorName: string) => {
     return this.formGroup.controls[controlName].hasError(errorName);
   };
-
-
 
   onSubmit() {
     if (this.formGroup.valid) {
@@ -88,9 +85,7 @@ export class FormCategoriaComponent implements OnInit{
       const dadosFormulario : CategoriaDto =  {
         ...this.formGroup.value
       };
-
       console.log("Dados:", dadosFormulario);
-
       this.categoriaService.categoriaControllerIncluir({ body: dadosFormulario }) // Usar dadosFormulario em vez de this.formGroup.value
         .subscribe(retorno => {
           console.log("Retorno:", retorno);
@@ -98,27 +93,17 @@ export class FormCategoriaComponent implements OnInit{
           this.router.navigate(["/categoria"]);
         }, erro => {
           console.log("Erro:" + erro);
-          this.confirmarErro(this.ACAO_INCLUIR, erro)
+          this.mensagens.confirmarErro(this.ACAO_INCLUIR, erro.message)
         });
     }
   }
 
 
-  confirmarErro(acao: String, erro: String){
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'Mensagem!!!',
-        mensagem: `Erro no ${acao} \n !` + erro,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
-  }
-
-
   limparFormulario() {
     this.formGroup.reset(); // limpa os campos do formulario.
+    this.formGroup.patchValue({
+      usuarioId: this.securityService.getUserId()
+    });
   }
 
 
@@ -135,7 +120,7 @@ export class FormCategoriaComponent implements OnInit{
           this.formGroup.patchValue(retorno);
         },error => {
           console.log("erro", error);
-          this.confirmarErro(this.ACAO_EDITAR, error)
+          this.mensagens.confirmarErro(this.ACAO_EDITAR, error.message)
         }
       )
     }
@@ -162,26 +147,9 @@ export class FormCategoriaComponent implements OnInit{
         this.router.navigate(["/categoria"]);
       }, erro => {
         console.log("Erro:", erro.error);
-        this.confirmarErro(this.ACAO_EDITAR, erro)
+        this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message)
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
   }
 
-  acaoCancelar(){
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: 'TEM CERTEZA QUE DESEJA CANCELAR ?',
-        textoBotoes: {
-          ok: 'Sim',
-          cancel: 'Não',
-        },
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: ConfirmationDialogResult) => {
-      if (confirmed?.resultado) {
-        this.router.navigate(["/categoria"]);
-      }
-    });
-  }
 }
