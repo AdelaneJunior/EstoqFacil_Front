@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 import {MatSidenav} from "@angular/material/sidenav";
 import {BreakpointObserver} from "@angular/cdk/layout";
@@ -14,14 +14,28 @@ import {SecurityService} from "../../arquitetura/security/security.service";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  admin!: any;
 
   constructor(
     private observer: BreakpointObserver,
     private router: Router,
     private securityService: SecurityService) {
+  }
+
+  ngOnInit(): void {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.router.navigate(['/']);
+        this.admin = !this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
   }
 
   ngAfterViewInit() {

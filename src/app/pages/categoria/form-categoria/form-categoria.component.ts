@@ -26,7 +26,8 @@ export class FormCategoriaComponent implements OnInit{
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
-  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar)
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar);
+  admin!: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,6 +43,15 @@ export class FormCategoriaComponent implements OnInit{
   }
 
   ngOnInit() {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.prepararEdicao();

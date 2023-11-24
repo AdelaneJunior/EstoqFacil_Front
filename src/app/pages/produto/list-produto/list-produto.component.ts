@@ -12,6 +12,7 @@ import {
 import {EnvioMensagemComponent} from "../../../core/envio-mensagem/envio-mensagem.component";
 import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
 
 @Component({
   selector: 'app-list-produto',
@@ -28,17 +29,28 @@ export class ListProdutoComponent implements OnInit {
   listProdutosAux: Array<ProdutoDto> = [];
   linhaSelecionada!: ProdutoDto;
   allChecked: boolean = false;
-  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar)
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar);
+  admin!: boolean
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private imagemService: ImagemControllerService,
-    private router: Router
+    private router: Router,
+    private securityService: SecurityService
   ) {
   }
 
   ngOnInit(): void {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.buscarDados();
   }
 

@@ -10,6 +10,7 @@ import {
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
 
 @Component({
   selector: 'app-list-funcionario',
@@ -20,15 +21,26 @@ export class ListFuncionarioComponent implements OnInit {
   colunasMostrar = ['cpf','nome', 'telefone','email','cargoNome','acao'];
   funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
+  admin!: boolean;
   constructor(
     public funcionarioService: FuncionarioControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private securityService: SecurityService
   ){
   }
 
   ngOnInit(): void {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.buscarDados();
   }
 
