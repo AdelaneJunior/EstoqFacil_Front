@@ -13,6 +13,7 @@ import {ClienteControllerService} from "../../../api/services/cliente-controller
 import {ClienteDto} from "../../../api/models/cliente-dto";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-cliente',
@@ -24,6 +25,7 @@ export class ListClienteComponent implements OnInit {
   clienteListaDataSource: MatTableDataSource<ClienteDto> = new MatTableDataSource<ClienteDto>();
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar);
   admin!: boolean;
+  pageSlice!: ClienteDto[];
   constructor(
     public clienteService: ClienteControllerService,
     private dialog: MatDialog,
@@ -46,11 +48,19 @@ export class ListClienteComponent implements OnInit {
     this.buscarDados();
   }
 
-
+  onPageChange(event: PageEvent){
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.clienteListaDataSource.data.length){
+      endIndex = this.clienteListaDataSource.data.length
+    }
+    this.pageSlice = this.clienteListaDataSource.data.slice(startIndex, endIndex);
+  }
 
   private buscarDados() {
     this.clienteService.clienteControllerListAll().subscribe(data => {
       this.clienteListaDataSource.data = data;
+      this.pageSlice = this.clienteListaDataSource.data.slice(0,5);
       console.log(JSON.stringify(data));
     })
   }

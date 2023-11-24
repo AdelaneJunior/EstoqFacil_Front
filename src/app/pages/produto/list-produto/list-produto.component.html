@@ -13,7 +13,7 @@
   </mat-card-actions>
   <mat-card-content>
       <section class="example-container mat-elevation-z8" tabindex="0">
-    <table mat-table [dataSource]="produtoListaDataSource" class="tabela">
+    <table mat-table [dataSource]="pageSlice" class="tabela">
 
       <ng-container matColumnDef="check">
         <th mat-header-cell *matHeaderCellDef><mat-checkbox color="primary" [checked]="allChecked" (change)="selectAll($event.checked)"></mat-checkbox> </th>
@@ -99,9 +99,12 @@
       <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
     </table>
-        <mat-paginator style="justify-content: center" [pageSizeOptions]="[5, 10, 20]"
-                       showFirstLastButtons
-                       aria-label="Select page of periodic elements">
+        <mat-paginator style="justify-content: center" [length]="this.produtoListaDataSource.data.length"
+                       [pageSize]="5"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       (page)="onPageChange($event)"
+                       aria-label="Select page"
+                       showFirstLastButtons>
         </mat-paginator>
   </section>
   </mat-card-content>

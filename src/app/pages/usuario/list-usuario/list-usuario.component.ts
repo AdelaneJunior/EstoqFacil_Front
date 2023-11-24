@@ -12,6 +12,7 @@ import {UsuarioDto} from "../../../api/models/usuario-dto";
 import {UsuarioControllerService} from "../../../api/services/usuario-controller.service";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-usuario',
@@ -22,7 +23,8 @@ export class ListUsuarioComponent implements OnInit {
   colunasMostrar = ['codigo','funcionarioNome', 'funcionarioEmail','funcionarioCpf','funcionarioCargo','acao'];
   usuarioListaDataSource: MatTableDataSource<UsuarioDto> = new MatTableDataSource<UsuarioDto>();
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar);
-  admin!: boolean
+  admin!: boolean;
+  pageSlice!: UsuarioDto[];
 
   constructor(
     public funcionarioService: FuncionarioControllerService,
@@ -54,8 +56,18 @@ export class ListUsuarioComponent implements OnInit {
   private buscarDados() {
     this.usuarioService.usuarioControllerListAll().subscribe(data => {
       this.usuarioListaDataSource.data = data;
+      this.pageSlice = this.usuarioListaDataSource.data.slice(0,5);
       console.log(JSON.stringify(data));
     })
+  }
+
+  onPageChange(event: PageEvent){
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.usuarioListaDataSource.data.length){
+      endIndex = this.usuarioListaDataSource.data.length
+    }
+    this.pageSlice = this.usuarioListaDataSource.data.slice(startIndex, endIndex);
   }
 
   remover(usuarioDto: UsuarioDto) {

@@ -13,6 +13,7 @@ import {EnvioMensagemComponent} from "../../../core/envio-mensagem/envio-mensage
 import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-produto',
@@ -31,6 +32,7 @@ export class ListProdutoComponent implements OnInit {
   allChecked: boolean = false;
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar);
   admin!: boolean
+  pageSlice!: ProdutoDto[];
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -52,6 +54,16 @@ export class ListProdutoComponent implements OnInit {
         this.router.navigate(['/acesso']);
     }
     this.buscarDados();
+    this.pageSlice = this.produtoListaDataSource.data.slice(0,5);
+  }
+
+  onPageChange(event: PageEvent){
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.produtoListaDataSource.data.length){
+      endIndex = this.produtoListaDataSource.data.length
+    }
+    this.pageSlice = this.produtoListaDataSource.data.slice(startIndex, endIndex);
   }
 
   selectAll(completed: boolean) {
@@ -68,6 +80,7 @@ export class ListProdutoComponent implements OnInit {
   private buscarDados() {
     this.produtoService.produtoControllerListAll().subscribe(data => {
       this.produtoListaDataSource.data = data;
+      this.pageSlice = this.produtoListaDataSource.data.slice(0, 5);
       console.log(JSON.stringify(data));
     })
   }

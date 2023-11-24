@@ -8,6 +8,7 @@ import {ConfirmationDialog,  ConfirmationDialogResult} from "../../../core/confi
 import { Router } from '@angular/router';
 import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-categoria',
@@ -19,6 +20,7 @@ export class ListCategoriaComponent implements OnInit {
   categoriaListaDataSource: MatTableDataSource<CategoriaDto> = new MatTableDataSource<CategoriaDto>();
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar);
   admin!: boolean;
+  pageSlice!: CategoriaDto[];
   constructor(
     public categoriaService: CategoriaControllerService,
     private dialog: MatDialog,
@@ -41,9 +43,19 @@ export class ListCategoriaComponent implements OnInit {
     this.buscarDados();
   }
 
+  onPageChange(event: PageEvent){
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.categoriaListaDataSource.data.length){
+      endIndex = this.categoriaListaDataSource.data.length
+    }
+    this.pageSlice = this.categoriaListaDataSource.data.slice(startIndex, endIndex);
+  }
+
   private buscarDados() {
     this.categoriaService.categoriaControllerListAll().subscribe(data => {
       this.categoriaListaDataSource.data = data;
+      this.pageSlice = this.categoriaListaDataSource.data.slice(0,5);
       console.log(JSON.stringify(data));
     })
   }

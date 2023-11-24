@@ -11,6 +11,7 @@ import {FuncionarioControllerService} from "../../../api/services/funcionario-co
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-funcionario',
@@ -22,6 +23,7 @@ export class ListFuncionarioComponent implements OnInit {
   funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
   admin!: boolean;
+  pageSlice!: FuncionarioDto[];
   constructor(
     public funcionarioService: FuncionarioControllerService,
     private dialog: MatDialog,
@@ -44,11 +46,20 @@ export class ListFuncionarioComponent implements OnInit {
     this.buscarDados();
   }
 
+  onPageChange(event: PageEvent){
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+    if (endIndex > this.funcionarioListaDataSource.data.length){
+      endIndex = this.funcionarioListaDataSource.data.length
+    }
+    this.pageSlice = this.funcionarioListaDataSource.data.slice(startIndex, endIndex);
+  }
 
 
   private buscarDados() {
     this.funcionarioService.funcionarioControllerListAll().subscribe(data => {
       this.funcionarioListaDataSource.data = data;
+      this.pageSlice = this.funcionarioListaDataSource.data.slice(0,5);
       console.log(JSON.stringify(data));
     })
   }

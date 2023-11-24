@@ -11,7 +11,7 @@
 </mat-card-actions>
   <mat-card-content >
 <section class="example-container mat-elevation-z8" tabindex="0">
-  <table mat-table [dataSource]="categoriaListaDataSource" class="tabela">
+  <table mat-table [dataSource]="pageSlice" class="tabela">
 
     <!-- ID/Codigo da categoria -->
     <ng-container matColumnDef="codigo">
@@ -67,7 +67,10 @@
     <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
   </table>
-  <mat-paginator style="justify-content: center" [pageSizeOptions]="[5, 10, 20]"
+  <mat-paginator style="justify-content: center" [length]="this.categoriaListaDataSource.data.length"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 25, 100]"
+                 (page)="onPageChange($event)"
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
