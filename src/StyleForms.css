@@ -8,8 +8,8 @@ h2{
 .form-content{
   display: flex;
   flex-direction: column;
-  width: 70%;
   float: left;
+  width: 100%;
 }
 
 .botoes{
@@ -45,12 +45,13 @@ h2{
 @media (min-width: 1200px) {
   .formPadrao {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     border: 3px solid #513BDB;
     border-radius: 30px 30px;
     background-color: white;
     padding: 15px;
     margin-top: 2%;
+
   }
 }
 

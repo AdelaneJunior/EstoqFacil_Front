@@ -32,6 +32,7 @@ export class FormUsuarioComponent implements OnInit{
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar)
   validacoes: Validacoes = new Validacoes();
   submitFormulario!: boolean;
+  hide = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,13 +72,10 @@ export class FormUsuarioComponent implements OnInit{
     const senha = this.formGroup.get('senha')?.value;
     const confirmarSenha = this.formGroup.get('confirmarSenha')?.value;
     // Verifica se as senhas são iguais
-    if (senha !== confirmarSenha) {
+
+    if (senha !== confirmarSenha && confirmarSenha && confirmarSenha !== '') {
       // Adiciona um erro personalizado ao formulário
-      this.formGroup.get('confirmarSenha')?.setErrors({
-        igual: {
-          message: 'As senhas não são iguais. Por favor, verifique e tente novamente.',
-        },
-      });
+      this.formGroup.get('confirmarSenha')?.setErrors({ 'naoConfere': true });
       // Retorna falso
       return false;
     }
@@ -111,8 +109,6 @@ export class FormUsuarioComponent implements OnInit{
       })
     }
   }
-
-
 
   onSubmit() {
     // Valida as senhas

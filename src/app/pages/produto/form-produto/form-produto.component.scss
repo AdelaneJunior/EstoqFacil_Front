@@ -4,6 +4,8 @@
   width: 30%;
   float: right;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 .imagem-selecionada{
   margin-top:4px;
@@ -20,3 +22,5 @@
 .botoes{
   width: 50%;
 }
+
+

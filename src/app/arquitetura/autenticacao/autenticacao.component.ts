@@ -7,6 +7,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SecurityService} from "../security/security.service";
 import {User} from "../security/User";
 import {AuthDto} from "../../api/models/auth-dto";
+import {MensagensUniversais} from "../../../MensagensUniversais";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-autentication',
@@ -16,6 +19,8 @@ import {AuthDto} from "../../api/models/auth-dto";
 export class AutenticacaoComponent implements OnInit {
   formGroup!: FormGroup;
   public submitted!: boolean;
+  hide = true;
+  mensagens : MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "login", this.snackBar)
 
   /**
    * Construtor da classe.
@@ -29,16 +34,22 @@ export class AutenticacaoComponent implements OnInit {
     private securityService: SecurityService,
     private autenticationService: AutenticacaoService,
     private router: Router,
-    private formBuilder: FormBuilder,) {
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+    ) {
     this.createForm();
   }
 
   createForm() {
     this.formGroup = this.formBuilder.group({
-      login: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      login: [null, Validators.required],
       senha: [null, Validators.required],
     });
   }
+  public handleError = (controlName: string, errorName: string) => {
+    return this.formGroup.controls[controlName].hasError(errorName);
+  };
 
   /**
    * Inicializa as dependências do componente.
@@ -72,7 +83,7 @@ export class AutenticacaoComponent implements OnInit {
         this.router.navigate(['/']);
       }, error => {
         console.log('erro', error);
-        alert(error);
+        this.mensagens.confirmarErro("Fazer Login: ", error.message)
         // }
       });
     }

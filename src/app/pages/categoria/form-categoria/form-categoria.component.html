@@ -2,24 +2,24 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
   <div class="form-content">
     <h2>{{acao}} de <br> Categoria</h2>
-    <mat-form-field appearance="outline">
+    <mat-form-field>
 
       <mat-label>Categoria</mat-label>
       <input matInput formControlName="nome" placeholder="Nome da categoria">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
-    <mat-form-field  appearance="outline">
-
+    <mat-form-field>
       <mat-label>Descrição</mat-label>
       <textarea matInput formControlName="descricao" placeholder="Descreva a categoria"></textarea>
       <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
+
+    <div class="botoes">
+      <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
+      <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+      <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
+    </div>
   </div>
-    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-    <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
-
 </form>
-
 </div>

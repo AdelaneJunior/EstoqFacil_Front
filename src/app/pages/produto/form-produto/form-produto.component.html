@@ -76,7 +76,6 @@
         <img *ngIf="imagemId && !imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}">
       <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
         <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
-
     </div>
   <div class="botoes">
   <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>

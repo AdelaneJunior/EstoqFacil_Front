@@ -10,23 +10,25 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
+import {MatIconModule} from "@angular/material/icon";
 
 
 @NgModule({
   declarations: [
     AutenticacaoComponent
   ],
-  imports: [
-    FormsModule,
-    CommonModule,
-    RouterModule,
-    RouterModule.forChild(AutenticacaoRoutes),
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule
-  ],
+    imports: [
+        FormsModule,
+        CommonModule,
+        RouterModule,
+        RouterModule.forChild(AutenticacaoRoutes),
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule,
+        MatCardModule,
+        MatIconModule
+    ],
   providers: [
     AutenticacaoGuard,
     AutenticacaoService
