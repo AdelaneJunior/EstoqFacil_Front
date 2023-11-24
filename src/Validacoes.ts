@@ -1,11 +1,11 @@
-import {isEmail} from "class-validator";
 import {AbstractControl} from "@angular/forms";
+import {isEmail} from "class-validator";
 import {cpf} from "cpf-cnpj-validator";
 
 export class Validacoes{
      validarEmail(control: AbstractControl): { [key: string]: any } | null {
          const email: string = control.value;
-
+          //npm install class-validator --save
          if (isEmail(email) || email == '' || email == null) {
            return null;
          }
@@ -15,7 +15,7 @@ export class Validacoes{
 
     validarCpf(control: AbstractControl): { [key: string]: any } | null {
         const cpfValidar: string = control.value;
-
+        //npm install cpf-cnpj-validator
         if (cpf.isValid(cpfValidar) || cpfValidar == '' || cpfValidar == null) {
           return null;
         }

@@ -14,10 +14,6 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatMenuModule} from "@angular/material/menu";
 import {FlexModule} from "@angular/flex-layout";
 import {SearchModule} from "../../arquitetura/search-module/search.module";
-
-
-
-
 @NgModule({
   declarations: [
     HomeCategoriaComponent,
