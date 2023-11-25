@@ -69,12 +69,6 @@
         <img *ngIf="!imagemId && !imagemIdAntigo" class="imagem-upload" src="../../../../assets/imagem_upload.jpg">
         <img *ngIf="imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}" >
         <img *ngIf="imagemId && !imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}">
-<<<<<<< Updated upstream
-      <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
-        <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
-
-=======
->>>>>>> Stashed changes
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" >
       <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>

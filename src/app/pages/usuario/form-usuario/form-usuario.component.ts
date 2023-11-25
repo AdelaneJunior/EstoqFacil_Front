@@ -31,6 +31,7 @@ export class FormUsuarioComponent implements OnInit{
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar)
   validacoes: Validacoes = new Validacoes();
   submitFormulario!: boolean;
+  hide = true;
 
   constructor(
     private formBuilder: FormBuilder,
