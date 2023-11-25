@@ -11,6 +11,8 @@ import {FuncionarioControllerService} from "../../../api/services/funcionario-co
 import {UsuarioDto} from "../../../api/models/usuario-dto";
 import {UsuarioControllerService} from "../../../api/services/usuario-controller.service";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-usuario',
@@ -20,18 +22,31 @@ import {MensagensUniversais} from "../../../../MensagensUniversais";
 export class ListUsuarioComponent implements OnInit {
   colunasMostrar = ['codigo','funcionarioNome', 'funcionarioEmail','funcionarioCpf','funcionarioCargo','acao'];
   usuarioListaDataSource: MatTableDataSource<UsuarioDto> = new MatTableDataSource<UsuarioDto>();
-  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar)
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar);
+  admin!: boolean;
+  pageSlice!: UsuarioDto[];
+  qtdRegistros!: number;
 
   constructor(
     public funcionarioService: FuncionarioControllerService,
     public usuarioService: UsuarioControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private securityService: SecurityService
   ){
   }
 
   ngOnInit(): void {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.buscarDados();
   }
 
@@ -40,8 +55,19 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   private buscarDados() {
-    this.usuarioService.usuarioControllerListAll().subscribe(data => {
+    this.usuarioService.usuarioControllerListUsuariosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.usuarioListaDataSource.data = data;
+      this.pageSlice = this.usuarioListaDataSource.data
+    })
+    this.usuarioService.usuarioControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
+    })
+  }
+
+  onPageChange(event: PageEvent){
+    this.usuarioService.usuarioControllerListUsuariosWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.usuarioListaDataSource.data = data;
+      this.pageSlice = this.usuarioListaDataSource.data
       console.log(JSON.stringify(data));
     })
   }

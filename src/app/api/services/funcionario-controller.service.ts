@@ -420,4 +420,175 @@ export class FuncionarioControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation funcionarioControllerListAllWithSort
+   */
+  static readonly FuncionarioControllerListAllWithSortPath = '/api/v1/funcionario/sort/{field}';
+
+  /**
+   * Reliza busca ordenada de acordo com o campo
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `funcionarioControllerListAllWithSort()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  funcionarioControllerListAllWithSort$Response(params: {
+    field: string;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerListAllWithSortPath, 'get');
+    if (params) {
+      rb.path('field', params.field, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Reliza busca ordenada de acordo com o campo
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `funcionarioControllerListAllWithSort$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  funcionarioControllerListAllWithSort(params: {
+    field: string;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.funcionarioControllerListAllWithSort$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation funcionarioControllerCount
+   */
+  static readonly FuncionarioControllerCountPath = '/api/v1/funcionario/pagination';
+
+  /**
+   * Busca a quantidade de registros
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `funcionarioControllerCount()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  funcionarioControllerCount$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerCountPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Busca a quantidade de registros
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `funcionarioControllerCount$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  funcionarioControllerCount(params?: {
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.funcionarioControllerCount$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation funcionarioControllerListFuncionariosWithPagination
+   */
+  static readonly FuncionarioControllerListFuncionariosWithPaginationPath = '/api/v1/funcionario/pagination/{offset}/{pageSize}';
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `funcionarioControllerListFuncionariosWithPagination()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  funcionarioControllerListFuncionariosWithPagination$Response(params: {
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerListFuncionariosWithPaginationPath, 'get');
+    if (params) {
+      rb.path('offset', params.offset, {});
+      rb.path('pageSize', params.pageSize, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `funcionarioControllerListFuncionariosWithPagination$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  funcionarioControllerListFuncionariosWithPagination(params: {
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.funcionarioControllerListFuncionariosWithPagination$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
 }

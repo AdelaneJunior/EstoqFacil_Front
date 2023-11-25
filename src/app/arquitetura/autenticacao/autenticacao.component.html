@@ -7,7 +7,7 @@
               >
                 <div class="login-content">
                   <h1>Entrar</h1>
-                  <mat-form-field >
+                  <mat-form-field fxFill="fxFill">
                     <mat-label >E-mail</mat-label>
                     <input matInput formControlName="login" autocomplete="off" placeholder="exemplo@exemplo.com" type="email">
                     <mat-error *ngIf="handleError('login', 'required')">Insira o e-mail</mat-error>

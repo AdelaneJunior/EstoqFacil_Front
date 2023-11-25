@@ -31,6 +31,8 @@ export class FormFuncionarioComponent implements OnInit{
   minDate = new Date(1900, 0, 1);
   maxDate = new Date();
   flexDivAlinhar: string = 'row';
+  admin!: boolean
+
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
@@ -46,6 +48,15 @@ export class FormFuncionarioComponent implements OnInit{
   }
 
   ngOnInit() {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.carregarCargos();

@@ -12,6 +12,8 @@ import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {ClienteControllerService} from "../../../api/services/cliente-controller.service";
 import {ClienteDto} from "../../../api/models/cliente-dto";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-cliente',
@@ -21,26 +23,46 @@ import {MensagensUniversais} from "../../../../MensagensUniversais";
 export class ListClienteComponent implements OnInit {
   colunasMostrar = ['cpf','nome', 'telefone','email','acao'];
   clienteListaDataSource: MatTableDataSource<ClienteDto> = new MatTableDataSource<ClienteDto>();
-  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar)
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar);
+  admin!: boolean;
+  pageSlice!: ClienteDto[];
+  qtdRegistros!: number;
   constructor(
     public clienteService: ClienteControllerService,
     private dialog: MatDialog,
-
+    private securityService: SecurityService,
     private snackBar: MatSnackBar,
     private router: Router
   ){
   }
 
   ngOnInit(): void {
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.buscarDados();
   }
 
-
+  onPageChange(event: PageEvent){
+    this.clienteService.clienteControllerListClientesWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.clienteListaDataSource.data = data;
+      this.pageSlice = this.clienteListaDataSource.data
+    })
+  }
 
   private buscarDados() {
-    this.clienteService.clienteControllerListAll().subscribe(data => {
+    this.clienteService.clienteControllerListClientesWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.clienteListaDataSource.data = data;
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.clienteListaDataSource.data
+    })
+    this.clienteService.clienteControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 
