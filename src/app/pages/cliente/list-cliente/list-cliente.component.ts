@@ -50,19 +50,17 @@ export class ListClienteComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    this.clienteService.clienteControllerListClientesWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
-      this.clienteListaDataSource.data = data;
-      this.pageSlice = this.clienteListaDataSource.data
+    this.clienteService.clienteControllerListAllPage({page: {page: event.pageIndex, sort:["cpf"], size: event.pageSize}}).subscribe(data => {
+      this.clienteListaDataSource.data = data.content;
+      this.pageSlice = this.clienteListaDataSource.data;
     })
   }
 
   private buscarDados() {
-    this.clienteService.clienteControllerListClientesWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
-      this.clienteListaDataSource.data = data;
-      this.pageSlice = this.clienteListaDataSource.data
-    })
-    this.clienteService.clienteControllerCount().subscribe(data =>{
-      this.qtdRegistros = data;
+    this.clienteService.clienteControllerListAllPage({page: {page: 0, sort:["cpf"], size: 5}}).subscribe(data => {
+      this.clienteListaDataSource.data = data.content;
+      this.pageSlice = this.clienteListaDataSource.data;
+      this.qtdRegistros = data.totalElements;
     })
   }
 

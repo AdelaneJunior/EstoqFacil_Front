@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CategoriaDto } from '../models/categoria-dto';
+import { Pageable } from '../models/pageable';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
 
@@ -587,6 +588,63 @@ export class CategoriaControllerService extends BaseService {
 ): Observable<any> {
 
     return this.categoriaControllerListCategoriasWithPagination$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation categoriaControllerListAllPage
+   */
+  static readonly CategoriaControllerListAllPagePath = '/api/v1/categoria/page';
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerListAllPage$Response(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerListAllPagePath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerListAllPage(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.categoriaControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

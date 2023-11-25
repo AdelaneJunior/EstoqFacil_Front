@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { MovimentacaoDto } from '../models/movimentacao-dto';
+import { Pageable } from '../models/pageable';
 import { RelatorioMovimentacaoDto } from '../models/relatorio-movimentacao-dto';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
@@ -417,6 +418,63 @@ export class MovimentacaoControllerService extends BaseService {
 ): Observable<any> {
 
     return this.movimentacaoControllerSearchFieldsAction$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerListAllPage
+   */
+  static readonly MovimentacaoControllerListAllPagePath = '/api/v1/movimentacao/page';
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerListAllPage$Response(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerListAllPagePath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerListAllPage(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.movimentacaoControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

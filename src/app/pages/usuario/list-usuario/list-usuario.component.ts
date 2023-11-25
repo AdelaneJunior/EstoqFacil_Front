@@ -55,20 +55,17 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   private buscarDados() {
-    this.usuarioService.usuarioControllerListUsuariosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
-      this.usuarioListaDataSource.data = data;
-      this.pageSlice = this.usuarioListaDataSource.data
-    })
-    this.usuarioService.usuarioControllerCount().subscribe(data =>{
-      this.qtdRegistros = data;
+    this.usuarioService.usuarioControllerListAllPage({page:{page:0, size:5, sort:["codigo"]}}).subscribe(data => {
+      this.usuarioListaDataSource.data = data.content;
+      this.pageSlice = this.usuarioListaDataSource.data;
+      this.qtdRegistros = data.totalElements;
     })
   }
 
   onPageChange(event: PageEvent){
-    this.usuarioService.usuarioControllerListUsuariosWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
-      this.usuarioListaDataSource.data = data;
-      this.pageSlice = this.usuarioListaDataSource.data
-      console.log(JSON.stringify(data));
+    this.usuarioService.usuarioControllerListAllPage({page:{page:event.pageIndex, size:event.pageSize, sort:["codigo"]}}).subscribe(data => {
+      this.usuarioListaDataSource.data = data.content;
+      this.pageSlice = this.usuarioListaDataSource.data;
     })
   }
 

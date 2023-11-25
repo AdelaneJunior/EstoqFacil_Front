@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { CargoDto } from '../models/cargo-dto';
+import { Pageable } from '../models/pageable';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
 
@@ -416,6 +417,63 @@ export class CargoControllerService extends BaseService {
 ): Observable<any> {
 
     return this.cargoControllerSearchFieldsAction$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation cargoControllerListAllPage
+   */
+  static readonly CargoControllerListAllPagePath = '/api/v1/cargo/page';
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `cargoControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  cargoControllerListAllPage$Response(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerListAllPagePath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `cargoControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  cargoControllerListAllPage(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.cargoControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

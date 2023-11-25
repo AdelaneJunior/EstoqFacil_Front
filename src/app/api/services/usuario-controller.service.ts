@@ -9,6 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
+import { Pageable } from '../models/pageable';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
 import { UsuarioDto } from '../models/usuario-dto';
@@ -587,6 +588,63 @@ export class UsuarioControllerService extends BaseService {
 ): Observable<any> {
 
     return this.usuarioControllerListUsuariosWithPagination$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation usuarioControllerListAllPage
+   */
+  static readonly UsuarioControllerListAllPagePath = '/api/v1/usuario/page';
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `usuarioControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListAllPage$Response(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerListAllPagePath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `usuarioControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListAllPage(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.usuarioControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

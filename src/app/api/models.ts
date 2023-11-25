@@ -15,6 +15,7 @@ export { EnviaEmailDto } from './models/envia-email-dto';
 export { AuthDto } from './models/auth-dto';
 export { ISearchFieldDataObject } from './models/i-search-field-data-object';
 export { SearchField } from './models/search-field';
+export { Pageable } from './models/pageable';
 export { RelatorioMovimentacaoDto } from './models/relatorio-movimentacao-dto';
 export { IEntidadeObject } from './models/i-entidade-object';
 export { Imagem } from './models/imagem';

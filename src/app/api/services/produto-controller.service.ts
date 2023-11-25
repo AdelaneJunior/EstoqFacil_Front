@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { EnviaEmailDto } from '../models/envia-email-dto';
+import { Pageable } from '../models/pageable';
 import { ProdutoDto } from '../models/produto-dto';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
@@ -645,6 +646,63 @@ export class ProdutoControllerService extends BaseService {
 ): Observable<any> {
 
     return this.produtoControllerListProdutosWithPagination$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation produtoControllerListAllPage
+   */
+  static readonly ProdutoControllerListAllPagePath = '/api/v1/produto/page';
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `produtoControllerListAllPage()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  produtoControllerListAllPage$Response(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerListAllPagePath, 'get');
+    if (params) {
+      rb.query('page', params.page, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem Geral paginada
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `produtoControllerListAllPage$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  produtoControllerListAllPage(params: {
+    page: Pageable;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.produtoControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

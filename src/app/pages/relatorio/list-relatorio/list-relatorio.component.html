@@ -19,7 +19,7 @@
         <!-- Telefone -->
         <ng-container matColumnDef="preco">
           <th mat-header-cell *matHeaderCellDef> Preço de Venda </th>
-          <td mat-cell *matCellDef="let element"> {{element.precoVenda}} </td>
+          <td mat-cell *matCellDef="let element">R$ {{element.precoVenda}} </td>
         </ng-container>
 
         <!-- Telefone -->
@@ -48,6 +48,12 @@
         <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
       </table>
+      <mat-paginator style="justify-content: center" [length]="this.qtdRegistros"
+                     [pageSize]="5"
+                     [pageSizeOptions]="[5, 10, 25, 100]"
+                     aria-label="Select page"
+                     showFirstLastButtons>
+      </mat-paginator>
     </section>
   </mat-card-content>
 </mat-card>

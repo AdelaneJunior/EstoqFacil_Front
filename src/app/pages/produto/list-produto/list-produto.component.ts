@@ -58,11 +58,9 @@ export class ListProdutoComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    const pagina = event.pageSize * event.pageIndex;
-    this.produtoService.produtoControllerListProdutosWithPagination({offset: pagina, pageSize: event.pageSize}).subscribe(data => {
-      this.produtoListaDataSource.data = data;
-      this.pageSlice = this.produtoListaDataSource.data
-      console.log(JSON.stringify(data));
+    this.produtoService.produtoControllerListAllPage({page: {page: event.pageIndex, size: event.pageSize, sort:["codigo"]}}).subscribe(data => {
+      this.produtoListaDataSource.data = data.content;
+      this.pageSlice = this.produtoListaDataSource.data;
     })
   }
 
@@ -84,21 +82,16 @@ export class ListProdutoComponent implements OnInit {
   }
 
   private buscarDados() {
-    this.produtoService.produtoControllerListProdutosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
-      this.produtoListaDataSource.data = data;
-      this.pageSlice = this.produtoListaDataSource.data
-      console.log(JSON.stringify(data));
+    this.produtoService.produtoControllerListAllPage({page: {page: 0, size: 5, sort:["codigo"]}}).subscribe(data => {
+      this.produtoListaDataSource.data = data.content;
+      this.pageSlice = this.produtoListaDataSource.data;
+      this.qtdRegistros = data.totalElements;
     })
-    this.produtoService.produtoControllerCount().subscribe(
-      data => {
-        this.qtdRegistros = data;
-      }
-    )
   }
 
   showResult($event: any[]) {
-    this.pageSlice = $event;
-    this.qtdRegistros = this.pageSlice.length;
+    this.pageSlice = $event.slice(0,5);
+    this.qtdRegistros = $event.length;
   }
 
   remover(produtoDto: ProdutoDto) {

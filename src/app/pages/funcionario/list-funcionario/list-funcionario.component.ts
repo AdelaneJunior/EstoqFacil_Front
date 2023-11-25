@@ -48,20 +48,18 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    this.funcionarioService.funcionarioControllerListFuncionariosWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
-      this.funcionarioListaDataSource.data = data;
-      this.pageSlice = this.funcionarioListaDataSource.data
+    this.funcionarioService.funcionarioControllerListAllPage({page: {page: event.pageIndex, size: event.pageSize, sort:["cpf"]}}).subscribe(data => {
+      this.funcionarioListaDataSource.data = data.content;
+      this.pageSlice = this.funcionarioListaDataSource.data;
     })
   }
 
 
   private buscarDados() {
-    this.funcionarioService.funcionarioControllerListFuncionariosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
-      this.funcionarioListaDataSource.data = data;
-      this.pageSlice = this.funcionarioListaDataSource.data
-    })
-    this.funcionarioService.funcionarioControllerCount().subscribe(data =>{
-      this.qtdRegistros = data;
+    this.funcionarioService.funcionarioControllerListAllPage({page: {page: 0, size: 5, sort:["cpf"]}}).subscribe(data => {
+      this.funcionarioListaDataSource.data = data.content;
+      this.pageSlice = this.funcionarioListaDataSource.data;
+      this.qtdRegistros = data.totalElements;
     })
   }
 

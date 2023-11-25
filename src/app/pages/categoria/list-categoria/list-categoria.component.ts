@@ -45,24 +45,22 @@ export class ListCategoriaComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    this.categoriaService.categoriaControllerListCategoriasWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
-      this.categoriaListaDataSource.data = data;
+    this.categoriaService.categoriaControllerListAllPage({page: {page: event.pageIndex, sort:["codigo"], size: event.pageSize}}).subscribe(data => {
+      this.categoriaListaDataSource.data = data.content;
       this.pageSlice = this.categoriaListaDataSource.data
     })
   }
 
   private buscarDados() {
-    this.categoriaService.categoriaControllerListCategoriasWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
-      this.categoriaListaDataSource.data = data;
+    this.categoriaService.categoriaControllerListAllPage({page: {page: 0, sort:["codigo"], size: 5}}).subscribe(data => {
+      this.categoriaListaDataSource.data = data.content;
+      this.qtdRegistros = data.totalElements;
       this.pageSlice = this.categoriaListaDataSource.data
-    })
-    this.categoriaService.categoriaControllerCount().subscribe(data =>{
-      this.qtdRegistros = data;
     })
   }
 
   showResult($event: any[]) {
-    this.pageSlice = $event;
+    this.pageSlice = $event.slice(0,5);
   }
 
   remover(categoriaDto: CategoriaDto) {
