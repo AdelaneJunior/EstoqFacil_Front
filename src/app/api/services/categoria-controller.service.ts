@@ -420,4 +420,175 @@ export class CategoriaControllerService extends BaseService {
     );
   }
 
+  /**
+   * Path part for operation categoriaControllerListAllWithSort
+   */
+  static readonly CategoriaControllerListAllWithSortPath = '/api/v1/categoria/sort/{field}';
+
+  /**
+   * Reliza busca ordenada de acordo com o campo
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerListAllWithSort()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerListAllWithSort$Response(params: {
+    field: string;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerListAllWithSortPath, 'get');
+    if (params) {
+      rb.path('field', params.field, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Reliza busca ordenada de acordo com o campo
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerListAllWithSort$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerListAllWithSort(params: {
+    field: string;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.categoriaControllerListAllWithSort$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation categoriaControllerCount
+   */
+  static readonly CategoriaControllerCountPath = '/api/v1/categoria/pagination';
+
+  /**
+   * Busca a quantidade de registros
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerCount()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerCount$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerCountPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Busca a quantidade de registros
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerCount$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerCount(params?: {
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.categoriaControllerCount$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation categoriaControllerListCategoriasWithPagination
+   */
+  static readonly CategoriaControllerListCategoriasWithPaginationPath = '/api/v1/categoria/pagination/{offset}/{pageSize}';
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerListCategoriasWithPagination()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerListCategoriasWithPagination$Response(params: {
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerListCategoriasWithPaginationPath, 'get');
+    if (params) {
+      rb.path('offset', params.offset, {});
+      rb.path('pageSize', params.pageSize, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerListCategoriasWithPagination$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  categoriaControllerListCategoriasWithPagination(params: {
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.categoriaControllerListCategoriasWithPagination$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
 }

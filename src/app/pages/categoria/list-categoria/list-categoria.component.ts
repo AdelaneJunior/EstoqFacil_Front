@@ -21,6 +21,7 @@ export class ListCategoriaComponent implements OnInit {
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar);
   admin!: boolean;
   pageSlice!: CategoriaDto[];
+  qtdRegistros!: number;
   constructor(
     public categoriaService: CategoriaControllerService,
     private dialog: MatDialog,
@@ -44,24 +45,24 @@ export class ListCategoriaComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.categoriaListaDataSource.data.length){
-      endIndex = this.categoriaListaDataSource.data.length
-    }
-    this.pageSlice = this.categoriaListaDataSource.data.slice(startIndex, endIndex);
+    this.categoriaService.categoriaControllerListCategoriasWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.categoriaListaDataSource.data = data;
+      this.pageSlice = this.categoriaListaDataSource.data
+    })
   }
 
   private buscarDados() {
-    this.categoriaService.categoriaControllerListAll().subscribe(data => {
+    this.categoriaService.categoriaControllerListCategoriasWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.categoriaListaDataSource.data = data;
-      this.pageSlice = this.categoriaListaDataSource.data.slice(0,5);
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.categoriaListaDataSource.data
+    })
+    this.categoriaService.categoriaControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 
   showResult($event: any[]) {
-    this.categoriaListaDataSource.data = $event;
+    this.pageSlice = $event;
   }
 
   remover(categoriaDto: CategoriaDto) {

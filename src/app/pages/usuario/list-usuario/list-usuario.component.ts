@@ -25,6 +25,7 @@ export class ListUsuarioComponent implements OnInit {
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "usuario", this.snackBar);
   admin!: boolean;
   pageSlice!: UsuarioDto[];
+  qtdRegistros!: number;
 
   constructor(
     public funcionarioService: FuncionarioControllerService,
@@ -54,20 +55,21 @@ export class ListUsuarioComponent implements OnInit {
   }
 
   private buscarDados() {
-    this.usuarioService.usuarioControllerListAll().subscribe(data => {
+    this.usuarioService.usuarioControllerListUsuariosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.usuarioListaDataSource.data = data;
-      this.pageSlice = this.usuarioListaDataSource.data.slice(0,5);
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.usuarioListaDataSource.data
+    })
+    this.usuarioService.usuarioControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 
   onPageChange(event: PageEvent){
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.usuarioListaDataSource.data.length){
-      endIndex = this.usuarioListaDataSource.data.length
-    }
-    this.pageSlice = this.usuarioListaDataSource.data.slice(startIndex, endIndex);
+    this.usuarioService.usuarioControllerListUsuariosWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.usuarioListaDataSource.data = data;
+      this.pageSlice = this.usuarioListaDataSource.data
+      console.log(JSON.stringify(data));
+    })
   }
 
   remover(usuarioDto: UsuarioDto) {

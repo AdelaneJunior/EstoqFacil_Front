@@ -24,6 +24,7 @@ export class ListFuncionarioComponent implements OnInit {
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
   admin!: boolean;
   pageSlice!: FuncionarioDto[];
+  qtdRegistros!: number;
   constructor(
     public funcionarioService: FuncionarioControllerService,
     private dialog: MatDialog,
@@ -47,20 +48,20 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.funcionarioListaDataSource.data.length){
-      endIndex = this.funcionarioListaDataSource.data.length
-    }
-    this.pageSlice = this.funcionarioListaDataSource.data.slice(startIndex, endIndex);
+    this.funcionarioService.funcionarioControllerListFuncionariosWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.funcionarioListaDataSource.data = data;
+      this.pageSlice = this.funcionarioListaDataSource.data
+    })
   }
 
 
   private buscarDados() {
-    this.funcionarioService.funcionarioControllerListAll().subscribe(data => {
+    this.funcionarioService.funcionarioControllerListFuncionariosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.funcionarioListaDataSource.data = data;
-      this.pageSlice = this.funcionarioListaDataSource.data.slice(0,5);
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.funcionarioListaDataSource.data
+    })
+    this.funcionarioService.funcionarioControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 

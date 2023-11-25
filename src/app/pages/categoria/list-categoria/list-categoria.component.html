@@ -67,7 +67,7 @@
     <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
   </table>
-  <mat-paginator style="justify-content: center" [length]="this.categoriaListaDataSource.data.length"
+  <mat-paginator style="justify-content: center" [length]="this.qtdRegistros"
                  [pageSize]="5"
                  [pageSizeOptions]="[5, 10, 25, 100]"
                  (page)="onPageChange($event)"

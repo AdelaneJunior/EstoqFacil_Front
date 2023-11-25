@@ -26,6 +26,7 @@ export class ListClienteComponent implements OnInit {
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar);
   admin!: boolean;
   pageSlice!: ClienteDto[];
+  qtdRegistros!: number;
   constructor(
     public clienteService: ClienteControllerService,
     private dialog: MatDialog,
@@ -49,19 +50,19 @@ export class ListClienteComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent){
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.clienteListaDataSource.data.length){
-      endIndex = this.clienteListaDataSource.data.length
-    }
-    this.pageSlice = this.clienteListaDataSource.data.slice(startIndex, endIndex);
+    this.clienteService.clienteControllerListClientesWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.clienteListaDataSource.data = data;
+      this.pageSlice = this.clienteListaDataSource.data
+    })
   }
 
   private buscarDados() {
-    this.clienteService.clienteControllerListAll().subscribe(data => {
+    this.clienteService.clienteControllerListClientesWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.clienteListaDataSource.data = data;
-      this.pageSlice = this.clienteListaDataSource.data.slice(0,5);
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.clienteListaDataSource.data
+    })
+    this.clienteService.clienteControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 

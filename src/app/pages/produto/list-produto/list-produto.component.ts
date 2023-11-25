@@ -3,7 +3,6 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from '@angular/router';
-import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
 import {ProdutoDto} from "../../../api/models/produto-dto";
 import {
   ConfirmationDialog,
@@ -14,6 +13,7 @@ import {ImagemControllerService} from "../../../api/services/imagem-controller.s
 import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {PageEvent} from "@angular/material/paginator";
+import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
 
 @Component({
   selector: 'app-list-produto',
@@ -33,6 +33,7 @@ export class ListProdutoComponent implements OnInit {
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar);
   admin!: boolean
   pageSlice!: ProdutoDto[];
+  qtdRegistros!: number;
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -54,16 +55,21 @@ export class ListProdutoComponent implements OnInit {
         this.router.navigate(['/acesso']);
     }
     this.buscarDados();
-    this.pageSlice = this.produtoListaDataSource.data.slice(0,5);
   }
 
   onPageChange(event: PageEvent){
-    const startIndex = event.pageIndex * event.pageSize;
-    let endIndex = startIndex + event.pageSize;
-    if (endIndex > this.produtoListaDataSource.data.length){
-      endIndex = this.produtoListaDataSource.data.length
-    }
-    this.pageSlice = this.produtoListaDataSource.data.slice(startIndex, endIndex);
+    const pagina = event.pageSize * event.pageIndex;
+    this.produtoService.produtoControllerListProdutosWithPagination({offset: pagina, pageSize: event.pageSize}).subscribe(data => {
+      this.produtoListaDataSource.data = data;
+      this.pageSlice = this.produtoListaDataSource.data
+      console.log(JSON.stringify(data));
+    })
+  }
+
+  ordenar(field: string){
+    this.produtoService.produtoControllerListAllWithSort({field: field}).subscribe(data =>{
+      this.pageSlice = data;
+    })
   }
 
   selectAll(completed: boolean) {
@@ -78,15 +84,21 @@ export class ListProdutoComponent implements OnInit {
   }
 
   private buscarDados() {
-    this.produtoService.produtoControllerListAll().subscribe(data => {
+    this.produtoService.produtoControllerListProdutosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.produtoListaDataSource.data = data;
-      this.pageSlice = this.produtoListaDataSource.data.slice(0, 5);
+      this.pageSlice = this.produtoListaDataSource.data
       console.log(JSON.stringify(data));
     })
+    this.produtoService.produtoControllerCount().subscribe(
+      data => {
+        this.qtdRegistros = data;
+      }
+    )
   }
 
   showResult($event: any[]) {
-    this.produtoListaDataSource.data = $event;
+    this.pageSlice = $event;
+    this.qtdRegistros = this.pageSlice.length;
   }
 
   remover(produtoDto: ProdutoDto) {
