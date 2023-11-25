@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DateAdapter} from "@angular/material/core";
 
@@ -13,6 +13,7 @@ import {
 } from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {MediaObserver} from "@angular/flex-layout";
 
 
 @Component({
@@ -22,7 +23,7 @@ import {MensagensUniversais} from "../../../../MensagensUniversais";
 })
 export class FormCategoriaComponent implements OnInit{
   formGroup!: FormGroup;
-  public readonly ACAO_INCLUIR = "Cadastro";
+  public readonly ACAO_INCLUIR = "Cadastrar";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
@@ -36,7 +37,7 @@ export class FormCategoriaComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
   ) {
     this._adapter.setLocale('pt-br');
   }

@@ -21,7 +21,7 @@ import {SecurityService} from "../../../arquitetura/security/security.service";
 })
 export class FormClienteComponent implements OnInit{
   formGroup!: FormGroup;
-  public readonly ACAO_INCLUIR = "Cadastro";
+  public readonly ACAO_INCLUIR = "Cadastrar";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: string;
@@ -29,6 +29,7 @@ export class FormClienteComponent implements OnInit{
   validacoes: Validacoes = new Validacoes();
   minDate = new Date(1900, 0, 1);
   maxDate = new Date();
+  flexDivAlinhar: string = 'row';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -161,5 +162,15 @@ export class FormClienteComponent implements OnInit{
         this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message)
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
+  }
+
+  mudarAlinhar() {
+
+    if(innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
   }
 }

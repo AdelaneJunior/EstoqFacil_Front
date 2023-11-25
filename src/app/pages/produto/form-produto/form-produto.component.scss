@@ -1,10 +1,13 @@
 @import '../../../../StyleForms.css';
 
+<<<<<<< Updated upstream
 .div-imagem{
   width: 30%;
   float: right;
   text-align: center;
 }
+=======
+>>>>>>> Stashed changes
 .imagem-selecionada{
   margin-top:4px;
   margin-bottom: 10px;
@@ -14,9 +17,30 @@
 }
 
 .imagem-upload{
-  width: 60%;
+  width: 40%;
 }
 
-.botoes{
-  width: 50%;
+@media (max-width: 1820px) {
+  .formPadrao {
+    width: 60%;
+    padding: 3%;
+  }
 }
+<<<<<<< Updated upstream
+=======
+
+@media (max-width: 1000px) {
+  .formPadrao {
+    width: 80%;
+    padding: 4%;
+  }
+}
+
+@media (max-width: 700px) {
+  .formPadrao {
+    width: auto;
+    padding: 6%;
+  }
+}
+
+>>>>>>> Stashed changes

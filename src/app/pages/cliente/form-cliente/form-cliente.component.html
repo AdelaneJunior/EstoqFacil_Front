@@ -1,18 +1,13 @@
-<div class="formPadrao">
-<form
-  [formGroup]="formGroup"
-  (ngSubmit)="onSubmit()"
-  class="form"
->
-  <div class="form-content">
-    <h2>{{acao}} de <br> Cliente</h2>
+<div class="formPadrao" fxLayout="row" fxLayoutAlign="center center">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form" fxFlex="1 1 auto">
+    <h2>{{acao}} <br> Cliente</h2>
 
     <mat-form-field>
       <mat-label>Nome</mat-label>
       <input matInput formControlName="nome" placeholder="Digite o nome do cliente">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
-    <div class="alinhar2">
+    <div [fxLayout]="mudarAlinhar()" fxLayoutAlign="space-evenly center" >
       <mat-form-field>
         <mat-label>CPF</mat-label>
         <input matInput formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00">
@@ -28,7 +23,7 @@
         <mat-error *ngIf="handleError('nascimento', 'required')">Campo Obrigatório</mat-error>
       </mat-form-field>
     </div>
-    <div class="alinhar2">
+    <div [fxLayout]="mudarAlinhar()" fxLayoutAlign="space-evenly center" >
 
       <mat-form-field>
         <mat-label>Telefone</mat-label>
@@ -43,14 +38,13 @@
         <mat-error *ngIf="handleError('email', 'required')">Campo Obrigatório</mat-error>
         <mat-error *ngIf="handleError('email', 'emailInvalido')">E-mail inválido</mat-error>
       </mat-form-field>
+    </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" >
+        <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
+        <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+        <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
+      </div>
 
-    </div>
-    <div class="botoes">
-    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-    <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
-    </div>
-  </div>
 </form>
 </div>
 
