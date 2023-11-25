@@ -92,6 +92,11 @@
             <button mat-menu-item (click)="confirmarExcluir(element)">
               <mat-icon>delete_forever</mat-icon>Excluir
             </button>
+
+              <button mat-menu-item [routerLink]="['/relatorio',element.codigo]">
+                <mat-icon>remove_red_eye</mat-icon>Movimentações
+              </button>
+
           </mat-menu>
         </td>
       </ng-container>

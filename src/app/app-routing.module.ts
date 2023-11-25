@@ -8,6 +8,7 @@ import {funcionarioRoutes} from "./pages/funcionario/funcionario-routing.module"
 import {SecurityGuard} from "./arquitetura/security/security.guard";
 import {usuarioRoutes} from "./pages/usuario/usuario-routing.module";
 import {clienteRoutes} from "./pages/cliente/cliente-routing.module";
+import {relatorioRoutes} from "./pages/relatorio/relatorio-routing.module";
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
       ...produtoRoutes,
       ...funcionarioRoutes,
       ...usuarioRoutes,
-      ...clienteRoutes
+      ...clienteRoutes,
+      ...relatorioRoutes
     ],
     canActivate: [SecurityGuard],
     data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}}

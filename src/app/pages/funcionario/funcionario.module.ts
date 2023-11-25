@@ -22,8 +22,6 @@ import {FlexModule} from "@angular/flex-layout";
 import {NgxMaskDirective} from "ngx-mask";
 
 
-
-
 @NgModule({
   declarations: [
     HomeFuncionarioComponent,

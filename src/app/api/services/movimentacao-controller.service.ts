@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { MovimentacaoDto } from '../models/movimentacao-dto';
+import { RelatorioMovimentacaoDto } from '../models/relatorio-movimentacao-dto';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
 
@@ -416,6 +417,230 @@ export class MovimentacaoControllerService extends BaseService {
 ): Observable<any> {
 
     return this.movimentacaoControllerSearchFieldsAction$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerMapearRelatorio
+   */
+  static readonly MovimentacaoControllerMapearRelatorioPath = '/api/v1/movimentacao/mapeamento';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerMapearRelatorio()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerMapearRelatorio$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<RelatorioMovimentacaoDto>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerMapearRelatorioPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<RelatorioMovimentacaoDto>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerMapearRelatorio$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerMapearRelatorio(params?: {
+  },
+  context?: HttpContext
+
+): Observable<RelatorioMovimentacaoDto> {
+
+    return this.movimentacaoControllerMapearRelatorio$Response(params,context).pipe(
+      map((r: StrictHttpResponse<RelatorioMovimentacaoDto>) => r.body as RelatorioMovimentacaoDto)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo
+   */
+  static readonly MovimentacaoControllerTodasMovimentacoesDeProdutoPorCodigoPath = '/api/v1/movimentacao/geral{codigoProduto}';
+
+  /**
+   * Listagem de movimentações de um produto
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo$Response(params: {
+    codigoProduto: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerTodasMovimentacoesDeProdutoPorCodigoPath, 'get');
+    if (params) {
+      rb.path('codigoProduto', params.codigoProduto, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem de movimentações de um produto
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo(params: {
+    codigoProduto: number;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerTodasMovimentacoesProdutosEntradaSaida
+   */
+  static readonly MovimentacaoControllerTodasMovimentacoesProdutosEntradaSaidaPath = '/api/v1/movimentacao/geral';
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerTodasMovimentacoesProdutosEntradaSaida()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerTodasMovimentacoesProdutosEntradaSaida$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerTodasMovimentacoesProdutosEntradaSaidaPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerTodasMovimentacoesProdutosEntradaSaida$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerTodasMovimentacoesProdutosEntradaSaida(params?: {
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.movimentacaoControllerTodasMovimentacoesProdutosEntradaSaida$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation movimentacaoControllerListMovimentacoesPorProdutoWithPagination
+   */
+  static readonly MovimentacaoControllerListMovimentacoesPorProdutoWithPaginationPath = '/api/v1/movimentacao/geral/pagination/{codProduto}/{offset}/{pageSize}';
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `movimentacaoControllerListMovimentacoesPorProdutoWithPagination()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerListMovimentacoesPorProdutoWithPagination$Response(params: {
+    codProduto: number;
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerListMovimentacoesPorProdutoWithPaginationPath, 'get');
+    if (params) {
+      rb.path('codProduto', params.codProduto, {});
+      rb.path('offset', params.offset, {});
+      rb.path('pageSize', params.pageSize, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `movimentacaoControllerListMovimentacoesPorProdutoWithPagination$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  movimentacaoControllerListMovimentacoesPorProdutoWithPagination(params: {
+    codProduto: number;
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.movimentacaoControllerListMovimentacoesPorProdutoWithPagination$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

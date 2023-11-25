@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {HomeUsuarioComponent} from "./home-usuario/home-usuario.component";
 import {ListUsuarioComponent} from "./list-usuario/list-usuario.component";
 import {FormUsuarioComponent} from "./form-usuario/form-usuario.component";
