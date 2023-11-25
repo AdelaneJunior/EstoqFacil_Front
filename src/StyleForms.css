@@ -5,56 +5,40 @@ h2{
   text-align: center;
 }
 
-.form-content{
-  display: flex;
-  flex-direction: column;
-  float: left;
-  width: 100%;
-}
-
 .botoes{
   width: 100%;
 }
-
-
-/*@media (min-width: 500px) {
-  .formPadrao {
-    width: auto;
-    padding-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    place-content: center;
-    align-items: center;
-    border: 3px solid #513BDB;
-    border-radius: 50px 50px;
-    background-color: white;
-    text-align: center;
-  }
+.formPadrao {
+  border: 3px solid #513BDB;
+  border-radius: 30px 30px;
+  background-color: white;
+  padding: 2%;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2%;
 }
-@media (min-width: 765px) {
-  .formPadrao {
-    width: auto;
-    padding-bottom: 20px;
-    display: flex;
-    flex-direction: row;
-    place-content: center;
-    align-items: center;
 
-  }
-}*/
-@media (min-width: 1200px) {
+@media (max-width: 1500px) {
   .formPadrao {
-    display: flex;
-    flex-direction: column;
-    border: 3px solid #513BDB;
-    border-radius: 30px 30px;
-    background-color: white;
-    padding: 15px;
-    margin-top: 2%;
-
+    width: 60%;
+    padding: 3%;
   }
 }
 
+@media (max-width: 900px) {
+  .formPadrao {
+    width: 80%;
+    padding: 4%;
+  }
+}
+
+@media (max-width: 700px) {
+  .formPadrao {
+    width: 100%;
+    padding: 6%;
+  }
+}
 
 .button{
   font-family: DM Roboto, sans-serif;
@@ -96,16 +80,5 @@ mat-form-field{
   margin: 5px;
 }
 
-.alinhar2{
-  display: flex;
-  align-items: center;
-  alignment-baseline: center;
-  position: relative;
-  width: 100%;
-}
 
-.botoes{
-  justify-content: left;
-  width: 100%;
-}
 

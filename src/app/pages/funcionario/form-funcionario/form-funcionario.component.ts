@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DateAdapter} from "@angular/material/core";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -21,7 +21,7 @@ import {Validacoes} from "../../../../Validacoes";
 })
 export class FormFuncionarioComponent implements OnInit{
   formGroup!: FormGroup;
-  public readonly ACAO_INCLUIR = "Cadastro";
+  public readonly ACAO_INCLUIR = "Cadastrar";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: string;
@@ -30,7 +30,7 @@ export class FormFuncionarioComponent implements OnInit{
   validacoes: Validacoes = new Validacoes();
   minDate = new Date(1900, 0, 1);
   maxDate = new Date();
-
+  flexDivAlinhar: string = 'row';
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
@@ -167,6 +167,16 @@ export class FormFuncionarioComponent implements OnInit{
         this.mensagens.confirmarErro(this.ACAO_EDITAR, erro.message)
         //this.showError(erro.error, this.ACAO_EDITAR);
       })
+  }
+
+  mudarAlinhar() {
+
+    if(innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
   }
 
 }

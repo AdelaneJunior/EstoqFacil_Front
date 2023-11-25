@@ -1,10 +1,9 @@
-<div class="formPadrao">
-<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form">
-  <div class="form-content">
-    <h2>{{acao}} de <br> Categoria</h2>
-    <mat-form-field>
+<div class="formPadrao" fxLayout="row" fxLayoutAlign="center center">
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form" fxFlex="1 1 auto">
+    <h2>{{acao}} <br> Categoria</h2>
+    <mat-form-field >
 
-      <mat-label>Categoria</mat-label>
+      <mat-label >Categoria</mat-label>
       <input matInput formControlName="nome" placeholder="Nome da categoria">
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
@@ -15,11 +14,10 @@
       <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
-    <div class="botoes">
-      <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-      <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <div class="botoes" fxLayout="row" fxLayoutAlign="space-between center" >
       <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
+      <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+      <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar</button>
     </div>
-  </div>
 </form>
 </div>

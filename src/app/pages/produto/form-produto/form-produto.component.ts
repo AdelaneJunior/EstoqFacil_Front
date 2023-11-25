@@ -25,7 +25,7 @@ import {MensagensUniversais} from "../../../../MensagensUniversais";
 })
 export class FormProdutoComponent implements OnInit{
   formGroup!: FormGroup;
-  public readonly ACAO_INCLUIR = "Incluir";
+  public readonly ACAO_INCLUIR = "Cadastrar";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
@@ -35,6 +35,7 @@ export class FormProdutoComponent implements OnInit{
   imagemIdAntigo!: number | undefined;
   selectedFile!: File;
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, 'produto', this.snackBar)
+  flexDivAlinhar: string = 'row';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -241,5 +242,15 @@ export class FormProdutoComponent implements OnInit{
   erroImagem(){
     if(!this.imagemId && !this.imagemIdAntigo)
       this.mensagens.confirmarErro(this.ACAO_INCLUIR, "Insira uma imagem para incluir!")
+  }
+
+  mudarAlinhar() {
+
+    if(innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
   }
 }

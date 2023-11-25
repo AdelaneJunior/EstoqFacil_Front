@@ -1,20 +1,11 @@
-
-<div class="formPadrao">
-
-<div class="container">
-
-<form
-  [formGroup]="formGroup"
-  (ngSubmit)="onSubmit()"
-  class="form"
->
-  <div class="form-content">
-    <h2>{{acao}} de <br> Usuário</h2>
+<div class="formPadrao" fxLayout="row" fxLayoutAlign="center center">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form" fxFlex="1 1 auto">
+    <h2>{{acao}} <br> Usuário</h2>
     <mat-form-field>
       <mat-label>Nome</mat-label>
       <input *ngIf="acao === 'Editar'" matInput formControlName="funcionarioNome" readonly>
       <mat-label>Funcionário</mat-label>
-      <mat-select formControlName="funcionarioNome" *ngIf="acao === 'Cadastro'" placeholder="Selecione o funcionário">
+      <mat-select formControlName="funcionarioNome" *ngIf="acao === 'Cadastrar'" placeholder="Selecione o funcionário">
         <mat-option *ngFor="let funcionario of funcionarios" [value]="funcionario.cpf">{{ funcionario.nome }}</mat-option>
       </mat-select>
       <mat-error *ngIf="formGroup.get('funcionarioNome')?.hasError('required')">Campo obrigatório</mat-error>
@@ -22,7 +13,7 @@
 
     <mat-form-field>
       <mat-label>Senha</mat-label>
-      <input matInput type="password" formControlName="senha" placeholder="Digite a senha" matInput [type]="hide ? 'password' : 'text'">
+      <input matInput type="password" formControlName="senha" placeholder="Digite a senha" [type]="hide ? 'password' : 'text'">
       <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
@@ -42,12 +33,11 @@
       <mat-error *ngIf="formGroup.get('confirmarSenha')?.hasError('required')">Confirmação de senha é obrigatória</mat-error>
       <mat-error *ngIf="formGroup.get('confirmarSenha')?.hasError('naoConfere')">As senhas não coincidem</mat-error>
     </mat-form-field>
-  </div>
-  <div class="botoes">
-    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-    <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" >
     <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
+    <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+    <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar</button>
   </div>
 </form>
-</div>
 </div>

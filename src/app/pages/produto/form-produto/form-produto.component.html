@@ -1,14 +1,7 @@
+<div class="formPadrao" fxLayout="row" fxLayoutAlign="center center" >
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="form" fxFlex="1 1 auto">
 
-<div class="formPadrao">
-
-<form
-  [formGroup]="formGroup"
-  (ngSubmit)="onSubmit()"
-  class="form"
->
-
-  <div class="form-content">
-    <h2>{{acao}} de <br> Produto</h2>
+    <h2>{{acao}} <br> Produto</h2>
 
     <mat-form-field>
       <mat-label>Codigo de barras</mat-label>
@@ -22,7 +15,7 @@
       <mat-error *ngIf="handleError('nome', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
-    <div class="alinhar2">
+    <div [fxLayout]="mudarAlinhar()" fxLayoutAlign="space-evenly center" >
     <mat-form-field>
       <mat-label>Categoria</mat-label>
       <mat-select formControlName="categoriaId" placeholder="Selecione a categoria">
@@ -43,7 +36,7 @@
           <mat-error *ngIf="handleError('descricao', 'required')">Campo Obrigatório</mat-error>
         </mat-form-field>
 
-  <div class="alinhar2">
+    <div [fxLayout]="mudarAlinhar()" fxLayoutAlign="space-evenly center" >
     <mat-form-field *ngIf="ACAO_INCLUIR === acao">
       <mat-label>Quantidade Inicial</mat-label>
       <input matInput formControlName="quantidade" type="number">
@@ -52,18 +45,20 @@
 
     <mat-form-field *ngIf="ACAO_INCLUIR === acao" >
       <mat-label>Preço de venda</mat-label>
-      <input matInput formControlName="preco" type="number" mask="separator.2" decimalSeparator="," placeholder="0,00">
+      <input matInput formControlName="preco" mask="separator.2" decimalSeparator="," placeholder="0,00">
       <mat-error *ngIf="handleError('preco', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="ACAO_INCLUIR === acao">
       <mat-label>Custo de aquisição</mat-label>
-      <input matInput formControlName="custo" type="number" mask="separator.2" decimalSeparator="," placeholder="0,00">
+      <input matInput formControlName="custo"  mask="separator.2" decimalSeparator="," placeholder="0,00">
       <mat-error *ngIf="handleError('custo', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
 
-    <div class="div-imagem">
+    <div fxLayout="column" fxLayoutAlign="space-evenly center" >
+      <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
+      <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
         <input formControlName="imagemId" style="display: none" value="{{imagemId}}">
         <input
           style="display: none"
@@ -74,15 +69,13 @@
         <img *ngIf="!imagemId && !imagemIdAntigo" class="imagem-upload" src="../../../../assets/imagem_upload.jpg">
         <img *ngIf="imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}" >
         <img *ngIf="imagemId && !imagemIdAntigo" class="imagem-selecionada" src="http://localhost:8080/imagem/{{imagemId}}">
-      <button *ngIf="!imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Carregar imagem</button>
-        <button *ngIf="imagemId" mat-raised-button color="primary" type="button" class="button botao-cadastro" (click)="imageInput.click()">Alterar imagem</button>
     </div>
-  <div class="botoes">
-  <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar {{acao}}</button>
-  <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
-  <button mat-raised-button color="warn" type="button" (click)="cancelar()" class="button botao-cancelar">Cancelar</button>
-  </div>
-  </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" >
+      <button mat-raised-button color="warn" type="button" (click)="this.mensagens.acaoCancelar()" class="button botao-cancelar">Cancelar</button>
+      <button mat-raised-button color="warn" type="button" (click)="limparFormulario()" class="button botao-limpar">Limpar</button>
+      <button mat-raised-button color="primary" type="submit" class="button  botao-cadastro">Confirmar</button>
+    </div>
+
 </form>
 </div>
 

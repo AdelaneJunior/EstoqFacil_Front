@@ -23,7 +23,7 @@ import {basename} from "@angular/compiler-cli";
 })
 export class FormUsuarioComponent implements OnInit{
   formGroup!: FormGroup;
-  public readonly ACAO_INCLUIR = "Cadastro";
+  public readonly ACAO_INCLUIR = "Cadastrar";
   public readonly ACAO_EDITAR = "Editar";
   acao: string = this.ACAO_INCLUIR;
   codigo!: number;
