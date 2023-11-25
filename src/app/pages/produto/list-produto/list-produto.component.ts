@@ -64,12 +64,6 @@ export class ListProdutoComponent implements OnInit {
     })
   }
 
-  ordenar(field: string){
-    this.produtoService.produtoControllerListAllWithSort({field: field}).subscribe(data =>{
-      this.pageSlice = data;
-    })
-  }
-
   selectAll(completed: boolean) {
     this.listProdutosEnviar = [];
     this.allChecked = completed;
