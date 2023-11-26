@@ -14,6 +14,7 @@ import {MensagensUniversais} from "../../../../MensagensUniversais";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {PageEvent} from "@angular/material/paginator";
 import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
+import {ProdutoMovimentacaoDialogComponent} from "../produto-movimentacao-dialog/produto-movimentacao-dialog.component";
 
 @Component({
   selector: 'app-list-produto',
@@ -183,6 +184,7 @@ export class ListProdutoComponent implements OnInit {
     return removido;
   }
 
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.innerWidth = window.innerWidth;
@@ -195,6 +197,15 @@ export class ListProdutoComponent implements OnInit {
       return this.flexDivAlinhar = "column";
     }
     return this.flexDivAlinhar = "row";
+  }
 
+
+  openDialog(produtoDto: ProdutoDto): void {
+    console.log(produtoDto);
+    const dialogRef = this.dialog.open(ProdutoMovimentacaoDialogComponent,
+      {data:
+          {
+            codigo: produtoDto.codigo
+      }});
   }
 }

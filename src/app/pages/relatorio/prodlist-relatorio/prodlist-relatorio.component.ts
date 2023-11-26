@@ -7,6 +7,10 @@ import {SecurityService} from "../../../arquitetura/security/security.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovimentacaoDto} from "../../../api/models/movimentacao-dto";
+import {ProdutoDto} from "../../../api/models/produto-dto";
+import {
+  ProdutoMovimentacaoDialogComponent
+} from "../../produto/produto-movimentacao-dialog/produto-movimentacao-dialog.component";
 
 @Component({
   selector: 'app-prodlist-relatorio',
@@ -24,6 +28,7 @@ export class ProdlistRelatorioComponent implements OnInit{
   admin!:boolean
   produto!:string
   codigo!: number
+  produtoCodigo!: number;
   constructor(
     public movimentacaoController: MovimentacaoControllerService,
     private dialog: MatDialog,
@@ -44,6 +49,7 @@ export class ProdlistRelatorioComponent implements OnInit{
     if(paramId) {
       const codigo = parseInt(paramId);
       this.codigo = codigo;
+      this.produtoCodigo = codigo;
       this.movimentacaoController.movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo({codigoProduto:codigo})
         .subscribe(data =>{
           this.movimentacaoListDataSource.data = data;
@@ -53,5 +59,14 @@ export class ProdlistRelatorioComponent implements OnInit{
           this.produto = this.pageSlice.at(0).produtoNome || ''
         })
     }
+  }
+
+  openDialog(codigo: number): void {
+    console.log(codigo);
+    const dialogRef = this.dialog.open(ProdutoMovimentacaoDialogComponent,
+      {data:
+          {
+            codigo: codigo
+          }});
   }
 }
