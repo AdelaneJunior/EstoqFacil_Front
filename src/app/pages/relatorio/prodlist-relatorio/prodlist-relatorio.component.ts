@@ -27,13 +27,14 @@ export class ProdlistRelatorioComponent implements OnInit{
   pageSlice!: MovimentacaoDto[];
   admin!:boolean
   produto!:string
+  codigo!: number
   produtoCodigo!: number;
   constructor(
     public movimentacaoController: MovimentacaoControllerService,
     private dialog: MatDialog,
     private securityService: SecurityService,
     private snackBar: MatSnackBar,
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute,
   ) {
   }
@@ -47,6 +48,7 @@ export class ProdlistRelatorioComponent implements OnInit{
     const paramId = this.route.snapshot.paramMap.get('codigo');
     if(paramId) {
       const codigo = parseInt(paramId);
+      this.codigo = codigo;
       this.produtoCodigo = codigo;
       this.movimentacaoController.movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo({codigoProduto:codigo})
         .subscribe(data =>{

@@ -1,3 +1,12 @@
+
+<button mat-raised-button color="primary" type="button" class="button-voltar" (click)="router.navigate(['/relatorio'])"> Voltar</button> <h2>Movimentações de Estoque</h2>
+<mat-card>
+  <mat-card-content fxLayoutAlign="center" fxLayout="column">
+    <div fxLayoutAlign="center">
+      <img src='http://localhost:8080/imagem/{{codigo}}' height="200">
+    </div>
+    <h2>{{produto}}</h2>
+    <div style="overflow-x:auto">
 <h2>Movimentações de Estoque</h2>
 
 <mat-card>
@@ -10,7 +19,6 @@
       </button>
     </mat-card-actions>
     <section class="example-container mat-elevation-z8" tabindex="0">
-
       <table mat-table [dataSource]="movimentacaoListDataSource" class="tabela">
 
         <!-- Responsável pela movimentacao -->
@@ -60,13 +68,13 @@
         <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
       </table>
+    </div>
       <mat-paginator style="justify-content: center" [length]="this.qtdRegistros"
                      [pageSize]="5"
                      [pageSizeOptions]="[5, 10, 25, 100]"
                      aria-label="Select page"
                      showFirstLastButtons>
       </mat-paginator>
-    </section>
   </mat-card-content>
 </mat-card>
 

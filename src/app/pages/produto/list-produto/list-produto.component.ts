@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -35,6 +35,9 @@ export class ListProdutoComponent implements OnInit {
   admin!: boolean
   pageSlice!: ProdutoDto[];
   qtdRegistros!: number;
+  innerWidth: number = window.innerWidth;
+  flexDivAlinhar: string = 'row';
+  ordenado: boolean = false;
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -46,15 +49,7 @@ export class ListProdutoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.securityService.credential.accessToken == "") {
-      this.router.navigate(['/acesso']);
-    } else {
-      if (this.securityService.isValid()) {
-        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
-      }
-      if (!this.securityService.isValid())
-        this.router.navigate(['/acesso']);
-    }
+    this.innerWidth = window.innerWidth;
     this.buscarDados();
   }
 
@@ -76,6 +71,32 @@ export class ListProdutoComponent implements OnInit {
     }
   }
 
+  ordenarQtd(){
+
+    const getKeyValue = <T extends {}, U extends keyof T>(key: U) => (obj: T) => obj[key]
+
+    const sortBy = <T extends {}>(index: string, list: T[]): T[] => {
+      return list.sort((a, b): number => {
+        // @ts-ignore
+        const _a = getKeyValue<keyof T, T>(index)(a)
+        // @ts-ignore
+        const _b = getKeyValue<keyof T, T>(index)(b)
+        if (_a < _b) return -1
+        if (_a > _b) return 1
+        return 0
+      })
+    }
+    if(this.ordenado){
+      this.pageSlice = sortBy('codigo', this.pageSlice);
+      this.showResult(this.pageSlice);
+      this.ordenado = false;
+    } else{
+      this.ordenado = true;
+      this.pageSlice = sortBy('quantidade', this.pageSlice);
+      this.showResult(this.pageSlice);
+    }
+  }
+
   private buscarDados() {
     this.produtoService.produtoControllerListAllPage({page: {page: 0, size: 5, sort:["codigo"]}}).subscribe(data => {
       this.produtoListaDataSource.data = data.content;
@@ -86,9 +107,10 @@ export class ListProdutoComponent implements OnInit {
 
   showResult($event: any[]) {
     this.pageSlice = $event.slice(0,5);
-    this.qtdRegistros = $event.length;
+    if(!this.ordenado) {
+      this.qtdRegistros = $event.length;
+    }
   }
-
   remover(produtoDto: ProdutoDto) {
     console.log("Removido", produtoDto.codigo);
     let codigoDoProduto: number = produtoDto.codigo || 0;
@@ -161,6 +183,22 @@ export class ListProdutoComponent implements OnInit {
     });
     return removido;
   }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
+  mudarAlinhar() {
+
+    if(this.innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+  }
+
 
   openDialog(produtoDto: ProdutoDto): void {
     console.log(produtoDto);

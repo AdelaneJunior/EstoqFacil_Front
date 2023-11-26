@@ -32,7 +32,7 @@ export class FormFuncionarioComponent implements OnInit{
   maxDate = new Date();
   flexDivAlinhar: string = 'row';
   admin!: boolean
-
+  innerWidth: number = window.innerWidth;
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
@@ -48,15 +48,7 @@ export class FormFuncionarioComponent implements OnInit{
   }
 
   ngOnInit() {
-    if (this.securityService.credential.accessToken == "") {
-      this.router.navigate(['/acesso']);
-    } else {
-      if (this.securityService.isValid()) {
-        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
-      }
-      if (!this.securityService.isValid())
-        this.router.navigate(['/acesso']);
-    }
+    this.innerWidth = window.innerWidth;
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.carregarCargos();
@@ -182,12 +174,17 @@ export class FormFuncionarioComponent implements OnInit{
 
   mudarAlinhar() {
 
-    if(innerWidth < 1500)
+    if(innerWidth < 1000)
     {
       return this.flexDivAlinhar = "column";
     }
     return this.flexDivAlinhar = "row";
 
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
   }
 
 }

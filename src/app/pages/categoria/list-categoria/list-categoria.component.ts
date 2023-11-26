@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -22,6 +22,8 @@ export class ListCategoriaComponent implements OnInit {
   admin!: boolean;
   pageSlice!: CategoriaDto[];
   qtdRegistros!: number;
+  innerWidth: number = window.innerWidth;
+  flexDivAlinhar: string = 'row';
   constructor(
     public categoriaService: CategoriaControllerService,
     private dialog: MatDialog,
@@ -32,15 +34,7 @@ export class ListCategoriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.securityService.credential.accessToken == "") {
-      this.router.navigate(['/acesso']);
-    } else {
-      if (this.securityService.isValid()) {
-        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
-      }
-      if (!this.securityService.isValid())
-        this.router.navigate(['/acesso']);
-    }
+    this.innerWidth = window.innerWidth;
     this.buscarDados();
   }
 
@@ -96,6 +90,22 @@ export class ListCategoriaComponent implements OnInit {
         this.remover(confirmed.dado);
       }
     });
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
+  mudarAlinhar() {
+
+    if(this.innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
   }
 
 }

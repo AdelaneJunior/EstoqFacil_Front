@@ -1,1 +1,16 @@
 @import '../../../../styles.css';
+
+.button-voltar{
+  font-family: DM Roboto, sans-serif;
+  font-size: 13px;
+  padding:1px;
+  text-decoration: none;
+  background:#6050C6;
+  color: white;
+  height:40px;
+  border: none;
+  border-radius: 50px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
