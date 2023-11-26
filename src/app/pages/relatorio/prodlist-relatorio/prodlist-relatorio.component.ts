@@ -11,6 +11,7 @@ import {ProdutoDto} from "../../../api/models/produto-dto";
 import {
   ProdutoMovimentacaoDialogComponent
 } from "../../produto/produto-movimentacao-dialog/produto-movimentacao-dialog.component";
+import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
 
 @Component({
   selector: 'app-prodlist-relatorio',
@@ -26,9 +27,10 @@ export class ProdlistRelatorioComponent implements OnInit{
   qtdRegistros!:number
   pageSlice!: MovimentacaoDto[];
   admin!:boolean
-  produto!:string
+  produtoNome!:string
   codigo!: number
   produtoCodigo!: number;
+  produto!: ProdutoDto;
   constructor(
     public movimentacaoController: MovimentacaoControllerService,
     private dialog: MatDialog,
@@ -36,6 +38,7 @@ export class ProdlistRelatorioComponent implements OnInit{
     private snackBar: MatSnackBar,
     public router: Router,
     private route: ActivatedRoute,
+    private produtoService: ProdutoControllerService
   ) {
   }
   ngOnInit(): void {
@@ -49,6 +52,9 @@ export class ProdlistRelatorioComponent implements OnInit{
     if(paramId) {
       const codigo = parseInt(paramId);
       this.codigo = codigo;
+      this.produtoService.produtoControllerObterPorId({id: codigo}).subscribe(data =>{
+        this.produto = data;
+      })
       this.produtoCodigo = codigo;
       this.movimentacaoController.movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo({codigoProduto:codigo})
         .subscribe(data =>{
@@ -56,7 +62,7 @@ export class ProdlistRelatorioComponent implements OnInit{
           this.pageSlice = this.movimentacaoListDataSource.data
 
           // @ts-ignore
-          this.produto = this.pageSlice.at(0).produtoNome || ''
+          this.produtoNome = this.pageSlice.at(0).produtoNome || ''
         })
     }
   }
@@ -66,7 +72,7 @@ export class ProdlistRelatorioComponent implements OnInit{
     const dialogRef = this.dialog.open(ProdutoMovimentacaoDialogComponent,
       {data:
           {
-            codigo: codigo
+            produto: this.produto
           }});
   }
 }

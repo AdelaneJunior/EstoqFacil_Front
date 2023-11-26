@@ -18,9 +18,9 @@ import {ProdutoControllerService} from "../../../api/services/produto-controller
 export class ProdutoMovimentacaoDialogComponent implements OnInit{
   nomeProduto!: string;
   formGroup!: FormGroup;
-  produtoCodigo: number;
+  produtoCodigo!: number;
   acoesEnum = AcaoEnum;
-  produto!: ProdutoDto;
+  produto: ProdutoDto;
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -32,13 +32,14 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
     private securityService: SecurityService,
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
-    this.produtoCodigo = data.codigo;
-    this.buscaProduto();
+    this.produto = data.produto;
+    this.nomeProduto = this.produto.nome || "";
   }
 
 
   ngOnInit(): void {
     this.createForm();
+    console.log(this.produto);
   }
 
   fechar(): void {
@@ -56,24 +57,11 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
     }
   }
 
-  buscaProduto(){
-    this.produtoService.produtoControllerObterPorId({id: this.produtoCodigo}).subscribe(
-      retorno => {
-        this.produto = retorno;
-        this.nomeProduto = retorno.nome;
-      },error => {
-        console.log("erro", error);
-        this.confirmarErro("Buscar de produto");
-      }
-    )
-  }
-
-
   createForm() {
     this.formGroup = this.formBuilder.group({
       quantidade: [null, Validators.required],
-      preco: [null, Validators.required],
-      custo: [null, Validators.required],
+      preco: [this.produto.preco, Validators.required],
+      custo: [this.produto.custo, Validators.required],
       acao: [null, Validators.required],
       observacao: [null, Validators.required],
     })
@@ -82,7 +70,7 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
 
   private realizarInclusao() {
     const movimentacao : MovimentacaoDto = this.formGroup.value;
-    movimentacao.produtoId = this.produtoCodigo;
+    movimentacao.produtoId = this.produto.codigo;
     movimentacao.usuarioId = this.securityService.getUserId();
     console.log(movimentacao);
     this.movimentacaoService.movimentacaoControllerIncluir({body: movimentacao})

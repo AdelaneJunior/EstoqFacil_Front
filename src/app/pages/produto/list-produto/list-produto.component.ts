@@ -38,6 +38,7 @@ export class ListProdutoComponent implements OnInit {
   innerWidth: number = window.innerWidth;
   flexDivAlinhar: string = 'row';
   ordenado: boolean = false;
+
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -53,8 +54,14 @@ export class ListProdutoComponent implements OnInit {
     this.buscarDados();
   }
 
-  onPageChange(event: PageEvent){
-    this.produtoService.produtoControllerListAllPage({page: {page: event.pageIndex, size: event.pageSize, sort:["codigo"]}}).subscribe(data => {
+  onPageChange(event: PageEvent) {
+    this.produtoService.produtoControllerListAllPage({
+      page: {
+        page: event.pageIndex,
+        size: event.pageSize,
+        sort: ["codigo"]
+      }
+    }).subscribe(data => {
       this.produtoListaDataSource.data = data.content;
       this.pageSlice = this.produtoListaDataSource.data;
     })
@@ -71,7 +78,7 @@ export class ListProdutoComponent implements OnInit {
     }
   }
 
-  ordenarQtd(){
+  ordenarQtd() {
 
     const getKeyValue = <T extends {}, U extends keyof T>(key: U) => (obj: T) => obj[key]
 
@@ -86,11 +93,11 @@ export class ListProdutoComponent implements OnInit {
         return 0
       })
     }
-    if(this.ordenado){
+    if (this.ordenado) {
       this.pageSlice = sortBy('codigo', this.pageSlice);
       this.showResult(this.pageSlice);
       this.ordenado = false;
-    } else{
+    } else {
       this.ordenado = true;
       this.pageSlice = sortBy('quantidade', this.pageSlice);
       this.showResult(this.pageSlice);
@@ -98,7 +105,7 @@ export class ListProdutoComponent implements OnInit {
   }
 
   private buscarDados() {
-    this.produtoService.produtoControllerListAllPage({page: {page: 0, size: 5, sort:["codigo"]}}).subscribe(data => {
+    this.produtoService.produtoControllerListAllPage({page: {page: 0, size: 5, sort: ["codigo"]}}).subscribe(data => {
       this.produtoListaDataSource.data = data.content;
       this.pageSlice = this.produtoListaDataSource.data;
       this.qtdRegistros = data.totalElements;
@@ -106,11 +113,12 @@ export class ListProdutoComponent implements OnInit {
   }
 
   showResult($event: any[]) {
-    this.pageSlice = $event.slice(0,5);
-    if(!this.ordenado) {
+    this.pageSlice = $event.slice(0, 5);
+    if (!this.ordenado) {
       this.qtdRegistros = $event.length;
     }
   }
+
   remover(produtoDto: ProdutoDto) {
     console.log("Removido", produtoDto.codigo);
     let codigoDoProduto: number = produtoDto.codigo || 0;
@@ -119,9 +127,9 @@ export class ListProdutoComponent implements OnInit {
         retorno => {
           this.imagemService.imagemControllerExcluirFoto({id: retorno.imagemId}).subscribe();
           this.buscarDados();
-            this.mensagens.showMensagemSimples("Excluído com sucesso!");
-            console.log("Exclusão:", retorno);
-          }, error => {
+          this.mensagens.showMensagemSimples("Excluído com sucesso!");
+          console.log("Exclusão:", retorno);
+        }, error => {
           this.mensagens.confirmarErro("Excluir", error.message);
         }
       );
@@ -192,8 +200,7 @@ export class ListProdutoComponent implements OnInit {
 
   mudarAlinhar() {
 
-    if(this.innerWidth < 1500)
-    {
+    if (this.innerWidth < 1500) {
       return this.flexDivAlinhar = "column";
     }
     return this.flexDivAlinhar = "row";
@@ -203,9 +210,15 @@ export class ListProdutoComponent implements OnInit {
   openDialog(produtoDto: ProdutoDto): void {
     console.log(produtoDto);
     const dialogRef = this.dialog.open(ProdutoMovimentacaoDialogComponent,
-      {data:
+      {
+        data:
           {
-            codigo: produtoDto.codigo
-      }});
+            produto: produtoDto
+          }
+      })
+    dialogRef.afterClosed().subscribe(() => {
+        this.buscarDados()
+      }
+    )
   }
 }
