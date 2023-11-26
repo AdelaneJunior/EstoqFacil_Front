@@ -36,6 +36,7 @@ export class ListProdutoComponent implements OnInit {
   qtdRegistros!: number;
   innerWidth: number = window.innerWidth;
   flexDivAlinhar: string = 'row';
+  ordenado: boolean = false;
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -69,6 +70,32 @@ export class ListProdutoComponent implements OnInit {
     }
   }
 
+  ordenarQtd(){
+
+    const getKeyValue = <T extends {}, U extends keyof T>(key: U) => (obj: T) => obj[key]
+
+    const sortBy = <T extends {}>(index: string, list: T[]): T[] => {
+      return list.sort((a, b): number => {
+        // @ts-ignore
+        const _a = getKeyValue<keyof T, T>(index)(a)
+        // @ts-ignore
+        const _b = getKeyValue<keyof T, T>(index)(b)
+        if (_a < _b) return -1
+        if (_a > _b) return 1
+        return 0
+      })
+    }
+    if(this.ordenado){
+      this.pageSlice = sortBy('codigo', this.pageSlice);
+      this.showResult(this.pageSlice);
+      this.ordenado = false;
+    } else{
+      this.ordenado = true;
+      this.pageSlice = sortBy('quantidade', this.pageSlice);
+      this.showResult(this.pageSlice);
+    }
+  }
+
   private buscarDados() {
     this.produtoService.produtoControllerListAllPage({page: {page: 0, size: 5, sort:["codigo"]}}).subscribe(data => {
       this.produtoListaDataSource.data = data.content;
@@ -79,7 +106,9 @@ export class ListProdutoComponent implements OnInit {
 
   showResult($event: any[]) {
     this.pageSlice = $event.slice(0,5);
-    this.qtdRegistros = $event.length;
+    if(!this.ordenado) {
+      this.qtdRegistros = $event.length;
+    }
   }
   remover(produtoDto: ProdutoDto) {
     console.log("Removido", produtoDto.codigo);

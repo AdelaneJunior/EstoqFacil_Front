@@ -44,7 +44,7 @@
       <!-- Nome categoria -->
       <ng-container matColumnDef="categoriaId">
         <th mat-header-cell *matHeaderCellDef> Categoria</th>
-        <td mat-cell *matCellDef="let element"> {{element.categoriaNome}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.categoriaNome}}</td>
       </ng-container>
 
       <!-- Nome categoria -->
@@ -67,7 +67,11 @@
 
       <!-- Quantidade -->
       <ng-container matColumnDef="quantidade">
-        <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+        <th mat-header-cell *matHeaderCellDef class="quantidade">
+          Quantidade
+          <mat-icon *ngIf="!ordenado" title="Ordenar por quantidade" class="icone-ordenar" (click)="ordenarQtd()">arrow_upward</mat-icon>
+          <mat-icon *ngIf="ordenado" title="Desfazer ordenação" class="icone-ordenar" (click)="ordenarQtd()">layers_clear</mat-icon>
+        </th>
         <td mat-cell *matCellDef="let element"> <mat-icon title="Produto atingiu o estoque mínimo!" class="alerta" *ngIf="element.quantidade <= 10">warning</mat-icon>{{element.quantidade}} </td>
       </ng-container>
 
