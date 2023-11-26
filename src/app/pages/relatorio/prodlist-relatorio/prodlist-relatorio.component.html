@@ -2,7 +2,7 @@
 <mat-card>
   <mat-card-content>
     <h2>{{produto}}</h2>
-    <section class="example-container mat-elevation-z8" tabindex="0">
+    <div style="overflow-x:auto">
       <table mat-table [dataSource]="movimentacaoListDataSource" class="tabela">
 
         <!-- Responsável pela movimentacao -->
@@ -52,13 +52,13 @@
         <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
       </table>
+    </div>
       <mat-paginator style="justify-content: center" [length]="this.qtdRegistros"
                      [pageSize]="5"
                      [pageSizeOptions]="[5, 10, 25, 100]"
                      aria-label="Select page"
                      showFirstLastButtons>
       </mat-paginator>
-    </section>
   </mat-card-content>
 </mat-card>
 
