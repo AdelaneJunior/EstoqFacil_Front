@@ -36,6 +36,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {FlexModule} from "@angular/flex-layout";
 import {NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask} from "ngx-mask";
 import {RelatorioModule} from "./pages/relatorio/relatorio.module";
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import {HomePageModule} from "./pages/home-page/home-page.module";
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import {RelatorioModule} from "./pages/relatorio/relatorio.module";
     FormsModule,
     MatCheckboxModule,
     MatSelectModule,
+    HomePageModule,
     FlexModule,
     MatCheckboxModule,
     MatSelectModule,

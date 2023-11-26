@@ -9,12 +9,14 @@ import {SecurityGuard} from "./arquitetura/security/security.guard";
 import {usuarioRoutes} from "./pages/usuario/usuario-routing.module";
 import {clienteRoutes} from "./pages/cliente/cliente-routing.module";
 import {relatorioRoutes} from "./pages/relatorio/relatorio-routing.module";
+import {homePageRoutes} from "./pages/home-page/home-page-routing.module";
 
 const routes: Routes = [
   {
     path: "",
     component: HomeComponent,
     children: [
+      ...homePageRoutes,
       ...categoriaRoutes,
       ...produtoRoutes,
       ...funcionarioRoutes,
@@ -30,7 +32,6 @@ const routes: Routes = [
     children: [
       ...AutenticacaoRoutes
     ]
-
   }
 ];
 

@@ -47,15 +47,6 @@ export class FormClienteComponent implements OnInit{
   }
 
   ngOnInit() {
-    if (this.securityService.credential.accessToken == "") {
-      this.router.navigate(['/acesso']);
-    } else {
-      if (this.securityService.isValid()) {
-        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
-      }
-      if (!this.securityService.isValid())
-        this.router.navigate(['/acesso']);
-    }
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.prepararEdicao();

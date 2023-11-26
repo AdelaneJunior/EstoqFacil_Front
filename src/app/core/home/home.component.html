@@ -7,14 +7,14 @@
     <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
     <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
   </button>
-  <button class="custom-icon" routerLink="/" >
+  <button class="custom-icon" routerLink="/home" >
   </button>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
 
-    <button title="Home"  mat-button class="menu-button" routerLink="/">
+    <button title="Home"  mat-button class="menu-button" routerLink="/home">
       <mat-icon>home</mat-icon>
     </button>
     <button title="Categoria" mat-button class="menu-button" routerLink="/categoria">

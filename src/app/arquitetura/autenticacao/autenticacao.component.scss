@@ -1,50 +1,58 @@
-@media (min-width: 450px) {
-  .tela-inteira {
-    background-image: url("Login.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    padding-top: 30%;
-    padding-bottom: 15%;
-    display: flex;
-  }
-}
-@media (min-width: 765px){
-  .tela-inteira{
-  background-image: url("Login.png") ;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  padding-top: 20%;
-  padding-bottom: 15%;
-  display: flex;
-}
-}
-@media (min-width: 992px){
-  .tela-inteira{
-    background-image: url("Login.png") ;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    padding-top: 13%;
-    padding-bottom: 15%;
-    display: flex;
-  }
-}
-@media (min-width: 1200px){
-  .tela-inteira{
-    background-image: url("Login.png") ;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    padding-top: 13%;
-    padding-bottom: 246px;
-    display: flex;
-  }
-}
+//@media (min-width: 450px) {
+//  .tela-inteira {
+//    background-image: url("Login.png");
+//    background-repeat: no-repeat;
+//    background-position: center;
+//    background-size: cover;
+//    padding-top: 30%;
+//    padding-bottom: 15%;
+//    display: flex;
+//  }
+//}
+//
+//@media (min-width: 765px) {
+//  .tela-inteira {
+//    background-image: url("Login.png");
+//    background-repeat: no-repeat;
+//    background-position: center;
+//    background-size: cover;
+//    padding-top: 20%;
+//    padding-bottom: 15%;
+//    display: flex;
+//  }
+//}
+//
+//@media (min-width: 992px) {
+//  .tela-inteira {
+//    background-image: url("Login.png");
+//    background-repeat: no-repeat;
+//    background-position: center;
+//    background-size: cover;
+//    padding-top: 13%;
+//    padding-bottom: 15%;
+//    display: flex;
+//  }
+//}
+//
+//@media (min-width: 1200px) {
+//  .tela-inteira {
+//    background-image: url("Login.png");
+//    background-repeat: no-repeat;
+//    background-position: center;
+//    background-size: cover;
+//    padding-top: 13%;
+//    padding-bottom: 246px;
+//    display: flex;
+//  }
+//}
+//.tela-inteira{
+//  position: absolute;
+//  top: 50%;
+//  left: 50%;
+//}
 
-h1{
-  user-select:none;
+h1 {
+  user-select: none;
 }
 
 .container {
@@ -69,18 +77,31 @@ h1{
   align-items: center;
 }
 
-.button{
+.button {
   font-family: DM Roboto, sans-serif;
   font-size: 16px;
-  padding:0px;
+  padding: 0px;
   text-decoration: none;
-  text-align:center;
-  background:#513BDB;
+  text-align: center;
+  background: #513BDB;
   color: white;
-  width:120px;
-  height:30px;
-  display:block;
+  width: 120px;
+  height: 30px;
+  display: block;
   border: none;
   border-radius: 50px 50px;
   cursor: pointer;
+}
+
+.background{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url("Login.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  align-items: center;
+  display: flex;
+  justify-content: center
 }

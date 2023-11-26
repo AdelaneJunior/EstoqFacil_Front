@@ -30,7 +30,9 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['/acesso']);
     } else {
       if (this.securityService.isValid()) {
-        this.router.navigate(['/']);
+        if(this.router.url == '/'){
+          this.router.navigate(['/home']);
+        }
         this.admin = !this.securityService.hasRoles(['ROLE_ADMIN'])
       }
       if (!this.securityService.isValid())
