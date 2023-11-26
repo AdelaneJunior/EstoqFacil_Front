@@ -38,15 +38,6 @@ export class ListFuncionarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
-    if (this.securityService.credential.accessToken == "") {
-      this.router.navigate(['/acesso']);
-    } else {
-      if (this.securityService.isValid()) {
-        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
-      }
-      if (!this.securityService.isValid())
-        this.router.navigate(['/acesso']);
-    }
     this.buscarDados();
   }
 
