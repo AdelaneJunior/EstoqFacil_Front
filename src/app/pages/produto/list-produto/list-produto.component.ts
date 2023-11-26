@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -34,6 +34,8 @@ export class ListProdutoComponent implements OnInit {
   admin!: boolean
   pageSlice!: ProdutoDto[];
   qtdRegistros!: number;
+  innerWidth: number = window.innerWidth;
+  flexDivAlinhar: string = 'row';
   constructor(
     public produtoService: ProdutoControllerService,
     private dialog: MatDialog,
@@ -45,6 +47,7 @@ export class ListProdutoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
     if (this.securityService.credential.accessToken == "") {
       this.router.navigate(['/acesso']);
     } else {
@@ -87,7 +90,6 @@ export class ListProdutoComponent implements OnInit {
     this.pageSlice = $event.slice(0,5);
     this.qtdRegistros = $event.length;
   }
-
   remover(produtoDto: ProdutoDto) {
     console.log("Removido", produtoDto.codigo);
     let codigoDoProduto: number = produtoDto.codigo || 0;
@@ -159,5 +161,20 @@ export class ListProdutoComponent implements OnInit {
       }
     });
     return removido;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
+  mudarAlinhar() {
+
+    if(this.innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
   }
 }

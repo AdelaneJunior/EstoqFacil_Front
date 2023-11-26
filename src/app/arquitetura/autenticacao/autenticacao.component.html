@@ -11,6 +11,7 @@
                     <mat-label >E-mail</mat-label>
                     <input matInput formControlName="login" autocomplete="off" placeholder="exemplo@exemplo.com" type="email">
                     <mat-error *ngIf="handleError('login', 'required')">Insira o e-mail</mat-error>
+<!--                    <mat-error *ngIf="handleError('login', 'emailInvalido')">E-mail inválido</mat-error>-->
                   </mat-form-field>
 
                   <mat-form-field >

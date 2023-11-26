@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DateAdapter} from "@angular/material/core";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -31,8 +31,7 @@ export class FormClienteComponent implements OnInit{
   maxDate = new Date();
   flexDivAlinhar: string = 'row';
   admin!: boolean;
-
-
+  innerWidth: number = window.innerWidth;
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
@@ -56,6 +55,7 @@ export class FormClienteComponent implements OnInit{
       if (!this.securityService.isValid())
         this.router.navigate(['/acesso']);
     }
+    this.innerWidth = window.innerWidth;
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.prepararEdicao();
@@ -177,11 +177,17 @@ export class FormClienteComponent implements OnInit{
 
   mudarAlinhar() {
 
-    if(innerWidth < 1500)
+    if(innerWidth < 1000)
     {
       return this.flexDivAlinhar = "column";
     }
     return this.flexDivAlinhar = "row";
 
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
   }
 }

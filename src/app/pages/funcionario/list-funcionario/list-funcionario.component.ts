@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -25,6 +25,8 @@ export class ListFuncionarioComponent implements OnInit {
   admin!: boolean;
   pageSlice!: FuncionarioDto[];
   qtdRegistros!: number;
+  innerWidth: number = window.innerWidth;
+  flexDivAlinhar: string = 'row';
   constructor(
     public funcionarioService: FuncionarioControllerService,
     private dialog: MatDialog,
@@ -35,6 +37,7 @@ export class ListFuncionarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
     if (this.securityService.credential.accessToken == "") {
       this.router.navigate(['/acesso']);
     } else {
@@ -102,4 +105,18 @@ export class ListFuncionarioComponent implements OnInit {
     });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
+  mudarAlinhar() {
+
+    if(this.innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
+  }
 }
