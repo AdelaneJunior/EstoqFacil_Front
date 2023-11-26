@@ -92,10 +92,12 @@
             <button mat-menu-item (click)="confirmarExcluir(element)">
               <mat-icon>delete_forever</mat-icon>Excluir
             </button>
-
-              <button mat-menu-item [routerLink]="['/relatorio',element.codigo]">
-                <mat-icon>remove_red_eye</mat-icon>Movimentações
-              </button>
+            <button mat-menu-item [routerLink]="['/relatorio',element.codigo]">
+               <mat-icon>remove_red_eye</mat-icon>Movimentações
+            </button>
+            <button mat-menu-item (click)="openDialog(element)">
+              <mat-icon>add</mat-icon>Novo lançamento
+            </button>
 
           </mat-menu>
         </td>

@@ -21,12 +21,14 @@ import {FlexModule} from "@angular/flex-layout";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {SearchModule} from "../../arquitetura/search-module/search.module";
 import {NgxMaskDirective} from "ngx-mask";
+import { ProdutoMovimentacaoDialogComponent } from './produto-movimentacao-dialog/produto-movimentacao-dialog.component';
 
 @NgModule({
   declarations: [
     ListProdutoComponent,
     HomeProdutoComponent,
-    FormProdutoComponent
+    FormProdutoComponent,
+    ProdutoMovimentacaoDialogComponent
   ],
     imports: [
         CommonModule,

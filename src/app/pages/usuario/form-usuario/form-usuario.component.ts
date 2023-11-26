@@ -145,7 +145,7 @@ export class FormUsuarioComponent implements OnInit{
     novoUsuario.funcionarioCpf = this.formGroup.get("funcionarioNome")?.value;
     novoUsuario.senha = this.formGroup.get("senha")?.value;
     console.log("Dados:",this.formGroup.value);
-    this.usuarioService.usuarioControllerIncluir({usuarioDTO: novoUsuario})
+    this.usuarioService.usuarioControllerIncluir({body: novoUsuario})
       .subscribe( retorno =>{
         console.log("Retorno:",retorno);
         this.confirmarAcao(retorno,this.ACAO_INCLUIR);

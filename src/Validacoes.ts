@@ -15,7 +15,7 @@ export class Validacoes{
 
     validarCpf(control: AbstractControl): { [key: string]: any } | null {
         const cpfValidar: string = control.value;
-        //npm install cpf-cnpj-validator
+        //npm install produtoId-cnpj-validator
         if (cpf.isValid(cpfValidar) || cpfValidar == '' || cpfValidar == null) {
           return null;
         }

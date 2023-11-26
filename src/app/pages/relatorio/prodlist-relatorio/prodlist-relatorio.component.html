@@ -1,8 +1,16 @@
 <h2>Movimentações de Estoque</h2>
+
 <mat-card>
+
   <mat-card-content>
     <h2>{{produto}}</h2>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly center">
+      <button class="button-config" mat-raised-button color="primary" (click)="openDialog(produtoCodigo)">
+        <mat-icon>add</mat-icon> <span>Novo lançamento</span>
+      </button>
+    </mat-card-actions>
     <section class="example-container mat-elevation-z8" tabindex="0">
+
       <table mat-table [dataSource]="movimentacaoListDataSource" class="tabela">
 
         <!-- Responsável pela movimentacao -->
