@@ -33,13 +33,12 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
     this.produtoCodigo = data.codigo;
-
+    this.buscaProduto();
   }
 
 
   ngOnInit(): void {
     this.createForm();
-    this.buscaProduto();
   }
 
   fechar(): void {
@@ -73,8 +72,8 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
   createForm() {
     this.formGroup = this.formBuilder.group({
       quantidade: [null, Validators.required],
-      preco: [this.produto.preco, Validators.required],
-      custo: [this.produto.custo, Validators.required],
+      preco: [null, Validators.required],
+      custo: [null, Validators.required],
       acao: [null, Validators.required],
       observacao: [null, Validators.required],
     })

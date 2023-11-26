@@ -3,16 +3,11 @@
 <mat-card>
   <mat-card-content fxLayoutAlign="center" fxLayout="column">
     <div fxLayoutAlign="center">
-      <img src='http://localhost:8080/imagem/{{codigo}}' height="200">
+      <img src='http://localhost:8080/imagem/{{codigo}}' height="200" alt="">
     </div>
     <h2>{{produto}}</h2>
     <div style="overflow-x:auto">
-<h2>Movimentações de Estoque</h2>
 
-<mat-card>
-
-  <mat-card-content>
-    <h2>{{produto}}</h2>
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly center">
       <button class="button-config" mat-raised-button color="primary" (click)="openDialog(produtoCodigo)">
         <mat-icon>add</mat-icon> <span>Novo lançamento</span>
@@ -68,6 +63,7 @@
         <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
         <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
       </table>
+    </section>
     </div>
       <mat-paginator style="justify-content: center" [length]="this.qtdRegistros"
                      [pageSize]="5"
