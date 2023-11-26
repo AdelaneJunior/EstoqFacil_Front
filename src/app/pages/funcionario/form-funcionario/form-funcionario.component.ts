@@ -31,6 +31,7 @@ export class FormFuncionarioComponent implements OnInit{
   minDate = new Date(1900, 0, 1);
   maxDate = new Date();
   flexDivAlinhar: string = 'row';
+  innerWidth: number = window.innerWidth;
   constructor(
     private formBuilder: FormBuilder,
     private _adapter: DateAdapter<any>,
@@ -46,6 +47,7 @@ export class FormFuncionarioComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.carregarCargos();
@@ -171,12 +173,17 @@ export class FormFuncionarioComponent implements OnInit{
 
   mudarAlinhar() {
 
-    if(innerWidth < 1500)
+    if(innerWidth < 1000)
     {
       return this.flexDivAlinhar = "column";
     }
     return this.flexDivAlinhar = "row";
 
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
   }
 
 }

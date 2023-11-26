@@ -1,19 +1,21 @@
 <h2> Controle de <br>Produtos</h2>
 <mat-card>
-  <mat-card-actions fxLayout="row" fxLayoutAlign="space-evenly center">
+  <mat-card-actions [fxLayout]="mudarAlinhar()" fxLayoutAlign="none" >
+    <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-raised-button class="button-config" title="EnviarProduto" (click)="enviarproduto()">
+      <span>Enviar Produto</span>
+      <mat-icon>send</mat-icon>
+    </button>
     <button  class="button-config" mat-raised-button color="primary" [routerLink]="['/produto','novo']">
       <mat-icon>add</mat-icon>
       <span>Cadastrar Produto</span>
     </button>
+    </div>
       <app-search-component [controller]="produtoService" (onSearchResult)="showResult($event)"/>
-    <button  class="enviar" title="EnviarProduto" (click)="enviarproduto()">
-      <span>Enviar</span>
-      <mat-icon class="icone">send</mat-icon>
-    </button>
   </mat-card-actions>
   <mat-card-content>
-      <section class="example-container mat-elevation-z8" tabindex="0">
-    <table mat-table [dataSource]="produtoListaDataSource" class="tabela">
+    <div style="overflow-x:auto">
+    <table mat-table [dataSource]="pageSlice" class="tabela">
 
       <ng-container matColumnDef="check">
         <th mat-header-cell *matHeaderCellDef><mat-checkbox color="primary" [checked]="allChecked" (change)="selectAll($event.checked)"></mat-checkbox> </th>
@@ -41,7 +43,7 @@
 
       <!-- Nome categoria -->
       <ng-container matColumnDef="categoriaId">
-        <th mat-header-cell *matHeaderCellDef> Categoria </th>
+        <th mat-header-cell *matHeaderCellDef (click)="ordenar('categoriaId')"> Categoria</th>
         <td mat-cell *matCellDef="let element"> {{element.categoriaNome}} </td>
       </ng-container>
 
@@ -66,7 +68,7 @@
       <!-- Quantidade -->
       <ng-container matColumnDef="quantidade">
         <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-        <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
+        <td mat-cell *matCellDef="let element"> <mat-icon title="Produto atingiu o estoque mínimo!" class="alerta" *ngIf="element.quantidade <= 10">warning</mat-icon>{{element.quantidade}} </td>
       </ng-container>
 
       <!-- Preço de venda -->
@@ -96,13 +98,16 @@
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="colunasMostrar; sticky: true"></tr>
-      <tr mat-row *matRowDef="let row; columns: colunasMostrar;"></tr>
+      <tr mat-header-row *matHeaderRowDef="colunasMostrar"></tr>
+      <tr mat-row *matRowDef="let row; columns: colunasMostrar"></tr>
     </table>
-        <mat-paginator style="justify-content: center" [pageSizeOptions]="[5, 10, 20]"
-                       showFirstLastButtons
-                       aria-label="Select page of periodic elements">
+    </div>
+        <mat-paginator style="justify-content: center" [length]="this.qtdRegistros"
+                       [pageSize]="5"
+                       [pageSizeOptions]="[5, 10, 25, 100]"
+                       (page)="onPageChange($event)"
+                       aria-label="Select page"
+                       showFirstLastButtons>
         </mat-paginator>
-  </section>
   </mat-card-content>
 </mat-card>

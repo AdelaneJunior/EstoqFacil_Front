@@ -9,15 +9,18 @@
                   <h1>Entrar</h1>
                   <mat-form-field >
                     <mat-label >E-mail</mat-label>
-                    <input matInput formControlName="login" autocomplete="off"
-                           placeholder="Email" type="email">
+                    <input matInput formControlName="login" autocomplete="off" placeholder="exemplo@exemplo.com" type="email">
+                    <mat-error *ngIf="handleError('login', 'required')">Insira o e-mail</mat-error>
+<!--                    <mat-error *ngIf="handleError('login', 'emailInvalido')">E-mail inválido</mat-error>-->
                   </mat-form-field>
 
                   <mat-form-field >
                     <mat-label >Senha</mat-label>
-                    <input matInput formControlName="senha" type="password" title="Senha"
-                           placeholder="Senha">
-
+                    <input matInput formControlName="senha"  title="Senha" placeholder="Senha" [type]="hide ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="handleError('senha', 'required')">Insira a senha</mat-error>
                   </mat-form-field>
 
                   <button class="button" type="submit"  title="Entrar">

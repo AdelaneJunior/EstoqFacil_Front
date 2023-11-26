@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DateAdapter} from "@angular/material/core";
 
@@ -36,6 +36,7 @@ export class FormProdutoComponent implements OnInit{
   selectedFile!: File;
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, 'produto', this.snackBar)
   flexDivAlinhar: string = 'row';
+  innerWidth: number = window.innerWidth;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,6 +54,7 @@ export class FormProdutoComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.createForm();
     this._adapter.setLocale('pt-br');
     this.prepararEdicao();
@@ -246,11 +248,16 @@ export class FormProdutoComponent implements OnInit{
 
   mudarAlinhar() {
 
-    if(innerWidth < 1500)
+    if(this.innerWidth < 1000)
     {
       return this.flexDivAlinhar = "column";
     }
     return this.flexDivAlinhar = "row";
 
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
 }

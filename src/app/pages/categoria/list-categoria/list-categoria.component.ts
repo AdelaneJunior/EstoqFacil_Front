@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {CategoriaControllerService} from "../../../api/services/categoria-controller.service";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -7,6 +7,8 @@ import {MatTableDataSource} from "@angular/material/table";
 import {ConfirmationDialog,  ConfirmationDialogResult} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import { Router } from '@angular/router';
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-categoria',
@@ -16,28 +18,54 @@ import {MensagensUniversais} from "../../../../MensagensUniversais";
 export class ListCategoriaComponent implements OnInit {
   colunasMostrar = ['codigo','nome', 'descricao','acao'];
   categoriaListaDataSource: MatTableDataSource<CategoriaDto> = new MatTableDataSource<CategoriaDto>();
-  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar)
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "categoria", this.snackBar);
+  admin!: boolean;
+  pageSlice!: CategoriaDto[];
+  qtdRegistros!: number;
+  innerWidth: number = window.innerWidth;
+  flexDivAlinhar: string = 'row';
   constructor(
     public categoriaService: CategoriaControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private securityService: SecurityService
   ){
   }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.buscarDados();
   }
 
-  private buscarDados() {
-    this.categoriaService.categoriaControllerListAll().subscribe(data => {
+  onPageChange(event: PageEvent){
+    this.categoriaService.categoriaControllerListCategoriasWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
       this.categoriaListaDataSource.data = data;
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.categoriaListaDataSource.data
+    })
+  }
+
+  private buscarDados() {
+    this.categoriaService.categoriaControllerListCategoriasWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
+      this.categoriaListaDataSource.data = data;
+      this.pageSlice = this.categoriaListaDataSource.data
+    })
+    this.categoriaService.categoriaControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 
   showResult($event: any[]) {
-    this.categoriaListaDataSource.data = $event;
+    this.pageSlice = $event;
   }
 
   remover(categoriaDto: CategoriaDto) {
@@ -73,6 +101,22 @@ export class ListCategoriaComponent implements OnInit {
         this.remover(confirmed.dado);
       }
     });
+
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
+  mudarAlinhar() {
+
+    if(this.innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
   }
 
 }

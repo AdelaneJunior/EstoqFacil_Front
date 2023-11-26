@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -10,6 +10,8 @@ import {
 import {FuncionarioControllerService} from "../../../api/services/funcionario-controller.service";
 import {FuncionarioDto} from "../../../api/models/funcionario-dto";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {SecurityService} from "../../../arquitetura/security/security.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-list-funcionario',
@@ -20,24 +22,50 @@ export class ListFuncionarioComponent implements OnInit {
   colunasMostrar = ['cpf','nome', 'telefone','email','cargoNome','acao'];
   funcionarioListaDataSource: MatTableDataSource<FuncionarioDto> = new MatTableDataSource<FuncionarioDto>();
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
+  admin!: boolean;
+  pageSlice!: FuncionarioDto[];
+  qtdRegistros!: number;
+  innerWidth: number = window.innerWidth;
+  flexDivAlinhar: string = 'row';
+
   constructor(
     public funcionarioService: FuncionarioControllerService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private securityService: SecurityService
   ){
   }
 
   ngOnInit(): void {
+    this.innerWidth = window.innerWidth;
+    if (this.securityService.credential.accessToken == "") {
+      this.router.navigate(['/acesso']);
+    } else {
+      if (this.securityService.isValid()) {
+        this.admin = this.securityService.hasRoles(['ROLE_ADMIN'])
+      }
+      if (!this.securityService.isValid())
+        this.router.navigate(['/acesso']);
+    }
     this.buscarDados();
   }
 
+  onPageChange(event: PageEvent){
+    this.funcionarioService.funcionarioControllerListFuncionariosWithPagination({offset: event.pageIndex, pageSize: event.pageSize}).subscribe(data => {
+      this.funcionarioListaDataSource.data = data;
+      this.pageSlice = this.funcionarioListaDataSource.data
+    })
+  }
 
 
   private buscarDados() {
-    this.funcionarioService.funcionarioControllerListAll().subscribe(data => {
+    this.funcionarioService.funcionarioControllerListFuncionariosWithPagination({offset: 0, pageSize: 5}).subscribe(data => {
       this.funcionarioListaDataSource.data = data;
-      console.log(JSON.stringify(data));
+      this.pageSlice = this.funcionarioListaDataSource.data
+    })
+    this.funcionarioService.funcionarioControllerCount().subscribe(data =>{
+      this.qtdRegistros = data;
     })
   }
 
@@ -80,4 +108,18 @@ export class ListFuncionarioComponent implements OnInit {
     });
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.innerWidth = window.innerWidth;
+  }
+
+  mudarAlinhar() {
+
+    if(this.innerWidth < 1500)
+    {
+      return this.flexDivAlinhar = "column";
+    }
+    return this.flexDivAlinhar = "row";
+
+  }
 }

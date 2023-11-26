@@ -5,13 +5,6 @@ h2{
   text-align: center;
 }
 
-.form-content{
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  float: left;
-}
-
 .botoes{
   width: 100%;
 }
