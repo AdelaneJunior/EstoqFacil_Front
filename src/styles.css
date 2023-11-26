@@ -6,10 +6,10 @@ body, html{
 }
 
 .tabela{
-  width: 100%;
   background-color: #6050C6;
   border-color: #6050C6;
   text-decoration-color: white;
+  width: 100%;
 }
 
 .mat-mdc-row .mat-mdc-cell{
@@ -18,15 +18,16 @@ body, html{
   text-align: center;
 }
 
+
 th{
-  text-align: center;
   color: white;
   user-select:none;
+  text-align: center;
 }
 
 .button-config{
   font-family: DM Roboto, sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   padding:1px;
   text-decoration: none;
   background:#6050C6;
@@ -36,20 +37,15 @@ th{
   border: none;
   border-radius: 50px 50px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 6px;
+  margin: 6px;
 }
+
 
 .divBusca{
   background-color:#E8E8E8;
   border-radius:15px;
   margin-left: 2%;
   margin-right: 2%;
-  display: flex;
-  align-self: flex-end;
-  position: relative;
   cursor: text;
   width:100%;
 }
