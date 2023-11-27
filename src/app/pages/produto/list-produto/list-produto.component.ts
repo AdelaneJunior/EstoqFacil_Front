@@ -38,6 +38,7 @@ export class ListProdutoComponent implements OnInit {
   innerWidth: number = window.innerWidth;
   flexDivAlinhar: string = 'row';
   ordenado: boolean = false;
+  tamanhoPag: number = 5;
 
   constructor(
     public produtoService: ProdutoControllerService,
@@ -65,6 +66,7 @@ export class ListProdutoComponent implements OnInit {
       this.produtoListaDataSource.data = data.content;
       this.pageSlice = this.produtoListaDataSource.data;
     })
+    this.tamanhoPag = event.pageSize;
   }
 
   selectAll(completed: boolean) {
@@ -113,7 +115,7 @@ export class ListProdutoComponent implements OnInit {
   }
 
   showResult($event: any[]) {
-    this.pageSlice = $event.slice(0, 5);
+    this.pageSlice = $event.slice(0, this.tamanhoPag);
     if (!this.ordenado) {
       this.qtdRegistros = $event.length;
     }
