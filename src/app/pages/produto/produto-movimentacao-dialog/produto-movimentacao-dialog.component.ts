@@ -15,12 +15,15 @@ import {ProdutoControllerService} from "../../../api/services/produto-controller
   templateUrl: './produto-movimentacao-dialog.component.html',
   styleUrls: ['./produto-movimentacao-dialog.component.scss']
 })
-export class ProdutoMovimentacaoDialogComponent implements OnInit{
+export class ProdutoMovimentacaoDialogComponent implements OnInit {
   nomeProduto!: string;
   formGroup!: FormGroup;
   produtoCodigo!: number;
   acoesEnum = AcaoEnum;
   produto: ProdutoDto;
+  acaoMov!: string;
+  produtoCusto!: number;
+  produtoPreco!: number;
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -33,6 +36,8 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
     this.produto = data.produto;
+    this.produtoCusto = this.produto.custo || 0;
+    this.produtoPreco = this.produto.preco || 0;
     this.nomeProduto = this.produto.nome || "";
   }
 
@@ -50,8 +55,22 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
     return this.formGroup.controls[controlName].hasError(errorName);
   };
 
-  onSubmit(){
-    if(this.formGroup.valid){
+  atualizaAcao() {
+    this.acaoMov = this.formGroup.value.acao;
+    if (this.acaoMov == 'VENDA') {
+      this.formGroup.controls['custo'].disable();
+    } else if (this.acaoMov == 'DEVOLUCAO_DO_CLIENTE' || this.acaoMov == 'DEVOLUCAO_AO_FORNECEDOR' || this.acaoMov == 'PRODUTO_QUEBRADO') {
+      this.formGroup.controls['custo'].disable();
+      this.formGroup.controls['preco'].disable();
+    } else {
+      this.formGroup.controls['custo'].enable();
+      this.formGroup.controls['preco'].enable();
+    }
+    console.log(this.acaoMov)
+  }
+
+  onSubmit() {
+    if (this.formGroup.valid) {
       this.realizarInclusao();
       this.fechar();
     }
@@ -60,22 +79,24 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
   createForm() {
     this.formGroup = this.formBuilder.group({
       quantidade: [null, Validators.required],
-      preco: [this.produto.preco, Validators.required],
-      custo: [this.produto.custo, Validators.required],
+      preco: [this.produtoPreco, Validators.required],
+      custo: [this.produtoCusto, Validators.required],
       acao: [null, Validators.required],
       observacao: [null, Validators.required],
     })
+    this.formGroup.controls['custo'].disable();
+    this.formGroup.controls['preco'].disable();
   }
 
 
   private realizarInclusao() {
-    const movimentacao : MovimentacaoDto = this.formGroup.value;
+    const movimentacao: MovimentacaoDto = this.formGroup.value;
     movimentacao.produtoId = this.produto.codigo;
     movimentacao.usuarioId = this.securityService.getUserId();
     console.log(movimentacao);
     this.movimentacaoService.movimentacaoControllerIncluir({body: movimentacao})
       .subscribe(retorno => {
-        console.log("Retorno:",retorno);
+        console.log("Retorno:", retorno);
         this.confirmarAcao(retorno);
       }, erro => {
         console.log("Erro:" + erro);
@@ -101,15 +122,15 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit{
     });
   }
 
-confirmarErro(acao: String){
-  const dialogRef = this.dialog.open(ConfirmationDialog, {
-    data: {
-      titulo: 'ERRO!!!',
-      mensagem: `Erro ao ${acao} \n !`,
-      textoBotoes: {
-        ok: 'Ok',
+  confirmarErro(acao: String) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        titulo: 'ERRO!!!',
+        mensagem: `Erro ao ${acao} \n !`,
+        textoBotoes: {
+          ok: 'Ok',
+        },
       },
-    },
-  });
-}
+    });
+  }
 }

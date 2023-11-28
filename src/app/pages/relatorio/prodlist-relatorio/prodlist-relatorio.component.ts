@@ -18,19 +18,20 @@ import {ProdutoControllerService} from "../../../api/services/produto-controller
   templateUrl: './prodlist-relatorio.component.html',
   styleUrls: ['./prodlist-relatorio.component.css']
 })
-export class ProdlistRelatorioComponent implements OnInit{
+export class ProdlistRelatorioComponent implements OnInit {
 
   colunasMostrar: string[] =
-    ['usuarioNome','observacao','acaoMovimento', 'quantidade', 'precoVenda', 'custoAquisicao','data']
+    ['usuarioNome', 'observacao', 'acaoMovimento', 'quantidade', 'precoVenda', 'custoAquisicao', 'data']
   movimentacaoListDataSource: MatTableDataSource<MovimentacaoDto> = new MatTableDataSource<MovimentacaoDto>()
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "relatorio", this.snackBar)
-  qtdRegistros!:number
+  qtdRegistros!: number
   pageSlice!: MovimentacaoDto[];
-  admin!:boolean
-  produtoNome!:string
+  admin!: boolean
+  produtoNome!: string
   codigo!: number
   produtoCodigo!: number;
   produto!: ProdutoDto;
+
   constructor(
     public movimentacaoController: MovimentacaoControllerService,
     private dialog: MatDialog,
@@ -41,23 +42,24 @@ export class ProdlistRelatorioComponent implements OnInit{
     private produtoService: ProdutoControllerService
   ) {
   }
+
   ngOnInit(): void {
-     const paramId = this.route.snapshot.paramMap.get('codigo');
+    const paramId = this.route.snapshot.paramMap.get('codigo');
     console.log(paramId)
     this.buscarDados()
   }
 
-  buscarDados(){
+  buscarDados() {
     const paramId = this.route.snapshot.paramMap.get('codigo');
-    if(paramId) {
+    if (paramId) {
       const codigo = parseInt(paramId);
       this.codigo = codigo;
-      this.produtoService.produtoControllerObterPorId({id: codigo}).subscribe(data =>{
+      this.produtoService.produtoControllerObterPorId({id: codigo}).subscribe(data => {
         this.produto = data;
       })
       this.produtoCodigo = codigo;
-      this.movimentacaoController.movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo({codigoProduto:codigo})
-        .subscribe(data =>{
+      this.movimentacaoController.movimentacaoControllerTodasMovimentacoesDeProdutoPorCodigo({codigoProduto: codigo})
+        .subscribe(data => {
           this.movimentacaoListDataSource.data = data;
           this.pageSlice = this.movimentacaoListDataSource.data
 
@@ -68,11 +70,15 @@ export class ProdlistRelatorioComponent implements OnInit{
   }
 
   openDialog(codigo: number): void {
-    console.log(codigo);
+    this.produtoService.produtoControllerObterPorId({id: codigo}).subscribe(data =>{
+        this.produto = data;
+    })
     const dialogRef = this.dialog.open(ProdutoMovimentacaoDialogComponent,
-      {data:
+      {
+        data:
           {
             produto: this.produto
-          }});
+          }
+      });
   }
 }

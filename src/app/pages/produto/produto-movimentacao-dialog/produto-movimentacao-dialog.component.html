@@ -8,8 +8,8 @@
 
     <mat-form-field>
       <mat-label>Operação</mat-label>
-      <mat-select formControlName="acao" placeholder="Selecione a ação">
-        <mat-option *ngFor="let acao of acoesEnum | keyvalue" [value]="acao.value">{{ acao.key }}</mat-option>
+      <mat-select formControlName="acao" placeholder="Selecione a ação" (selectionChange)="atualizaAcao()">
+        <mat-option  *ngFor="let acao of acoesEnum | keyvalue" [value]="acao.value">{{ acao.key }}</mat-option>
       </mat-select>
     </mat-form-field>
 
@@ -18,14 +18,14 @@
       <input matInput formControlName="quantidade">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field >
       <mat-label>Preço de venda</mat-label>
       <input matInput formControlName="preco">
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Custo de aquisição</mat-label>
-      <input matInput formControlName="custo">
+      <input matInput formControlName="custo" >
     </mat-form-field>
 
     <mat-form-field>
