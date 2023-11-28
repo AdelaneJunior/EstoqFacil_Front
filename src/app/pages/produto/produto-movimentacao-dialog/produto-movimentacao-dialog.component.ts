@@ -1,14 +1,12 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MovimentacaoControllerService} from "../../../api/services/movimentacao-controller.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {SecurityService} from "../../../arquitetura/security/security.service";
 import {AcaoEnum} from "../../../enums/acao.enum";
 import {MovimentacaoDto} from "../../../api/models/movimentacao-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {ProdutoDto} from "../../../api/models/produto-dto";
-import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
 
 @Component({
   selector: 'app-produto-movimentacao-dialog',
@@ -18,7 +16,6 @@ import {ProdutoControllerService} from "../../../api/services/produto-controller
 export class ProdutoMovimentacaoDialogComponent implements OnInit {
   nomeProduto!: string;
   formGroup!: FormGroup;
-  produtoCodigo!: number;
   acoesEnum = AcaoEnum;
   produto: ProdutoDto;
   acaoMov!: string;
@@ -28,10 +25,8 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
   public constructor(
     private formBuilder: FormBuilder,
     public movimentacaoService: MovimentacaoControllerService,
-    private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<ProdutoMovimentacaoDialogComponent>,
     private dialog: MatDialog,
-    public produtoService: ProdutoControllerService,
     private securityService: SecurityService,
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
@@ -59,6 +54,7 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
     this.acaoMov = this.formGroup.value.acao;
     if (this.acaoMov == 'VENDA') {
       this.formGroup.controls['custo'].disable();
+      this.formGroup.controls['preco'].enable();
     } else if (this.acaoMov == 'DEVOLUCAO_DO_CLIENTE' || this.acaoMov == 'DEVOLUCAO_AO_FORNECEDOR' || this.acaoMov == 'PRODUTO_QUEBRADO') {
       this.formGroup.controls['custo'].disable();
       this.formGroup.controls['preco'].disable();
@@ -70,6 +66,8 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formGroup.controls['custo'].enable();
+    this.formGroup.controls['preco'].enable();
     if (this.formGroup.valid) {
       this.realizarInclusao();
       this.fechar();
