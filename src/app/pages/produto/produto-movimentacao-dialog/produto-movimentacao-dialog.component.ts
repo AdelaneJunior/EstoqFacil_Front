@@ -95,17 +95,17 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
     this.movimentacaoService.movimentacaoControllerIncluir({body: movimentacao})
       .subscribe(retorno => {
         console.log("Retorno:", retorno);
-        this.confirmarAcao(retorno);
+        this.confirmarAcao(retorno, retorno.produtoNome);
       }, erro => {
         console.log("Erro:" + erro);
       })
   }
 
-  confirmarAcao(movimentacaoDto: MovimentacaoDto) {
+  confirmarAcao(movimentacaoDto: MovimentacaoDto, nome: String) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         titulo: 'Mensagem!!!',
-        mensagem: `Ação de ${movimentacaoDto.acao} dados: ${movimentacaoDto.produtoNome} (ID: ${movimentacaoDto.codigo}) realizada com sucesso!`,
+        mensagem: `Ação de ${movimentacaoDto.acao} dados: ${nome} (ID: ${movimentacaoDto.codigo}) realizada com sucesso!`,
         textoBotoes: {
           ok: 'ok',
         },

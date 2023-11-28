@@ -15,17 +15,21 @@
 
     <mat-form-field>
       <mat-label>Quantidade</mat-label>
-      <input matInput formControlName="quantidade">
+      <input matInput formControlName="quantidade" min="1" type="number">
+      <mat-error *ngIf="formGroup.controls['quantidade'].value < 1">Não pode ser menor que 1</mat-error>
     </mat-form-field>
 
     <mat-form-field >
       <mat-label>Preço de venda</mat-label>
-      <input matInput formControlName="preco">
+      <input matInput formControlName="preco" mask="separator.2" decimalSeparator="," placeholder="0,00">
+      <mat-error *ngIf="formGroup.controls['preco'].value < 1">Não pode ser menor que 1</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Custo de aquisição</mat-label>
-      <input matInput formControlName="custo" >
+      <input matInput formControlName="custo" mask="separator.2" decimalSeparator="," placeholder="0,00">
+      <mat-error *ngIf="formGroup.controls['custo'].value < 1">Não pode ser menor que 1</mat-error>
+
     </mat-form-field>
 
     <mat-form-field>
