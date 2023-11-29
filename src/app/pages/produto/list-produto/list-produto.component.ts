@@ -2,7 +2,7 @@ import {Component, HostListener, OnInit} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProdutoDto} from "../../../api/models/produto-dto";
 import {
   ConfirmationDialog,
@@ -15,6 +15,7 @@ import {SecurityService} from "../../../arquitetura/security/security.service";
 import {PageEvent} from "@angular/material/paginator";
 import {ProdutoControllerService} from "../../../api/services/produto-controller.service";
 import {ProdutoMovimentacaoDialogComponent} from "../produto-movimentacao-dialog/produto-movimentacao-dialog.component";
+import {Pageable} from "../../../api/models/pageable";
 
 @Component({
   selector: 'app-list-produto',
@@ -39,6 +40,7 @@ export class ListProdutoComponent implements OnInit {
   flexDivAlinhar: string = 'row';
   ordenado: boolean = false;
   tamanhoPag: number = 5;
+  page!: any;
 
   constructor(
     public produtoService: ProdutoControllerService,
@@ -46,13 +48,17 @@ export class ListProdutoComponent implements OnInit {
     private snackBar: MatSnackBar,
     private imagemService: ImagemControllerService,
     private router: Router,
+    public activedRouter: ActivatedRoute,
     private securityService: SecurityService
   ) {
+    console.log(this.activedRouter.snapshot.data['produtos'].content);
+    this.page = this.activedRouter.snapshot.data['produtos'];
+    this.pageSlice = this.page.content;
+    this.qtdRegistros = this.page.totalElements;
   }
 
   ngOnInit(): void {
     this.innerWidth = window.innerWidth;
-    this.buscarDados();
   }
 
   onPageChange(event: PageEvent) {
