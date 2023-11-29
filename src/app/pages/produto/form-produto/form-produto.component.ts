@@ -17,6 +17,7 @@ import {SecurityService} from "../../../arquitetura/security/security.service";
 import {UsuarioDto} from "../../../api/models/usuario-dto";
 import {ImagemControllerService} from "../../../api/services/imagem-controller.service";
 import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {MessageService} from "../../../arquitetura/message/message.service";
 
 @Component({
   selector: 'app-form-produto',
@@ -49,7 +50,8 @@ export class FormProdutoComponent implements OnInit{
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private securityService: SecurityService,
-    private imagemService: ImagemControllerService
+    private imagemService: ImagemControllerService,
+    private messageService: MessageService
   ) {
     this._adapter.setLocale('pt-br');
   }
@@ -261,4 +263,5 @@ export class FormProdutoComponent implements OnInit{
     this.innerWidth = window.innerWidth;
   }
 
+  protected readonly parseInt = parseInt;
 }

@@ -46,14 +46,14 @@
 
     <mat-form-field *ngIf="ACAO_INCLUIR === acao" >
       <mat-label>Preço de venda</mat-label>
-      <input matInput formControlName="preco" mask="separator.2" decimalSeparator="," placeholder="0,00" type="number">
+      <input matInput formControlName="preco" mask="separator.2" decimalSeparator="," placeholder="0,00" >
       <mat-error *ngIf="formGroup.controls['preco'].value < 1">Não pode ser negativo</mat-error>
       <mat-error *ngIf="handleError('preco', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="ACAO_INCLUIR === acao">
       <mat-label>Custo de aquisição</mat-label>
-      <input matInput formControlName="custo"  mask="separator.2" decimalSeparator="," placeholder="0,00" min="1">
+      <input matInput formControlName="custo"  mask="separator.2" decimalSeparator="," placeholder="0,00">
       <mat-error *ngIf="formGroup.controls['custo'].value < 1">Não pode ser negativo</mat-error>
       <mat-error *ngIf="handleError('custo', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>

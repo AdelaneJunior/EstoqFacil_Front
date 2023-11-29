@@ -31,6 +31,7 @@ export class ProdlistRelatorioComponent implements OnInit {
   codigo!: number
   produtoCodigo!: number;
   produto!: ProdutoDto;
+  paginaAnterior!: string;
 
   constructor(
     public movimentacaoController: MovimentacaoControllerService,
@@ -45,6 +46,7 @@ export class ProdlistRelatorioComponent implements OnInit {
 
   ngOnInit(): void {
     const paramId = this.route.snapshot.paramMap.get('codigo');
+    this.paginaAnterior = this.route.snapshot.paramMap.get('pagina') || "relatorio";
     console.log(paramId)
     this.buscarDados()
   }

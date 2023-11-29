@@ -16,7 +16,7 @@ export const relatorioRoutes: Routes = [
       data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}}
     },
       {
-        path:":codigo",
+        path:":codigo/:pagina",
         component: ProdlistRelatorioComponent
       }
     ]
