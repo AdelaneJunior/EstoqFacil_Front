@@ -11,6 +11,7 @@ import {EnviaEmailDto} from "../../api/models/envia-email-dto";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ClienteControllerService} from "../../api/services/cliente-controller.service";
 import {ClienteDto} from "../../api/models/cliente-dto";
+import {MensagensUniversais} from "../../../MensagensUniversais";
 
 @Component({
   selector: 'app-envio-mensagem',
@@ -29,6 +30,8 @@ export class EnvioMensagemComponent {
   emailClientePreenchido: boolean = false;
   promocao: boolean = false
   desconto!: number
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar);
+
 
 
   constructor(
@@ -54,9 +57,10 @@ export class EnvioMensagemComponent {
 
     this.produtoControllerService.produtoControllerEnviaEmailComPdf({body: this.enviaEmailDTO}).subscribe(link => {
       this.dialogRef.close();
-      this.showMensagemSimples("E-mail enviado com sucesso!")
-    }, erro => {
-      this.showError(erro);
+      this.mensagens.showMensagemSimples("E-mail sendo enviado consulte a página inicial!")
+    }, (erro:any) => {
+      console.log("Erro", erro)
+      this.mensagens.confirmarErro("Enviar produto:", erro.message);
     })
 
 
@@ -75,32 +79,11 @@ export class EnvioMensagemComponent {
     console.log(this.enviaEmailDTO.email)
   }
 
-  showMensagemSimples(mensagem: string, duracao: number = 2000) {
-    this.snackBar.open(mensagem, 'Fechar', {
-      duration: duracao,
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });
-  }
-
   atualizar() {
     this.dialogRef.close({
       resultado: true,
       dado: this.data?.dado
     });
-  }
-
-  showError(erro: MessageResponse) {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        titulo: `Erro ao enviar mensagem`,
-        mensagem: erro.message,
-        textoBotoes: {
-          ok: 'ok',
-        },
-      },
-    });
-
   }
 
   get showCancelButton(): boolean {
