@@ -79,7 +79,7 @@ export class ListProdutoComponent implements OnInit {
     this.listProdutosEnviar = [];
     this.allChecked = completed;
     if (this.allChecked) {
-      this.listProdutosAux = this.produtoListaDataSource.data;
+      this.listProdutosAux = this.pageSlice;
       this.listProdutosAux.forEach(produto => {
         this.selecionarLinha(produto);
       })
