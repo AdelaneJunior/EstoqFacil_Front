@@ -4,6 +4,7 @@ import {ListProdutoComponent} from "./list-produto/list-produto.component";
 import {HomeProdutoComponent} from "./home-produto/home-produto.component";
 import {FormProdutoComponent} from "./form-produto/form-produto.component";
 import {SecurityGuard} from "../../arquitetura/security/security.guard";
+import {ProdutoResolveService} from "./shared/produto-resolve.service";
 
 export const produtoRoutes: Routes = [
   {
@@ -14,7 +15,10 @@ export const produtoRoutes: Routes = [
         path: "",
         component: ListProdutoComponent,
         canActivate: [SecurityGuard],
-        data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}}
+        data: {security: {roles: ['ROLE_PRODUTO_INCLUIR', 'ROLE_PRODUTO_ALTERAR']}},
+        resolve: {
+          produtos: ProdutoResolveService
+        }
       },
       {
         path: "novo",

@@ -422,6 +422,69 @@ export class CategoriaControllerService extends BaseService {
   }
 
   /**
+   * Path part for operation categoriaControllerSearchFieldsActionPage
+   */
+  static readonly CategoriaControllerSearchFieldsActionPagePath = '/api/v1/categoria/search-fields/page';
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `categoriaControllerSearchFieldsActionPage()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoriaControllerSearchFieldsActionPage$Response(params: {
+    body: {
+'searchFieldValues'?: Array<SearchFieldValue>;
+'page'?: Pageable;
+}
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerSearchFieldsActionPagePath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza a busca pelos valores dos campos informados
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `categoriaControllerSearchFieldsActionPage$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  categoriaControllerSearchFieldsActionPage(params: {
+    body: {
+'searchFieldValues'?: Array<SearchFieldValue>;
+'page'?: Pageable;
+}
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.categoriaControllerSearchFieldsActionPage$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
    * Path part for operation categoriaControllerListAllPage
    */
   static readonly CategoriaControllerListAllPagePath = '/api/v1/categoria/page';

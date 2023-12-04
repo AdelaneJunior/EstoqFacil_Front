@@ -22,6 +22,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {SearchModule} from "../../arquitetura/search-module/search.module";
 import {NgxMaskDirective} from "ngx-mask";
 import { ProdutoMovimentacaoDialogComponent } from './produto-movimentacao-dialog/produto-movimentacao-dialog.component';
+import {ProdutoResolveService} from "./shared/produto-resolve.service";
 
 @NgModule({
   declarations: [
@@ -50,6 +51,9 @@ import { ProdutoMovimentacaoDialogComponent } from './produto-movimentacao-dialo
         FormsModule,
         SearchModule,
         NgxMaskDirective
-    ]
+    ],
+  providers:[
+    ProdutoResolveService
+  ]
 })
 export class ProdutoModule { }
