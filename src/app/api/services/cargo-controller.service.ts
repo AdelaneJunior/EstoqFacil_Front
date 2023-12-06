@@ -422,69 +422,6 @@ export class CargoControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cargoControllerSearchFieldsActionPage
-   */
-  static readonly CargoControllerSearchFieldsActionPagePath = '/api/v1/cargo/search-fields/page';
-
-  /**
-   * Realiza a busca pelos valores dos campos informados
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerSearchFieldsActionPage()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  cargoControllerSearchFieldsActionPage$Response(params: {
-    body: {
-'searchFieldValues'?: Array<SearchFieldValue>;
-'page'?: Pageable;
-}
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<any>> {
-
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerSearchFieldsActionPagePath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<any>;
-      })
-    );
-  }
-
-  /**
-   * Realiza a busca pelos valores dos campos informados
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerSearchFieldsActionPage$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  cargoControllerSearchFieldsActionPage(params: {
-    body: {
-'searchFieldValues'?: Array<SearchFieldValue>;
-'page'?: Pageable;
-}
-  },
-  context?: HttpContext
-
-): Observable<any> {
-
-    return this.cargoControllerSearchFieldsActionPage$Response(params,context).pipe(
-      map((r: StrictHttpResponse<any>) => r.body as any)
-    );
-  }
-
-  /**
    * Path part for operation cargoControllerListAllPage
    */
   static readonly CargoControllerListAllPagePath = '/api/v1/cargo/page';

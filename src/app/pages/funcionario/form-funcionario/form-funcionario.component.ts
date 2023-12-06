@@ -29,7 +29,7 @@ export class FormFuncionarioComponent implements OnInit{
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "funcionario", this.snackBar)
   validacoes: Validacoes = new Validacoes();
   minDate = new Date(1900, 0, 1);
-  maxDate = new Date();
+  maxDate = new Date(2008,0,0);
   flexDivAlinhar: string = 'row';
   admin!: boolean
   innerWidth: number = window.innerWidth;
@@ -148,10 +148,10 @@ export class FormFuncionarioComponent implements OnInit{
   confirmarAcao(funcionarioDto: FuncionarioDto, acao: string) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        titulo: 'Mensagem!!!',
+        titulo: 'Cadastro!',
         mensagem: `Ação de ${acao} dados: ${funcionarioDto.nome} (ID: ${funcionarioDto.cpf}) realizada com sucesso!`,
         textoBotoes: {
-          ok: 'OK',
+          ok: 'Confirmar',
         },
       },
     });

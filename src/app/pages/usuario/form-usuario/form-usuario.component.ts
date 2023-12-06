@@ -178,10 +178,10 @@ export class FormUsuarioComponent implements OnInit{
   confirmarAcao(usuarioDto: UsuarioDto, acao: string) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        titulo: 'Mensagem!!!',
+        titulo: 'Cadastro!',
         mensagem: `Ação de ${acao} dados: ${usuarioDto.funcionarioNome} (ID: ${usuarioDto.codigo}) realizada com sucesso!`,
         textoBotoes: {
-          ok: 'ok',
+          ok: 'Confirmar',
         },
       },
     });

@@ -423,69 +423,6 @@ export class MovimentacaoControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation movimentacaoControllerSearchFieldsActionPage
-   */
-  static readonly MovimentacaoControllerSearchFieldsActionPagePath = '/api/v1/movimentacao/search-fields/page';
-
-  /**
-   * Realiza a busca pelos valores dos campos informados
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `movimentacaoControllerSearchFieldsActionPage()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  movimentacaoControllerSearchFieldsActionPage$Response(params: {
-    body: {
-'searchFieldValues'?: Array<SearchFieldValue>;
-'page'?: Pageable;
-}
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<any>> {
-
-    const rb = new RequestBuilder(this.rootUrl, MovimentacaoControllerService.MovimentacaoControllerSearchFieldsActionPagePath, 'post');
-    if (params) {
-      rb.body(params.body, 'application/json');
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<any>;
-      })
-    );
-  }
-
-  /**
-   * Realiza a busca pelos valores dos campos informados
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `movimentacaoControllerSearchFieldsActionPage$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  movimentacaoControllerSearchFieldsActionPage(params: {
-    body: {
-'searchFieldValues'?: Array<SearchFieldValue>;
-'page'?: Pageable;
-}
-  },
-  context?: HttpContext
-
-): Observable<any> {
-
-    return this.movimentacaoControllerSearchFieldsActionPage$Response(params,context).pipe(
-      map((r: StrictHttpResponse<any>) => r.body as any)
-    );
-  }
-
-  /**
    * Path part for operation movimentacaoControllerListAllPage
    */
   static readonly MovimentacaoControllerListAllPagePath = '/api/v1/movimentacao/page';

@@ -28,7 +28,7 @@ export class FormClienteComponent implements OnInit{
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "cliente", this.snackBar)
   validacoes: Validacoes = new Validacoes();
   minDate = new Date(1900, 0, 1);
-  maxDate = new Date();
+  maxDate = new Date(2006,0,0);
   flexDivAlinhar: string = 'row';
   admin!: boolean;
   innerWidth: number = window.innerWidth;
@@ -142,10 +142,10 @@ export class FormClienteComponent implements OnInit{
   confirmarAcao(clienteDto: ClienteDto, acao: string) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        titulo: 'Mensagem!!!',
+        titulo: 'Cadastro!',
         mensagem: `Ação de ${acao} dados: ${clienteDto.nome} (ID: ${clienteDto.cpf}) realizada com sucesso!`,
         textoBotoes: {
-          ok: 'ok',
+          ok: 'Confirmar',
         },
       },
     });

@@ -7,6 +7,6 @@
   </p>
 </mat-dialog-content>
 <mat-dialog-actions align="center">
-  <button *ngIf="showOkButton" mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">{{textoBotaoOk}}</button>
-  <button *ngIf="showCancelButton" mat-raised-button mat-dialog-close tabindex="-1">{{textoBotaoCancelar}}</button>
+  <button *ngIf="showOkButton"  type="button" (click)="onConfirmClick()" tabindex="1" class="button  botao-cadastro">{{textoBotaoOk}}</button>
+  <button *ngIf="showCancelButton" mat-raised-button mat-dialog-close tabindex="-1" class="button botao-cancelar" type="button">{{textoBotaoCancelar}}</button>
 </mat-dialog-actions>

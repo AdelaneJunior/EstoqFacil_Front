@@ -21,7 +21,7 @@ export class MensagensUniversais {
         titulo: 'ERRO!!!',
         mensagem: `Erro no ${acao} \n !` + erro,
         textoBotoes: {
-          ok: 'Ok',
+          ok: 'Confirmar',
         },
       },
     });
