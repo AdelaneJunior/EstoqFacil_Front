@@ -491,7 +491,7 @@ export class ProdutoControllerService extends BaseService {
   static readonly ProdutoControllerEnviaEmailComPdfPath = '/api/v1/produto/envia';
 
   /**
-   * Método utilizado para realizar a inclusão de um entidade
+   * Método utilizado para enviar lista de produtos no email
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `produtoControllerEnviaEmailComPdf()` instead.
@@ -503,7 +503,7 @@ export class ProdutoControllerService extends BaseService {
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<boolean>> {
+): Observable<StrictHttpResponse<any>> {
 
     const rb = new RequestBuilder(this.rootUrl, ProdutoControllerService.ProdutoControllerEnviaEmailComPdfPath, 'post');
     if (params) {
@@ -511,19 +511,19 @@ export class ProdutoControllerService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'blob',
-      accept: '*/*',
+      responseType: 'json',
+      accept: 'application/json',
       context: context
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: String((r as HttpResponse<any>).body) === 'true' }) as StrictHttpResponse<boolean>;
+        return r as StrictHttpResponse<any>;
       })
     );
   }
 
   /**
-   * Método utilizado para realizar a inclusão de um entidade
+   * Método utilizado para enviar lista de produtos no email
    *
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `produtoControllerEnviaEmailComPdf$Response()` instead.
@@ -535,10 +535,10 @@ export class ProdutoControllerService extends BaseService {
   },
   context?: HttpContext
 
-): Observable<boolean> {
+): Observable<any> {
 
     return this.produtoControllerEnviaEmailComPdf$Response(params,context).pipe(
-      map((r: StrictHttpResponse<boolean>) => r.body as boolean)
+      map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
