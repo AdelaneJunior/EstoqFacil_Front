@@ -85,7 +85,7 @@ export class AutenticacaoComponent implements OnInit {
         this.router.navigate(['/home']);
       }, error => {
         console.log('erro', error);
-        this.mensagens.confirmarErro("Fazer Login: ", error.message)
+        this.mensagens.confirmarErro("Fazer Login", error.message)
         // }
       });
     }

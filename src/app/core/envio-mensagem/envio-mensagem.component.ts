@@ -60,7 +60,7 @@ export class EnvioMensagemComponent {
       this.mensagens.showMensagemSimples("E-mail sendo enviado consulte a página inicial!")
     }, (erro:any) => {
       console.log("Erro", erro)
-      this.mensagens.confirmarErro("Enviar produto:", erro.message);
+      this.mensagens.confirmarErro("Enviar produto", erro.message);
     })
 
 
