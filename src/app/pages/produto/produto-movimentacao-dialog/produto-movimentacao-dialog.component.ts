@@ -104,10 +104,10 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
   confirmarAcao(movimentacaoDto: MovimentacaoDto, nome: String) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        titulo: 'Mensagem!!!',
+        titulo: 'Cadastro!!',
         mensagem: `Ação de ${movimentacaoDto.acao} dados: ${nome} (ID: ${movimentacaoDto.codigo}) realizada com sucesso!`,
         textoBotoes: {
-          ok: 'ok',
+          ok: 'Confirmar',
         },
       },
     });
