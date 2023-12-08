@@ -16,7 +16,7 @@ import {RelatorioMovimentacaoDto} from "../../../api/models/relatorio-movimentac
 export class ListRelatorioComponent implements OnInit {
 
   colunasMostrar: string[] =
-    ['codigoProduto', 'nomeProduto','preco', 'quantidadeSaida', 'quantidadeEntrada','acao']
+    ['codigoProduto', 'nomeProduto','preco', 'quantidadeEntrada', 'quantidadeSaida','acao']
   relatorioListDataSource: MatTableDataSource<RelatorioMovimentacaoDto> = new MatTableDataSource<RelatorioMovimentacaoDto>()
   mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "relatorio", this.snackBar)
   qtdRegistros!:number
