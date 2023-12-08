@@ -1,5 +1,8 @@
-<html>
-  <body>
-    <h2>Home-page works!</h2>
-  </body>
+<html><div class="slider-container" [style.background-image]="'url(' + backgroundImageUrl + ')'">
+  <div class="image-container">
+    <div class="overlay-text">
+      {{dynamicText[currentIndex]}}
+    </div>
+  </div>
+</div>
 </html>
