@@ -7,6 +7,9 @@ import {AcaoEnum} from "../../../enums/acao.enum";
 import {MovimentacaoDto} from "../../../api/models/movimentacao-dto";
 import {ConfirmationDialog} from "../../../core/confirmation-dialog/confirmation-dialog.component";
 import {ProdutoDto} from "../../../api/models/produto-dto";
+import {MensagensUniversais} from "../../../../MensagensUniversais";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-produto-movimentacao-dialog',
@@ -19,6 +22,7 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
   acoesEnum = AcaoEnum;
   produto: ProdutoDto;
   acaoMov!: string;
+  mensagens: MensagensUniversais = new MensagensUniversais(this.dialog, this.router, "produto", this.snackBar);
   produtoCusto!: number;
   produtoPreco!: number;
 
@@ -27,6 +31,8 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
     public movimentacaoService: MovimentacaoControllerService,
     private dialogRef: MatDialogRef<ProdutoMovimentacaoDialogComponent>,
     private dialog: MatDialog,
+    private router: Router,
+    private snackBar: MatSnackBar,
     private securityService: SecurityService,
     @Inject(MAT_DIALOG_DATA) data: any
   ) {
@@ -97,7 +103,7 @@ export class ProdutoMovimentacaoDialogComponent implements OnInit {
         console.log("Retorno:", retorno);
         this.confirmarAcao(retorno, retorno.produtoNome);
       }, erro => {
-        console.log("Erro:" + erro);
+        this.mensagens.confirmarErro("incluir movimentação", erro.message);
       })
   }
 
