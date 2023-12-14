@@ -100,9 +100,9 @@ export class FormProdutoComponent implements OnInit{
         marca: [null, Validators.required],
         descricao: [null, Validators.required],
         quantidade: [null, Validators.required],
-        preco: [null, Validators.required],
-        custo: [null, Validators.required],
-        imagemId:[null, Validators.required],
+        preco: [null],
+        custo: [null],
+        imagemId:[null],
         usuarioId:[this.securityService.getUserId()]
       })
     }

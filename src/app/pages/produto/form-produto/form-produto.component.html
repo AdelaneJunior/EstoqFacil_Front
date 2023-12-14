@@ -41,21 +41,18 @@
       <mat-label>Quantidade Inicial</mat-label>
       <input matInput formControlName="quantidade" type="number">
       <mat-error *ngIf="formGroup.controls['quantidade'].value < 1">Não pode ser negativo</mat-error>
-      <mat-error *ngIf="handleError('quantidade', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="ACAO_INCLUIR === acao" >
       <mat-label>Preço de venda</mat-label>
       <input matInput formControlName="preco" mask="separator.2" decimalSeparator="," placeholder="0,00" >
       <mat-error *ngIf="formGroup.controls['preco'].value < 1">Não pode ser negativo</mat-error>
-      <mat-error *ngIf="handleError('preco', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
 
     <mat-form-field *ngIf="ACAO_INCLUIR === acao">
       <mat-label>Custo de aquisição</mat-label>
       <input matInput formControlName="custo"  mask="separator.2" decimalSeparator="," placeholder="0,00">
       <mat-error *ngIf="formGroup.controls['custo'].value < 1">Não pode ser negativo</mat-error>
-      <mat-error *ngIf="handleError('custo', 'required')">Campo Obrigatório</mat-error>
     </mat-form-field>
     </div>
 
