@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { FuncionarioDto } from '../models/funcionario-dto';
+import { EnderecoDto } from '../models/endereco-dto';
 import { Pageable } from '../models/pageable';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
@@ -17,7 +17,7 @@ import { SearchFieldValue } from '../models/search-field-value';
 @Injectable({
   providedIn: 'root',
 })
-export class FuncionarioControllerService extends BaseService {
+export class EnderecoControllerService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -26,26 +26,26 @@ export class FuncionarioControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation funcionarioControllerObterPorId
+   * Path part for operation enderecoControllerObterPorId
    */
-  static readonly FuncionarioControllerObterPorIdPath = '/api/v1/funcionario/{id}';
+  static readonly EnderecoControllerObterPorIdPath = '/api/v1/endereco/{id}';
 
   /**
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerObterPorId()` instead.
+   * To access only the response body, use `enderecoControllerObterPorId()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerObterPorId$Response(params: {
-    id: string;
+  enderecoControllerObterPorId$Response(params: {
+    id: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerObterPorIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerObterPorIdPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -66,44 +66,44 @@ export class FuncionarioControllerService extends BaseService {
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerObterPorId$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerObterPorId$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerObterPorId(params: {
-    id: string;
+  enderecoControllerObterPorId(params: {
+    id: number;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerObterPorId$Response(params,context).pipe(
+    return this.enderecoControllerObterPorId$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerAlterar
+   * Path part for operation enderecoControllerAlterar
    */
-  static readonly FuncionarioControllerAlterarPath = '/api/v1/funcionario/{id}';
+  static readonly EnderecoControllerAlterarPath = '/api/v1/endereco/{id}';
 
   /**
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerAlterar()` instead.
+   * To access only the response body, use `enderecoControllerAlterar()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  funcionarioControllerAlterar$Response(params: {
-    id: string;
-    body: FuncionarioDto
+  enderecoControllerAlterar$Response(params: {
+    id: number;
+    body: EnderecoDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerAlterarPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerAlterarPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/json');
@@ -125,44 +125,44 @@ export class FuncionarioControllerService extends BaseService {
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerAlterar$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerAlterar$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  funcionarioControllerAlterar(params: {
-    id: string;
-    body: FuncionarioDto
+  enderecoControllerAlterar(params: {
+    id: number;
+    body: EnderecoDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerAlterar$Response(params,context).pipe(
+    return this.enderecoControllerAlterar$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerRemover
+   * Path part for operation enderecoControllerRemover
    */
-  static readonly FuncionarioControllerRemoverPath = '/api/v1/funcionario/{id}';
+  static readonly EnderecoControllerRemoverPath = '/api/v1/endereco/{id}';
 
   /**
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerRemover()` instead.
+   * To access only the response body, use `enderecoControllerRemover()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerRemover$Response(params: {
-    id: string;
+  enderecoControllerRemover$Response(params: {
+    id: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerRemoverPath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerRemoverPath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -183,42 +183,42 @@ export class FuncionarioControllerService extends BaseService {
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerRemover$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerRemover$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerRemover(params: {
-    id: string;
+  enderecoControllerRemover(params: {
+    id: number;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerRemover$Response(params,context).pipe(
+    return this.enderecoControllerRemover$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerListAll
+   * Path part for operation enderecoControllerListAll
    */
-  static readonly FuncionarioControllerListAllPath = '/api/v1/funcionario';
+  static readonly EnderecoControllerListAllPath = '/api/v1/endereco';
 
   /**
    * Listagem Geral
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerListAll()` instead.
+   * To access only the response body, use `enderecoControllerListAll()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerListAll$Response(params?: {
+  enderecoControllerListAll$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerListAllPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerListAllPath, 'get');
     if (params) {
     }
 
@@ -238,42 +238,42 @@ export class FuncionarioControllerService extends BaseService {
    * Listagem Geral
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerListAll$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerListAll$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerListAll(params?: {
+  enderecoControllerListAll(params?: {
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerListAll$Response(params,context).pipe(
+    return this.enderecoControllerListAll$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerIncluir
+   * Path part for operation enderecoControllerIncluir
    */
-  static readonly FuncionarioControllerIncluirPath = '/api/v1/funcionario';
+  static readonly EnderecoControllerIncluirPath = '/api/v1/endereco';
 
   /**
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerIncluir()` instead.
+   * To access only the response body, use `enderecoControllerIncluir()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  funcionarioControllerIncluir$Response(params: {
-    body: FuncionarioDto
+  enderecoControllerIncluir$Response(params: {
+    body: EnderecoDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerIncluirPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerIncluirPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -294,42 +294,42 @@ export class FuncionarioControllerService extends BaseService {
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerIncluir$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerIncluir$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  funcionarioControllerIncluir(params: {
-    body: FuncionarioDto
+  enderecoControllerIncluir(params: {
+    body: EnderecoDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerIncluir$Response(params,context).pipe(
+    return this.enderecoControllerIncluir$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerSearchFieldsList
+   * Path part for operation enderecoControllerSearchFieldsList
    */
-  static readonly FuncionarioControllerSearchFieldsListPath = '/api/v1/funcionario/search-fields';
+  static readonly EnderecoControllerSearchFieldsListPath = '/api/v1/endereco/search-fields';
 
   /**
    * Listagem dos campos de busca
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerSearchFieldsList()` instead.
+   * To access only the response body, use `enderecoControllerSearchFieldsList()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerSearchFieldsList$Response(params?: {
+  enderecoControllerSearchFieldsList$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<Array<SearchField>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerSearchFieldsListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerSearchFieldsListPath, 'get');
     if (params) {
     }
 
@@ -349,42 +349,42 @@ export class FuncionarioControllerService extends BaseService {
    * Listagem dos campos de busca
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerSearchFieldsList$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerSearchFieldsList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerSearchFieldsList(params?: {
+  enderecoControllerSearchFieldsList(params?: {
   },
   context?: HttpContext
 
 ): Observable<Array<SearchField>> {
 
-    return this.funcionarioControllerSearchFieldsList$Response(params,context).pipe(
+    return this.enderecoControllerSearchFieldsList$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerSearchFieldsAction
+   * Path part for operation enderecoControllerSearchFieldsAction
    */
-  static readonly FuncionarioControllerSearchFieldsActionPath = '/api/v1/funcionario/search-fields';
+  static readonly EnderecoControllerSearchFieldsActionPath = '/api/v1/endereco/search-fields';
 
   /**
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerSearchFieldsAction()` instead.
+   * To access only the response body, use `enderecoControllerSearchFieldsAction()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  funcionarioControllerSearchFieldsAction$Response(params: {
+  enderecoControllerSearchFieldsAction$Response(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerSearchFieldsActionPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerSearchFieldsActionPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -405,43 +405,43 @@ export class FuncionarioControllerService extends BaseService {
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerSearchFieldsAction$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerSearchFieldsAction$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  funcionarioControllerSearchFieldsAction(params: {
+  enderecoControllerSearchFieldsAction(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerSearchFieldsAction$Response(params,context).pipe(
+    return this.enderecoControllerSearchFieldsAction$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation funcionarioControllerListAllPage
+   * Path part for operation enderecoControllerListAllPage
    */
-  static readonly FuncionarioControllerListAllPagePath = '/api/v1/funcionario/page';
+  static readonly EnderecoControllerListAllPagePath = '/api/v1/endereco/page';
 
   /**
    * Listagem Geral paginada
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `funcionarioControllerListAllPage()` instead.
+   * To access only the response body, use `enderecoControllerListAllPage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerListAllPage$Response(params: {
+  enderecoControllerListAllPage$Response(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, FuncionarioControllerService.FuncionarioControllerListAllPagePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, EnderecoControllerService.EnderecoControllerListAllPagePath, 'get');
     if (params) {
       rb.query('page', params.page, {});
     }
@@ -462,18 +462,18 @@ export class FuncionarioControllerService extends BaseService {
    * Listagem Geral paginada
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `funcionarioControllerListAllPage$Response()` instead.
+   * To access the full response (for headers, for example), `enderecoControllerListAllPage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  funcionarioControllerListAllPage(params: {
+  enderecoControllerListAllPage(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.funcionarioControllerListAllPage$Response(params,context).pipe(
+    return this.enderecoControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

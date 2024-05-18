@@ -9,15 +9,16 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CategoriaDto } from '../models/categoria-dto';
+import { AdvertenciaDto } from '../models/advertencia-dto';
 import { Pageable } from '../models/pageable';
+import { PkAdvertencia } from '../models/pk-advertencia';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CategoriaControllerService extends BaseService {
+export class AdvertenciaControllerService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -26,26 +27,26 @@ export class CategoriaControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation categoriaControllerObterPorId
+   * Path part for operation advertenciaControllerObterPorId
    */
-  static readonly CategoriaControllerObterPorIdPath = '/api/v1/categoria/{id}';
+  static readonly AdvertenciaControllerObterPorIdPath = '/api/v1/advertencia/{id}';
 
   /**
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerObterPorId()` instead.
+   * To access only the response body, use `advertenciaControllerObterPorId()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerObterPorId$Response(params: {
-    id: number;
+  advertenciaControllerObterPorId$Response(params: {
+    id: PkAdvertencia;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerObterPorIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerObterPorIdPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -66,44 +67,44 @@ export class CategoriaControllerService extends BaseService {
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerObterPorId$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerObterPorId$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerObterPorId(params: {
-    id: number;
+  advertenciaControllerObterPorId(params: {
+    id: PkAdvertencia;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerObterPorId$Response(params,context).pipe(
+    return this.advertenciaControllerObterPorId$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerAlterar
+   * Path part for operation advertenciaControllerAlterar
    */
-  static readonly CategoriaControllerAlterarPath = '/api/v1/categoria/{id}';
+  static readonly AdvertenciaControllerAlterarPath = '/api/v1/advertencia/{id}';
 
   /**
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerAlterar()` instead.
+   * To access only the response body, use `advertenciaControllerAlterar()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  categoriaControllerAlterar$Response(params: {
-    id: number;
-    body: CategoriaDto
+  advertenciaControllerAlterar$Response(params: {
+    id: PkAdvertencia;
+    body: AdvertenciaDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerAlterarPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerAlterarPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/json');
@@ -125,44 +126,44 @@ export class CategoriaControllerService extends BaseService {
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerAlterar$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerAlterar$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  categoriaControllerAlterar(params: {
-    id: number;
-    body: CategoriaDto
+  advertenciaControllerAlterar(params: {
+    id: PkAdvertencia;
+    body: AdvertenciaDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerAlterar$Response(params,context).pipe(
+    return this.advertenciaControllerAlterar$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerRemover
+   * Path part for operation advertenciaControllerRemover
    */
-  static readonly CategoriaControllerRemoverPath = '/api/v1/categoria/{id}';
+  static readonly AdvertenciaControllerRemoverPath = '/api/v1/advertencia/{id}';
 
   /**
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerRemover()` instead.
+   * To access only the response body, use `advertenciaControllerRemover()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerRemover$Response(params: {
-    id: number;
+  advertenciaControllerRemover$Response(params: {
+    id: PkAdvertencia;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerRemoverPath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerRemoverPath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -183,42 +184,42 @@ export class CategoriaControllerService extends BaseService {
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerRemover$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerRemover$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerRemover(params: {
-    id: number;
+  advertenciaControllerRemover(params: {
+    id: PkAdvertencia;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerRemover$Response(params,context).pipe(
+    return this.advertenciaControllerRemover$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerListAll
+   * Path part for operation advertenciaControllerListAll
    */
-  static readonly CategoriaControllerListAllPath = '/api/v1/categoria';
+  static readonly AdvertenciaControllerListAllPath = '/api/v1/advertencia';
 
   /**
    * Listagem Geral
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerListAll()` instead.
+   * To access only the response body, use `advertenciaControllerListAll()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerListAll$Response(params?: {
+  advertenciaControllerListAll$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerListAllPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerListAllPath, 'get');
     if (params) {
     }
 
@@ -238,42 +239,42 @@ export class CategoriaControllerService extends BaseService {
    * Listagem Geral
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerListAll$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerListAll$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerListAll(params?: {
+  advertenciaControllerListAll(params?: {
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerListAll$Response(params,context).pipe(
+    return this.advertenciaControllerListAll$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerIncluir
+   * Path part for operation advertenciaControllerIncluir
    */
-  static readonly CategoriaControllerIncluirPath = '/api/v1/categoria';
+  static readonly AdvertenciaControllerIncluirPath = '/api/v1/advertencia';
 
   /**
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerIncluir()` instead.
+   * To access only the response body, use `advertenciaControllerIncluir()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  categoriaControllerIncluir$Response(params: {
-    body: CategoriaDto
+  advertenciaControllerIncluir$Response(params: {
+    body: AdvertenciaDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerIncluirPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerIncluirPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -294,42 +295,42 @@ export class CategoriaControllerService extends BaseService {
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerIncluir$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerIncluir$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  categoriaControllerIncluir(params: {
-    body: CategoriaDto
+  advertenciaControllerIncluir(params: {
+    body: AdvertenciaDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerIncluir$Response(params,context).pipe(
+    return this.advertenciaControllerIncluir$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerSearchFieldsList
+   * Path part for operation advertenciaControllerSearchFieldsList
    */
-  static readonly CategoriaControllerSearchFieldsListPath = '/api/v1/categoria/search-fields';
+  static readonly AdvertenciaControllerSearchFieldsListPath = '/api/v1/advertencia/search-fields';
 
   /**
    * Listagem dos campos de busca
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerSearchFieldsList()` instead.
+   * To access only the response body, use `advertenciaControllerSearchFieldsList()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerSearchFieldsList$Response(params?: {
+  advertenciaControllerSearchFieldsList$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<Array<SearchField>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerSearchFieldsListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerSearchFieldsListPath, 'get');
     if (params) {
     }
 
@@ -349,42 +350,42 @@ export class CategoriaControllerService extends BaseService {
    * Listagem dos campos de busca
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerSearchFieldsList$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerSearchFieldsList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerSearchFieldsList(params?: {
+  advertenciaControllerSearchFieldsList(params?: {
   },
   context?: HttpContext
 
 ): Observable<Array<SearchField>> {
 
-    return this.categoriaControllerSearchFieldsList$Response(params,context).pipe(
+    return this.advertenciaControllerSearchFieldsList$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerSearchFieldsAction
+   * Path part for operation advertenciaControllerSearchFieldsAction
    */
-  static readonly CategoriaControllerSearchFieldsActionPath = '/api/v1/categoria/search-fields';
+  static readonly AdvertenciaControllerSearchFieldsActionPath = '/api/v1/advertencia/search-fields';
 
   /**
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerSearchFieldsAction()` instead.
+   * To access only the response body, use `advertenciaControllerSearchFieldsAction()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  categoriaControllerSearchFieldsAction$Response(params: {
+  advertenciaControllerSearchFieldsAction$Response(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerSearchFieldsActionPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerSearchFieldsActionPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -405,43 +406,43 @@ export class CategoriaControllerService extends BaseService {
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerSearchFieldsAction$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerSearchFieldsAction$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  categoriaControllerSearchFieldsAction(params: {
+  advertenciaControllerSearchFieldsAction(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerSearchFieldsAction$Response(params,context).pipe(
+    return this.advertenciaControllerSearchFieldsAction$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation categoriaControllerListAllPage
+   * Path part for operation advertenciaControllerListAllPage
    */
-  static readonly CategoriaControllerListAllPagePath = '/api/v1/categoria/page';
+  static readonly AdvertenciaControllerListAllPagePath = '/api/v1/advertencia/page';
 
   /**
    * Listagem Geral paginada
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `categoriaControllerListAllPage()` instead.
+   * To access only the response body, use `advertenciaControllerListAllPage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerListAllPage$Response(params: {
+  advertenciaControllerListAllPage$Response(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CategoriaControllerService.CategoriaControllerListAllPagePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, AdvertenciaControllerService.AdvertenciaControllerListAllPagePath, 'get');
     if (params) {
       rb.query('page', params.page, {});
     }
@@ -462,18 +463,18 @@ export class CategoriaControllerService extends BaseService {
    * Listagem Geral paginada
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `categoriaControllerListAllPage$Response()` instead.
+   * To access the full response (for headers, for example), `advertenciaControllerListAllPage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  categoriaControllerListAllPage(params: {
+  advertenciaControllerListAllPage(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.categoriaControllerListAllPage$Response(params,context).pipe(
+    return this.advertenciaControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

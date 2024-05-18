@@ -200,63 +200,9 @@ export class UsuarioControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation usuarioControllerListAll
-   */
-  static readonly UsuarioControllerListAllPath = '/api/v1/usuario';
-
-  /**
-   * Listagem Geral
-   *
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `usuarioControllerListAll()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  usuarioControllerListAll$Response(params?: {
-  },
-  context?: HttpContext
-
-): Observable<StrictHttpResponse<any>> {
-
-    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerListAllPath, 'get');
-    if (params) {
-    }
-
-    return this.http.request(rb.build({
-      responseType: 'json',
-      accept: 'application/json',
-      context: context
-    })).pipe(
-      filter((r: any) => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<any>;
-      })
-    );
-  }
-
-  /**
-   * Listagem Geral
-   *
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `usuarioControllerListAll$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  usuarioControllerListAll(params?: {
-  },
-  context?: HttpContext
-
-): Observable<any> {
-
-    return this.usuarioControllerListAll$Response(params,context).pipe(
-      map((r: StrictHttpResponse<any>) => r.body as any)
-    );
-  }
-
-  /**
    * Path part for operation usuarioControllerIncluir
    */
-  static readonly UsuarioControllerIncluirPath = '/api/v1/usuario';
+  static readonly UsuarioControllerIncluirPath = '/api/v1/usuario/singup';
 
   /**
    * Método utilizado para realizar a inclusão de um entidade
@@ -417,6 +363,284 @@ export class UsuarioControllerService extends BaseService {
 ): Observable<any> {
 
     return this.usuarioControllerSearchFieldsAction$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation usuarioControllerRedefinirSenha
+   */
+  static readonly UsuarioControllerRedefinirSenhaPath = '/api/v1/usuario/redefinir-senha';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `usuarioControllerRedefinirSenha()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  usuarioControllerRedefinirSenha$Response(params: {
+    body: string
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<string>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerRedefinirSenhaPath, 'post');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'blob',
+      accept: '*/*',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<string>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `usuarioControllerRedefinirSenha$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  usuarioControllerRedefinirSenha(params: {
+    body: string
+  },
+  context?: HttpContext
+
+): Observable<string> {
+
+    return this.usuarioControllerRedefinirSenha$Response(params,context).pipe(
+      map((r: StrictHttpResponse<string>) => r.body as string)
+    );
+  }
+
+  /**
+   * Path part for operation usuarioControllerListAll
+   */
+  static readonly UsuarioControllerListAllPath = '/api/v1/usuario';
+
+  /**
+   * Listagem Geral
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `usuarioControllerListAll()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListAll$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerListAllPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Listagem Geral
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `usuarioControllerListAll$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListAll(params?: {
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.usuarioControllerListAll$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation usuarioControllerListAllWithSort
+   */
+  static readonly UsuarioControllerListAllWithSortPath = '/api/v1/usuario/sort/{field}';
+
+  /**
+   * Reliza busca ordenada de acordo com o campo
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `usuarioControllerListAllWithSort()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListAllWithSort$Response(params: {
+    field: string;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerListAllWithSortPath, 'get');
+    if (params) {
+      rb.path('field', params.field, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Reliza busca ordenada de acordo com o campo
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `usuarioControllerListAllWithSort$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListAllWithSort(params: {
+    field: string;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.usuarioControllerListAllWithSort$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation usuarioControllerCount
+   */
+  static readonly UsuarioControllerCountPath = '/api/v1/usuario/pagination';
+
+  /**
+   * Busca a quantidade de registros
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `usuarioControllerCount()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerCount$Response(params?: {
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerCountPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Busca a quantidade de registros
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `usuarioControllerCount$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerCount(params?: {
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.usuarioControllerCount$Response(params,context).pipe(
+      map((r: StrictHttpResponse<any>) => r.body as any)
+    );
+  }
+
+  /**
+   * Path part for operation usuarioControllerListUsuariosWithPagination
+   */
+  static readonly UsuarioControllerListUsuariosWithPaginationPath = '/api/v1/usuario/pagination/{offset}/{pageSize}';
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `usuarioControllerListUsuariosWithPagination()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListUsuariosWithPagination$Response(params: {
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<StrictHttpResponse<any>> {
+
+    const rb = new RequestBuilder(this.rootUrl, UsuarioControllerService.UsuarioControllerListUsuariosWithPaginationPath, 'get');
+    if (params) {
+      rb.path('offset', params.offset, {});
+      rb.path('pageSize', params.pageSize, {});
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json',
+      context: context
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<any>;
+      })
+    );
+  }
+
+  /**
+   * Realiza busca paginada de acordo com o tamanho da pagina e a pagina
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `usuarioControllerListUsuariosWithPagination$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  usuarioControllerListUsuariosWithPagination(params: {
+    offset: number;
+    pageSize: number;
+  },
+  context?: HttpContext
+
+): Observable<any> {
+
+    return this.usuarioControllerListUsuariosWithPagination$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

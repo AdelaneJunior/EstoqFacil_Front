@@ -1,9 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface ClienteDto {
+export interface PessoaDto {
   cpf?: string;
-  email?: string;
-  nascimento?: string;
   nome?: string;
   telefone?: string;
 }

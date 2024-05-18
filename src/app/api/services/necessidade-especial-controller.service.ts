@@ -9,7 +9,7 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { CargoDto } from '../models/cargo-dto';
+import { NecessidadeEspecialDto } from '../models/necessidade-especial-dto';
 import { Pageable } from '../models/pageable';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
@@ -17,7 +17,7 @@ import { SearchFieldValue } from '../models/search-field-value';
 @Injectable({
   providedIn: 'root',
 })
-export class CargoControllerService extends BaseService {
+export class NecessidadeEspecialControllerService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -26,26 +26,26 @@ export class CargoControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation cargoControllerObterPorId
+   * Path part for operation necessidadeEspecialControllerObterPorId
    */
-  static readonly CargoControllerObterPorIdPath = '/api/v1/cargo/{id}';
+  static readonly NecessidadeEspecialControllerObterPorIdPath = '/api/v1/necessidade_esp/{id}';
 
   /**
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerObterPorId()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerObterPorId()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerObterPorId$Response(params: {
+  necessidadeEspecialControllerObterPorId$Response(params: {
     id: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerObterPorIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerObterPorIdPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -66,44 +66,44 @@ export class CargoControllerService extends BaseService {
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerObterPorId$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerObterPorId$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerObterPorId(params: {
+  necessidadeEspecialControllerObterPorId(params: {
     id: number;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerObterPorId$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerObterPorId$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cargoControllerAlterar
+   * Path part for operation necessidadeEspecialControllerAlterar
    */
-  static readonly CargoControllerAlterarPath = '/api/v1/cargo/{id}';
+  static readonly NecessidadeEspecialControllerAlterarPath = '/api/v1/necessidade_esp/{id}';
 
   /**
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerAlterar()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerAlterar()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  cargoControllerAlterar$Response(params: {
+  necessidadeEspecialControllerAlterar$Response(params: {
     id: number;
-    body: CargoDto
+    body: NecessidadeEspecialDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerAlterarPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerAlterarPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/json');
@@ -125,44 +125,44 @@ export class CargoControllerService extends BaseService {
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerAlterar$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerAlterar$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  cargoControllerAlterar(params: {
+  necessidadeEspecialControllerAlterar(params: {
     id: number;
-    body: CargoDto
+    body: NecessidadeEspecialDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerAlterar$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerAlterar$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cargoControllerRemover
+   * Path part for operation necessidadeEspecialControllerRemover
    */
-  static readonly CargoControllerRemoverPath = '/api/v1/cargo/{id}';
+  static readonly NecessidadeEspecialControllerRemoverPath = '/api/v1/necessidade_esp/{id}';
 
   /**
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerRemover()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerRemover()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerRemover$Response(params: {
+  necessidadeEspecialControllerRemover$Response(params: {
     id: number;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerRemoverPath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerRemoverPath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -183,42 +183,42 @@ export class CargoControllerService extends BaseService {
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerRemover$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerRemover$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerRemover(params: {
+  necessidadeEspecialControllerRemover(params: {
     id: number;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerRemover$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerRemover$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cargoControllerListAll
+   * Path part for operation necessidadeEspecialControllerListAll
    */
-  static readonly CargoControllerListAllPath = '/api/v1/cargo';
+  static readonly NecessidadeEspecialControllerListAllPath = '/api/v1/necessidade_esp';
 
   /**
    * Listagem Geral
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerListAll()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerListAll()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerListAll$Response(params?: {
+  necessidadeEspecialControllerListAll$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerListAllPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerListAllPath, 'get');
     if (params) {
     }
 
@@ -238,42 +238,42 @@ export class CargoControllerService extends BaseService {
    * Listagem Geral
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerListAll$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerListAll$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerListAll(params?: {
+  necessidadeEspecialControllerListAll(params?: {
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerListAll$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerListAll$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cargoControllerIncluir
+   * Path part for operation necessidadeEspecialControllerIncluir
    */
-  static readonly CargoControllerIncluirPath = '/api/v1/cargo';
+  static readonly NecessidadeEspecialControllerIncluirPath = '/api/v1/necessidade_esp';
 
   /**
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerIncluir()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerIncluir()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  cargoControllerIncluir$Response(params: {
-    body: CargoDto
+  necessidadeEspecialControllerIncluir$Response(params: {
+    body: NecessidadeEspecialDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerIncluirPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerIncluirPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -294,42 +294,42 @@ export class CargoControllerService extends BaseService {
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerIncluir$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerIncluir$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  cargoControllerIncluir(params: {
-    body: CargoDto
+  necessidadeEspecialControllerIncluir(params: {
+    body: NecessidadeEspecialDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerIncluir$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerIncluir$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cargoControllerSearchFieldsList
+   * Path part for operation necessidadeEspecialControllerSearchFieldsList
    */
-  static readonly CargoControllerSearchFieldsListPath = '/api/v1/cargo/search-fields';
+  static readonly NecessidadeEspecialControllerSearchFieldsListPath = '/api/v1/necessidade_esp/search-fields';
 
   /**
    * Listagem dos campos de busca
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerSearchFieldsList()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerSearchFieldsList()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerSearchFieldsList$Response(params?: {
+  necessidadeEspecialControllerSearchFieldsList$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<Array<SearchField>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerSearchFieldsListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerSearchFieldsListPath, 'get');
     if (params) {
     }
 
@@ -349,42 +349,42 @@ export class CargoControllerService extends BaseService {
    * Listagem dos campos de busca
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerSearchFieldsList$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerSearchFieldsList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerSearchFieldsList(params?: {
+  necessidadeEspecialControllerSearchFieldsList(params?: {
   },
   context?: HttpContext
 
 ): Observable<Array<SearchField>> {
 
-    return this.cargoControllerSearchFieldsList$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerSearchFieldsList$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
     );
   }
 
   /**
-   * Path part for operation cargoControllerSearchFieldsAction
+   * Path part for operation necessidadeEspecialControllerSearchFieldsAction
    */
-  static readonly CargoControllerSearchFieldsActionPath = '/api/v1/cargo/search-fields';
+  static readonly NecessidadeEspecialControllerSearchFieldsActionPath = '/api/v1/necessidade_esp/search-fields';
 
   /**
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerSearchFieldsAction()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerSearchFieldsAction()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  cargoControllerSearchFieldsAction$Response(params: {
+  necessidadeEspecialControllerSearchFieldsAction$Response(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerSearchFieldsActionPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerSearchFieldsActionPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -405,43 +405,43 @@ export class CargoControllerService extends BaseService {
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerSearchFieldsAction$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerSearchFieldsAction$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  cargoControllerSearchFieldsAction(params: {
+  necessidadeEspecialControllerSearchFieldsAction(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerSearchFieldsAction$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerSearchFieldsAction$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation cargoControllerListAllPage
+   * Path part for operation necessidadeEspecialControllerListAllPage
    */
-  static readonly CargoControllerListAllPagePath = '/api/v1/cargo/page';
+  static readonly NecessidadeEspecialControllerListAllPagePath = '/api/v1/necessidade_esp/page';
 
   /**
    * Listagem Geral paginada
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `cargoControllerListAllPage()` instead.
+   * To access only the response body, use `necessidadeEspecialControllerListAllPage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerListAllPage$Response(params: {
+  necessidadeEspecialControllerListAllPage$Response(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, CargoControllerService.CargoControllerListAllPagePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, NecessidadeEspecialControllerService.NecessidadeEspecialControllerListAllPagePath, 'get');
     if (params) {
       rb.query('page', params.page, {});
     }
@@ -462,18 +462,18 @@ export class CargoControllerService extends BaseService {
    * Listagem Geral paginada
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `cargoControllerListAllPage$Response()` instead.
+   * To access the full response (for headers, for example), `necessidadeEspecialControllerListAllPage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  cargoControllerListAllPage(params: {
+  necessidadeEspecialControllerListAllPage(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.cargoControllerListAllPage$Response(params,context).pipe(
+    return this.necessidadeEspecialControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }

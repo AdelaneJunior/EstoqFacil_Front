@@ -9,15 +9,15 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-import { ClienteDto } from '../models/cliente-dto';
 import { Pageable } from '../models/pageable';
 import { SearchField } from '../models/search-field';
 import { SearchFieldValue } from '../models/search-field-value';
+import { TutorDto } from '../models/tutor-dto';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ClienteControllerService extends BaseService {
+export class TutorControllerService extends BaseService {
   constructor(
     config: ApiConfiguration,
     http: HttpClient
@@ -26,26 +26,26 @@ export class ClienteControllerService extends BaseService {
   }
 
   /**
-   * Path part for operation clienteControllerObterPorId
+   * Path part for operation tutorControllerObterPorId
    */
-  static readonly ClienteControllerObterPorIdPath = '/api/v1/cliente/{id}';
+  static readonly TutorControllerObterPorIdPath = '/api/v1/tutor/{id}';
 
   /**
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerObterPorId()` instead.
+   * To access only the response body, use `tutorControllerObterPorId()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerObterPorId$Response(params: {
+  tutorControllerObterPorId$Response(params: {
     id: string;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerObterPorIdPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerObterPorIdPath, 'get');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -66,44 +66,44 @@ export class ClienteControllerService extends BaseService {
    * Obter os dados completos de uma entidiade pelo id informado!
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerObterPorId$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerObterPorId$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerObterPorId(params: {
+  tutorControllerObterPorId(params: {
     id: string;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerObterPorId$Response(params,context).pipe(
+    return this.tutorControllerObterPorId$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation clienteControllerAlterar
+   * Path part for operation tutorControllerAlterar
    */
-  static readonly ClienteControllerAlterarPath = '/api/v1/cliente/{id}';
+  static readonly TutorControllerAlterarPath = '/api/v1/tutor/{id}';
 
   /**
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerAlterar()` instead.
+   * To access only the response body, use `tutorControllerAlterar()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  clienteControllerAlterar$Response(params: {
+  tutorControllerAlterar$Response(params: {
     id: string;
-    body: ClienteDto
+    body: TutorDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerAlterarPath, 'put');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerAlterarPath, 'put');
     if (params) {
       rb.path('id', params.id, {});
       rb.body(params.body, 'application/json');
@@ -125,44 +125,44 @@ export class ClienteControllerService extends BaseService {
    * Método utilizado para altlerar os dados de uma entidiade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerAlterar$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerAlterar$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  clienteControllerAlterar(params: {
+  tutorControllerAlterar(params: {
     id: string;
-    body: ClienteDto
+    body: TutorDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerAlterar$Response(params,context).pipe(
+    return this.tutorControllerAlterar$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation clienteControllerRemover
+   * Path part for operation tutorControllerRemover
    */
-  static readonly ClienteControllerRemoverPath = '/api/v1/cliente/{id}';
+  static readonly TutorControllerRemoverPath = '/api/v1/tutor/{id}';
 
   /**
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerRemover()` instead.
+   * To access only the response body, use `tutorControllerRemover()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerRemover$Response(params: {
+  tutorControllerRemover$Response(params: {
     id: string;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerRemoverPath, 'delete');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerRemoverPath, 'delete');
     if (params) {
       rb.path('id', params.id, {});
     }
@@ -183,42 +183,42 @@ export class ClienteControllerService extends BaseService {
    * Método utilizado para remover uma entidiade pela id informado
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerRemover$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerRemover$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerRemover(params: {
+  tutorControllerRemover(params: {
     id: string;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerRemover$Response(params,context).pipe(
+    return this.tutorControllerRemover$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation clienteControllerListAll
+   * Path part for operation tutorControllerListAll
    */
-  static readonly ClienteControllerListAllPath = '/api/v1/cliente';
+  static readonly TutorControllerListAllPath = '/api/v1/tutor';
 
   /**
    * Listagem Geral
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerListAll()` instead.
+   * To access only the response body, use `tutorControllerListAll()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerListAll$Response(params?: {
+  tutorControllerListAll$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerListAllPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerListAllPath, 'get');
     if (params) {
     }
 
@@ -238,42 +238,42 @@ export class ClienteControllerService extends BaseService {
    * Listagem Geral
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerListAll$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerListAll$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerListAll(params?: {
+  tutorControllerListAll(params?: {
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerListAll$Response(params,context).pipe(
+    return this.tutorControllerListAll$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation clienteControllerIncluir
+   * Path part for operation tutorControllerIncluir
    */
-  static readonly ClienteControllerIncluirPath = '/api/v1/cliente';
+  static readonly TutorControllerIncluirPath = '/api/v1/tutor';
 
   /**
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerIncluir()` instead.
+   * To access only the response body, use `tutorControllerIncluir()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  clienteControllerIncluir$Response(params: {
-    body: ClienteDto
+  tutorControllerIncluir$Response(params: {
+    body: TutorDto
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerIncluirPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerIncluirPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -294,42 +294,42 @@ export class ClienteControllerService extends BaseService {
    * Método utilizado para realizar a inclusão de um entidade
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerIncluir$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerIncluir$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  clienteControllerIncluir(params: {
-    body: ClienteDto
+  tutorControllerIncluir(params: {
+    body: TutorDto
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerIncluir$Response(params,context).pipe(
+    return this.tutorControllerIncluir$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation clienteControllerSearchFieldsList
+   * Path part for operation tutorControllerSearchFieldsList
    */
-  static readonly ClienteControllerSearchFieldsListPath = '/api/v1/cliente/search-fields';
+  static readonly TutorControllerSearchFieldsListPath = '/api/v1/tutor/search-fields';
 
   /**
    * Listagem dos campos de busca
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerSearchFieldsList()` instead.
+   * To access only the response body, use `tutorControllerSearchFieldsList()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerSearchFieldsList$Response(params?: {
+  tutorControllerSearchFieldsList$Response(params?: {
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<Array<SearchField>>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerSearchFieldsListPath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerSearchFieldsListPath, 'get');
     if (params) {
     }
 
@@ -349,42 +349,42 @@ export class ClienteControllerService extends BaseService {
    * Listagem dos campos de busca
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerSearchFieldsList$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerSearchFieldsList$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerSearchFieldsList(params?: {
+  tutorControllerSearchFieldsList(params?: {
   },
   context?: HttpContext
 
 ): Observable<Array<SearchField>> {
 
-    return this.clienteControllerSearchFieldsList$Response(params,context).pipe(
+    return this.tutorControllerSearchFieldsList$Response(params,context).pipe(
       map((r: StrictHttpResponse<Array<SearchField>>) => r.body as Array<SearchField>)
     );
   }
 
   /**
-   * Path part for operation clienteControllerSearchFieldsAction
+   * Path part for operation tutorControllerSearchFieldsAction
    */
-  static readonly ClienteControllerSearchFieldsActionPath = '/api/v1/cliente/search-fields';
+  static readonly TutorControllerSearchFieldsActionPath = '/api/v1/tutor/search-fields';
 
   /**
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerSearchFieldsAction()` instead.
+   * To access only the response body, use `tutorControllerSearchFieldsAction()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  clienteControllerSearchFieldsAction$Response(params: {
+  tutorControllerSearchFieldsAction$Response(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerSearchFieldsActionPath, 'post');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerSearchFieldsActionPath, 'post');
     if (params) {
       rb.body(params.body, 'application/json');
     }
@@ -405,43 +405,43 @@ export class ClienteControllerService extends BaseService {
    * Realiza a busca pelos valores dos campos informados
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerSearchFieldsAction$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerSearchFieldsAction$Response()` instead.
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  clienteControllerSearchFieldsAction(params: {
+  tutorControllerSearchFieldsAction(params: {
     body: Array<SearchFieldValue>
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerSearchFieldsAction$Response(params,context).pipe(
+    return this.tutorControllerSearchFieldsAction$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
 
   /**
-   * Path part for operation clienteControllerListAllPage
+   * Path part for operation tutorControllerListAllPage
    */
-  static readonly ClienteControllerListAllPagePath = '/api/v1/cliente/page';
+  static readonly TutorControllerListAllPagePath = '/api/v1/tutor/page';
 
   /**
    * Listagem Geral paginada
    *
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `clienteControllerListAllPage()` instead.
+   * To access only the response body, use `tutorControllerListAllPage()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerListAllPage$Response(params: {
+  tutorControllerListAllPage$Response(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<StrictHttpResponse<any>> {
 
-    const rb = new RequestBuilder(this.rootUrl, ClienteControllerService.ClienteControllerListAllPagePath, 'get');
+    const rb = new RequestBuilder(this.rootUrl, TutorControllerService.TutorControllerListAllPagePath, 'get');
     if (params) {
       rb.query('page', params.page, {});
     }
@@ -462,18 +462,18 @@ export class ClienteControllerService extends BaseService {
    * Listagem Geral paginada
    *
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `clienteControllerListAllPage$Response()` instead.
+   * To access the full response (for headers, for example), `tutorControllerListAllPage$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  clienteControllerListAllPage(params: {
+  tutorControllerListAllPage(params: {
     page: Pageable;
   },
   context?: HttpContext
 
 ): Observable<any> {
 
-    return this.clienteControllerListAllPage$Response(params,context).pipe(
+    return this.tutorControllerListAllPage$Response(params,context).pipe(
       map((r: StrictHttpResponse<any>) => r.body as any)
     );
   }
